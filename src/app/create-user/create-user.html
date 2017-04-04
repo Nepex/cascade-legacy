@@ -1,0 +1,28 @@
+<div class="wrapper">
+
+    <cascade-header></cascade-header>
+
+    <div class="container border-top-0" id="main-border">
+        <form (ngSubmit)="create()" [formGroup]="createForm">
+            <div class="row m-x-auto">
+                <div class="col-6">
+                    <div class="form-group">
+                        <!-- Zip Code-->
+                        <label for="zip_id" class="control-label">Zip Code</label>
+                        <input type="text" class="form-control" id="zip_id" name="zip" placeholder="#####">
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Zip Code-->
+                        <label for="zip_id" class="control-label">Zip Code</label>
+                        <input type="text" class="form-control" id="zip_id" name="zip" placeholder="#####">
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <cascade-footer></cascade-footer>
+
+</div>
