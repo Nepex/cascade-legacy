@@ -17,3 +17,16 @@
 #btn-1:hover {
     background-color: #0086A5;
 }
+
+/*input.ng-touched.ng-invalid {
+    border: 1px solid #bb0000;
+}
+
+form.ng-submitted input.ng-invalid, form.ng-submitted select.ng-invalid, form.ng-submitted textarea.ng-invalid {
+    border: 1px solid #bb0000;
+}
+
+form.ng-submitted input.ng-valid, form.ng-submitted select.ng-valid, form.ng-submitted textarea.ng-valid,
+    input.ng-valid.ng-dirty , select.ng-valid.ng-dirty, textarea.ng-valid.ng-dirty {
+    border: 1px solid #00bf00 !important;
+}*/

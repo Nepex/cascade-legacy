@@ -5,12 +5,24 @@ import { FormControl } from '@angular/forms';
     selector: 'app-validation-messages',
     template:
     `<span *ngIf=" ( control.touched || submitted) && control.errors">
-        <div class="form-control-feedback" *ngIf="control.hasError('required')">Required</div>
-        <div class="form-control-feedback" *ngIf="control.hasError('minlength')">At least {{ control.errors.minlength.requiredLength }} characters required.</div>
-        <div class="form-control-feedback" *ngIf="control.hasError('max length')">Cannot exceed {{ control.errors.maxlength.requiredLength }} characters.</div>
-        <div class="form-control-feedback" *ngIf="control.hasError('pattern')">Does not meet required format.<span *ngIf="example"> Example: {{ example }}</span></div>
-        <div class="form-control-feedback" *ngIf="control.hasError('invalidDate')">Invalid Date.<span *ngIf="example"> Example: {{ example }}</span></div>
-        <div class="form-control-feedback" *ngIf="control.hasError('invalidTime')">Invalid Time.<span *ngIf="example"> Example: {{ example }}</span></div>
+        <span class="form-control-feedback float-right" *ngIf="control.hasError('required')">
+            <i class="fa fa-warning"></i>&nbsp;Required
+        </span>
+        <span class="form-control-feedback float-right" *ngIf="control.hasError('minlength')">
+            <i class="fa fa-warning"></i>&nbsp;At least {{ control.errors.minlength.requiredLength }} characters required.
+        </span>
+        <span class="form-control-feedback float-right" *ngIf="control.hasError('maxlength')">
+            <i class="fa fa-warning"></i>&nbsp;Cannot exceed {{ control.errors.maxlength.requiredLength }} characters.
+        </span>
+        <span class="form-control-feedback float-right" *ngIf="control.hasError('pattern')">
+            <i class="fa fa-warning"></i>&nbsp;Does not meet required format.<span *ngIf="example"> Example: {{ example }}</span>
+        </span>
+        <span class="form-control-feedback float-right" *ngIf="control.hasError('match')">
+            <i class="fa fa-warning"></i>&nbsp;Passwords do not match.
+        </span>
+    </span>
+    <span *ngIf="(control.touched || submitted) && !control.errors">
+        <span class="checkmark float-right">&#10003;</span>
     </span>`,
     styleUrls: ['./form-validation-msgs.css']
 })
