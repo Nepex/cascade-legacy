@@ -28,7 +28,7 @@ import { AppComponent } from './app.component';
     LayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'create', component: CreateUserComponent },
+      { path: 'signup', component: CreateUserComponent },
       { path: 'login', component: LoginComponent }
     ])
   ],

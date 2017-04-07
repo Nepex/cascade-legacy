@@ -5,7 +5,8 @@
     <div class="container border-top-0" id="main-border">
         <div class="row">
             <div class="col-12">
-                <form (ngSubmit)="create()" [formGroup]="createForm">
+                <app-alert-messages [messages]="messages"></app-alert-messages>
+                <form (ngSubmit)="create()" [formGroup]="createForm" novalidate>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-4 offset-lg-4 col-12" style="padding-top: 30px;">
@@ -26,7 +27,7 @@
                                     <app-validation-messages [control]="createForm.controls.email" [submitted]="createForm.submitted"></app-validation-messages>
                                     <div class="cols-sm-10">
                                         <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm" formControlName="email" name="email" id="email" />
+                                            <input type="text" class="form-control form-control-sm" formControlName="email" name="email" id="email" autocomplete="off" />
                                         </div>
                                     </div>
                                 </div>
