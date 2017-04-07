@@ -5,8 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { LayoutModule } from './layout/layout.module';
+import { CommonModule } from './common/common.module';
 import { HomeModule, HomeComponent } from './home/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
+import { LoginModule, LoginComponent } from './login/index';
 
 
 import { AppComponent } from './app.component';
@@ -19,12 +21,15 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    CommonModule,
     HomeModule,
     CreateUserModule,
-    LayoutModule,    
+    LoginModule,
+    LayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'create', component: CreateUserComponent }
+      { path: 'create', component: CreateUserComponent },
+      { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [],

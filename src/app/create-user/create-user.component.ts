@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
-    selector: 'cascade-create-user',
+    selector: 'app-create-user',
     templateUrl: 'create-user.html',
     styleUrls: ['create-user.css']
 })
@@ -15,5 +15,5 @@ export class CreateUserComponent {
         password: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(5)]),
         passwordConfirm: new FormControl('', [Validators.required])
     });
-    
+
 }
