@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
 
+import { ParamSerializer } from '../api/param-serializer';
 import { AlertMessages } from '../layout/alert-messages.component';
+
+import 'rxjs/Rx';
 
 @Component({
     selector: 'app-create-user',
@@ -13,6 +17,7 @@ import { AlertMessages } from '../layout/alert-messages.component';
 export class CreateUserComponent {
 
     messages: AlertMessages[];
+    loadingRequest: Subscription;
     emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
     createForm: FormGroup = new FormGroup({
         username: new FormControl('', [Validators.required, Validators.maxLength(15)]),
@@ -21,7 +26,7 @@ export class CreateUserComponent {
         passwordConfirm: new FormControl('', [Validators.required])
     }, this.validateMatchingPasswords());
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private paramSerializer: ParamSerializer) { }
 
     validateMatchingPasswords() {
         return (group: FormGroup): { [key: string]: any } => {
@@ -49,25 +54,33 @@ export class CreateUserComponent {
             return;
         }
 
-        const url = `../api/create-user.php`;
+        if (this.loadingRequest) {
+            return;
+        }
+
         const body = {
             username: this.createForm.value.username,
             email: this.createForm.value.email,
             password: this.createForm.value.password
         };
-        const headers = new Headers({ 'Content-Type': 'application/json' });
 
-        this.http.post(url, body, { headers: headers })
+        let serializedParams = this.paramSerializer.serialize(body);
+        const req = `http://127.0.0.1/create-user.php?${serializedParams}`;
+
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json; charset=utf-8');
+
+        this.loadingRequest = this.http.post(req, { headers: headers })
+            .share()
             .subscribe(res => {
-                console.log(res);
+                this.messages.push({
+                    message: 'Account created successfully.',
+                    type: 'success'
+                });
+
+                this.createForm['submitted'] = false;
+                this.createForm.reset();
+                this.loadingRequest = null;
             });
-
-        this.messages.push({
-            message: 'Account created successfully.',
-            type: 'success'
-        });
-
-        this.createForm.reset();
-        this.createForm['submitted'] = false;
     }
 }

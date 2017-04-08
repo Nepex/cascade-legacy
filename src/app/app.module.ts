@@ -13,6 +13,9 @@ import { LoginModule, LoginComponent } from './login/index';
 
 import { AppComponent } from './app.component';
 
+// API runs on 127.0.0.1
+// NG2 runs on localhost:4200
+
 @NgModule({
   declarations: [
     AppComponent
