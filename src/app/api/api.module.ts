@@ -2,6 +2,7 @@ import { NgModule, Provider } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { UserService } from './user.service';
 import { ParamSerializer } from './param-serializer';
 
 @NgModule({
@@ -10,7 +11,8 @@ import { ParamSerializer } from './param-serializer';
         RouterModule
     ],
     providers: [
-        ParamSerializer,
+        UserService,
+        ParamSerializer
     ]
 })
 export class ApiModule {

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers } from '@angular/http';
 
+import { UserService } from '../api/index';
 import { ParamSerializer } from '../api/param-serializer';
 import { AlertMessages } from '../layout/alert-messages.component';
 
@@ -17,7 +18,7 @@ import 'rxjs/Rx';
 export class CreateUserComponent {
 
     messages: AlertMessages[];
-    loadingRequest: Subscription;
+    loadingRequest: Observable<any>;
     emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
     createForm: FormGroup = new FormGroup({
         username: new FormControl('', [Validators.required, Validators.maxLength(15)]),
@@ -26,7 +27,7 @@ export class CreateUserComponent {
         passwordConfirm: new FormControl('', [Validators.required])
     }, this.validateMatchingPasswords());
 
-    constructor(private http: Http, private paramSerializer: ParamSerializer) { }
+    constructor(private http: Http, private paramSerializer: ParamSerializer, private userService: UserService) { }
 
     validateMatchingPasswords() {
         return (group: FormGroup): { [key: string]: any } => {
@@ -64,23 +65,34 @@ export class CreateUserComponent {
             password: this.createForm.value.password
         };
 
-        let serializedParams = this.paramSerializer.serialize(body);
-        const req = `http://127.0.0.1/create-user.php?${serializedParams}`;
+        this.loadingRequest = this.userService.create(body);
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json; charset=utf-8');
+        this.loadingRequest.subscribe(res => {
+            this.loadingRequest = null;
+            this.createForm['submitted'] = false;
 
-        this.loadingRequest = this.http.post(req, { headers: headers })
-            .share()
-            .subscribe(res => {
+            if (res._body === 'username taken') {
+                this.messages.push({
+                    message: 'The username is taken.',
+                    type: 'error'
+                });
+
+                return;
+            } else if (res._body === 'email taken') {
+                this.messages.push({
+                    message: 'The email is taken.',
+                    type: 'error'
+                });
+
+                return;
+            } else {
                 this.messages.push({
                     message: 'Account created successfully.',
                     type: 'success'
                 });
 
-                this.createForm['submitted'] = false;
                 this.createForm.reset();
-                this.loadingRequest = null;
-            });
+            }
+        });
     }
 }
