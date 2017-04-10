@@ -9,7 +9,8 @@ import { CommonModule } from './common/common.module';
 import { HomeModule, HomeComponent } from './home/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
-
+import { DashboardModule, DashboardComponent } from './dashboard/index';
+import { AuthGuard } from './auth-guard.service';
 
 import { AppComponent } from './app.component';
 
@@ -28,14 +29,18 @@ import { AppComponent } from './app.component';
     HomeModule,
     CreateUserModule,
     LoginModule,
+    DashboardModule,
     LayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'signup', component: CreateUserComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'dashboard', component: DashboardComponent,  canActivate: [AuthGuard] }
     ])
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

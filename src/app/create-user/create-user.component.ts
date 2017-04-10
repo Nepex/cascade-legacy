@@ -19,10 +19,11 @@ export class CreateUserComponent {
 
     messages: AlertMessages[];
     loadingRequest: Observable<any>;
+    userRegex = /^[a-zA-Z0-9]*$/
     emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
     createForm: FormGroup = new FormGroup({
-        username: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-        email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
+        username: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.pattern(this.userRegex)]),
+        email: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.pattern(this.emailRegex)]),
         password: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(5)]),
         passwordConfirm: new FormControl('', [Validators.required])
     }, this.validateMatchingPasswords());
@@ -73,14 +74,14 @@ export class CreateUserComponent {
 
             if (res._body === 'username taken') {
                 this.messages.push({
-                    message: 'The username is taken.',
+                    message: 'That username is taken.',
                     type: 'error'
                 });
 
                 return;
             } else if (res._body === 'email taken') {
                 this.messages.push({
-                    message: 'The email is taken.',
+                    message: 'That email is taken.',
                     type: 'error'
                 });
 
