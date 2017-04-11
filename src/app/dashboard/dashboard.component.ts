@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { UserService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 
 @Component({
@@ -8,14 +9,20 @@ import { AlertMessages } from '../layout/alert-messages.component';
     templateUrl: 'dashboard.html',
     styleUrls: ['dashboard.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
+    user: any = {};
     messages: AlertMessages[];
     loadingRequest: Observable<any>;
 
-    constructor() {
-        this.activate();
+    constructor(private userService: UserService) {}
+
+    ngOnInit() {
+        this.loadingRequest = this.userService.getUser();
+
+        this.loadingRequest.subscribe(res => {
+            this.user = res[0];
+        });
     }
 
-    activate() { }
 }

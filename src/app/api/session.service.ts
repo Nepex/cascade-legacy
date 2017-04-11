@@ -44,7 +44,7 @@ export class SessionService {
             .map((res) => {
                 if (res['_body'] === 'incorrect credentials') {
                     return 'incorrect credentials';
-                } 
+                }
                 this.sessionStateService.login(res['_body']);
                 //return data;
             });
