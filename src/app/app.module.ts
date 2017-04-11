@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
 import { CommonModule } from './common/common.module';
 import { HomeModule, HomeComponent } from './home/index';
+import { ChangeLogModule, ChangeLogComponent } from './changelog/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
 import { DashboardModule, DashboardComponent } from './dashboard/index';
@@ -27,12 +28,14 @@ import { AppComponent } from './app.component';
     HttpModule,
     CommonModule,
     HomeModule,
+    ChangeLogModule,
     CreateUserModule,
     LoginModule,
     DashboardModule,
     LayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
+      { path: 'changelog', component: ChangeLogComponent },      
       { path: 'signup', component: CreateUserComponent },
       { path: 'login', component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent,  canActivate: [AuthGuard] }
