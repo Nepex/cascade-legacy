@@ -5,11 +5,11 @@ import { UserService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: 'dashboard.html',
-    styleUrls: ['dashboard.css']
+    selector: 'app-main-menu',
+    templateUrl: 'main-menu.html',
+    styleUrls: ['main-menu.css']
 })
-export class DashboardComponent implements OnInit {
+export class MainMenuComponent implements OnInit {
 
     user: any = {};
     messages: AlertMessages[];

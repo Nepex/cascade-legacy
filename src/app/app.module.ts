@@ -10,7 +10,7 @@ import { HomeModule, HomeComponent } from './home/index';
 import { ChangeLogModule, ChangeLogComponent } from './changelog/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
-import { DashboardModule, DashboardComponent } from './dashboard/index';
+import { MainMenuModule, MainMenuComponent } from './main-menu/index';
 import { AuthGuard } from './auth-guard.service';
 
 import { AppComponent } from './app.component';
@@ -31,14 +31,14 @@ import { AppComponent } from './app.component';
     ChangeLogModule,
     CreateUserModule,
     LoginModule,
-    DashboardModule,
+    MainMenuModule,
     LayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'changelog', component: ChangeLogComponent },      
       { path: 'signup', component: CreateUserComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'dashboard', component: DashboardComponent,  canActivate: [AuthGuard] }
+      { path: 'main-menu', component: MainMenuComponent,  canActivate: [AuthGuard] }
     ])
   ],
   providers: [

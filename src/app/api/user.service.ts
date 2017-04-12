@@ -30,7 +30,7 @@ export class UserService {
 
         let req = this.http.get(url, {
             headers: headers
-        }).map(res => res.json()); //res.json()
+        }).map(res => res.json());
 
         return req;
     }

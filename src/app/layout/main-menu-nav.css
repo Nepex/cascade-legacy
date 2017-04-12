@@ -1,0 +1,11 @@
+.tabselected {
+    border-radius: 0;
+    color: #fff;    
+    background-color: #0099BC;
+}
+
+.link-adjustment:hover{
+    border-radius: 0;
+    background-color: #0099BC;
+    color: #fff;
+}

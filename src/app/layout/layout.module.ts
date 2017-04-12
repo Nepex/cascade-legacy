@@ -5,6 +5,7 @@ import { HeaderComponent } from './header.component';
 import { HeaderMembersComponent } from './header-members.component';
 import { FooterComponent } from './footer.component';
 import { AlertMessagesComponent } from './alert-messages.component';
+import { MainMenuNavComponent } from './main-menu-nav.component';
 
 @NgModule({
     imports: [
@@ -14,13 +15,15 @@ import { AlertMessagesComponent } from './alert-messages.component';
         HeaderComponent,
         HeaderMembersComponent,
         FooterComponent,
-        AlertMessagesComponent
+        AlertMessagesComponent,
+        MainMenuNavComponent
     ],
     exports: [
         HeaderComponent,
         HeaderMembersComponent,
         FooterComponent,
-        AlertMessagesComponent
+        AlertMessagesComponent,
+        MainMenuNavComponent
     ]
 })
 export class LayoutModule {}

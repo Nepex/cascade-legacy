@@ -10,3 +10,9 @@
 #btn-1:hover {
     background-color: #0086A5;
 }
+
+ul,li { 
+    list-style-position:inside;
+    margin:0;
+    padding:0; 
+}

@@ -29,7 +29,7 @@ export class LoginComponent {
 
     activate() {
         if (this.sessionStateService.isAuthenticated()) {
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/main-menu');
         }
     }
 
@@ -70,7 +70,7 @@ export class LoginComponent {
                 if (this.redirectUrl) {
                     this.router.navigate([this.redirectUrl]);
                 } else {
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/main-menu']);
                 }
 
                 this.loginForm['submitted'] = false;

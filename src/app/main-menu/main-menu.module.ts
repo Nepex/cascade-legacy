@@ -6,7 +6,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { ApiModule } from '../api/index';
 import { LayoutModule } from '../layout/layout.module';
 import { CommonModule } from '../common/common.module';
-import { DashboardComponent } from './dashboard.component';
+import { MainMenuComponent } from './main-menu.component';
 
 @NgModule({
     imports: [
@@ -20,7 +20,7 @@ import { DashboardComponent } from './dashboard.component';
         LayoutModule
     ],
     declarations: [
-        DashboardComponent
+        MainMenuComponent
     ]
 })
-export class DashboardModule {}
+export class MainMenuModule {}
