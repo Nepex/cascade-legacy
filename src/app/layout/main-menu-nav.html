@@ -1,6 +1,6 @@
-<ul class="nav nav-pills nav-justified" style="margin-left: 0px; padding-left: 0px;">
+<ul class="nav nav-pills nav-justified bordered-nav">
   <li class="nav-item">
-    <a class="nav-link link-adjustment" href="#" [ngClass]="{ tabselected: selectedTab === PARTY }"><i class="fa fa-users"></i>&nbsp;Party</a>
+    <a class="nav-link" href="#" [ngClass]="{ 'tabselected': selectedTab === PARTY, 'link-adjustment': selectedTab !== PARTY }"><i class="fa fa-users"></i>&nbsp;Party</a>
   </li>
   <li class="nav-item">
     <a class="nav-link link-adjustment" href="#"><i class="fa fa-briefcase"></i>&nbsp;Inventory</a>
@@ -9,6 +9,6 @@
     <a class="nav-link link-adjustment" href="#"><i class="fa fa-book"></i>&nbsp;Questlog</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link link-adjustment" href="#"><i class="fa fa-envelope"></i>&nbsp;Mailbox (0)</a>
+    <a class="nav-link link-adjustment" href="#"><i class="fa fa-envelope"></i>&nbsp;Mailbox</a>
   </li>
 </ul>

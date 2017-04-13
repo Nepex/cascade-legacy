@@ -1,11 +1,22 @@
 .tabselected {
     border-radius: 0;
     color: #fff;    
-    background-color: #0099BC;
+    background-color: #0086A5;
+}
+
+.link-adjustment {
+    color: #eee;
 }
 
 .link-adjustment:hover{
     border-radius: 0;
     background-color: #0099BC;
     color: #fff;
+}
+
+.bordered-nav {
+    background-color: #0099BC;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
 }

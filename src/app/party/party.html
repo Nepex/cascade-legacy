@@ -1,0 +1,51 @@
+<div class="wrapper">
+
+    <cascade-header-members></cascade-header-members>
+
+    <div class="container border-top-0" id="main-border">
+        <div class="row">
+
+            <div class="col-12 text-center border-top-0" style="padding-bottom: 15px;">
+                <cascade-main-menu-nav [selectedTab]="PARTY"></cascade-main-menu-nav>
+            </div>
+
+            <div class="col-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1'">
+                <span class="party-member-span">
+                    <i class="fa fa-user"></i>
+                    <br />
+                    Slot available!
+                    <br /> <br />
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;">Hire</button>
+                </span>
+            </div>
+
+            <span class="col-3 text-center party-member">
+                <span class="party-member-span">                
+                    <i class="fa fa-user-times"></i>
+                    <br />
+                    Locked
+                </span>
+            </span>
+
+            <div class="col-3 text-center party-member">
+                <span class="party-member-span">
+                    <i class="fa fa-user-times"></i>
+                    <br />
+                    Locked
+                </span>
+            </div>
+
+            <div class="col-3 text-center party-member">
+                <span class="party-member-span">
+                    <i class="fa fa-user-times"></i>
+                    <br />
+                    Locked
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <cascade-footer></cascade-footer>
+
+</div>

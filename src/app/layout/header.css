@@ -2,12 +2,13 @@
     border: 1px solid #eee;
 }
 
-#menu-link {
+.link-adjustment {
+    color: #000;
     font-size: 13px;
 }
 
-#menu-link:hover {
-    font-size: 13px;
+.link-adjustment:hover{
+    
 }
 
 #banner {

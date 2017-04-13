@@ -1,0 +1,27 @@
+#main-border {
+    border: 1px solid #eee;
+}
+
+#btn-1 {
+    background-color: #0099BC;
+    border: 1px solid #0099BC;
+}
+
+#btn-1:hover {
+    background-color: #0086A5;
+}
+
+.party-member {
+    display: table;
+    padding-bottom: 20px;
+    height: 200px;
+}
+
+.party-member-span {
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 0px;
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle;
+}

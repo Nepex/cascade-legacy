@@ -5,11 +5,11 @@ import { UserService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 
 @Component({
-    selector: 'app-main-menu',
-    templateUrl: 'main-menu.html',
-    styleUrls: ['main-menu.css']
+    selector: 'app-party',
+    templateUrl: 'party.html',
+    styleUrls: ['party.css']
 })
-export class MainMenuComponent implements OnInit {
+export class PartyComponent implements OnInit {
 
     user: any = {};
     messages: AlertMessages[];
@@ -22,6 +22,7 @@ export class MainMenuComponent implements OnInit {
 
         this.loadingRequest.subscribe(res => {
             this.user = res[0];
+            console.log(this.user);
         });
     }
 

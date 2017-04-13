@@ -2,11 +2,8 @@
     border: 1px solid #eee;
 }
 
-#menu-link {
-    font-size: 13px;
-}
-
-#menu-link:hover {
+.link-adjustment {
+    color: #000;
     font-size: 13px;
 }
 

@@ -17,7 +17,7 @@ export class HomeComponent {
 
   activate() {
         if (this.sessionStateService.isAuthenticated()) {
-            this.router.navigateByUrl('/main-menu');
+            this.router.navigateByUrl('/party');
         }
     }
 
