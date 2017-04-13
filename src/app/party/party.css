@@ -18,8 +18,8 @@
 }
 
 .party-member-span {
-    font-size: 12px;
     border: 1px solid #ddd;
+    font-size: 12px;
     border-radius: 0px;
     height: 100px;
     display: table-cell;
