@@ -35,10 +35,10 @@ import { AppComponent } from './app.component';
     LayoutModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'changelog', component: ChangeLogComponent },      
+      { path: 'changelog', component: ChangeLogComponent },
       { path: 'signup', component: CreateUserComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'party', component: PartyComponent,  canActivate: [AuthGuard] }
+      { path: 'party', component: PartyComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [

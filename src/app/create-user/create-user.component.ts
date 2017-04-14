@@ -19,7 +19,7 @@ export class CreateUserComponent {
 
     messages: AlertMessages[];
     loadingRequest: Observable<any>;
-    userRegex = /^[a-zA-Z0-9]*$/
+    userRegex = /^[a-zA-Z0-9]*$/;
     emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
     createForm: FormGroup = new FormGroup({
         username: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.pattern(this.userRegex)]),

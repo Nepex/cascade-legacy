@@ -1,0 +1,79 @@
+<div class="modal-content" id="mapItModal">
+    <div class="modal-header">
+        <span class="modal-title pull-left">
+            Hire
+        </span>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.dismiss('cancel')">
+            <span style="color:#fff" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="hire()" [formGroup]="hireForm" novalidate>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Name</label>
+                        <app-validation-messages [control]="hireForm.controls.name" [submitted]="hireForm.submitted"></app-validation-messages>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" formControlName="name" name="name" id="name" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Job</label>
+                        <app-validation-messages [control]="hireForm.controls.job" [submitted]="hireForm.submitted"></app-validation-messages>                        
+                        <select class="form-control form-control-sm" formControlName="job">
+                            <option value="">Choose</option>
+                            <option value="knight">Knight</option>
+                            <option value="priest">Priest</option>
+                            <option value="mage">Mage</option>                            
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 15px;">
+                <div class="col-2 text-center">
+                    <img src="../../assets/images/sprites/sprite_1.png"><br />
+                    <input type="radio" name="sprite" class="radio-btn" checked="true" (click)="selectSprite('1')">
+                </div>
+                <div class="col-2 text-center">
+                    <img src="../../assets/images/sprites/sprite_2.png"><br />
+                    <input type="radio" name="sprite" class="radio-btn" (click)="selectSprite('2')">
+                </div>
+                <div class="col-2 text-center">
+                    <img src="../../assets/images/sprites/sprite_3.png"><br />
+                    <input type="radio" name="sprite" class="radio-btn" (click)="selectSprite('3')"> 
+                </div>
+                <div class="col-2 text-center">
+                    <img src="../../assets/images/sprites/sprite_4.png"><br />
+                    <input type="radio" name="sprite" class="radio-btn" (click)="selectSprite('4')">
+                </div>
+                <div class="col-2 text-center">
+                    <img src="../../assets/images/sprites/sprite_5.png"><br />
+                    <input type="radio" name="sprite" class="radio-btn" (click)="selectSprite('5')">
+                </div>
+                <div class="col-2 text-center">
+                    <img src="../../assets/images/sprites/sprite_6.png"><br />
+                    <input type="radio" name="sprite" class="radio-btn" (click)="selectSprite('6')">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group text-center">
+                        <input type="submit" value="Hire" class="btn btn-primary btn-sm" id="btn-1" style="margin-top: 25px; cursor: pointer;" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </form>
+    </div>
+</div>

@@ -1,29 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
+import { HireComponent } from './hire.component'; 
 
 @Component({
     selector: 'app-party',
     templateUrl: 'party.html',
     styleUrls: ['party.css']
 })
-export class PartyComponent implements OnInit {
+export class PartyComponent {
 
     user: any = {};
-    messages: AlertMessages[];
+    party: any = {};
+    messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private modalService: NgbModal) {
+        this.activate();
+    }
 
-    ngOnInit() {
-        this.loadingRequest = this.userService.getUser();
+    activate() {
+        this.loadingRequest = Observable.forkJoin(
+            this.userService.getUser(),
+            this.userService.getParty()
+        );
 
         this.loadingRequest.subscribe(res => {
-            this.user = res[0];
-            console.log(this.user);
+            this.user = res[0][0];
+
+            if (res[1]) {
+                this.party = res[1][0];
+            }
         });
+    }
+
+    hire() {
+        let modalRef = this.modalService.open(HireComponent);
+
+        modalRef.result.then((result) => {
+            this.activate();
+            this.messages.push({ message: 'Party member recruited.', type: 'success' });
+        }, (reason) => { });
+
+        return false;
     }
 
 }
