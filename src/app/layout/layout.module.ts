@@ -7,6 +7,8 @@ import { FooterComponent } from './footer.component';
 import { AlertMessagesComponent } from './alert-messages.component';
 import { MainMenuNavComponent } from './main-menu-nav.component';
 import { SpriteLoaderComponent } from './sprite-loader.component';
+import { ExpBarComponent } from './exp-bar.component';
+import { JobLevelDisplayComponent } from './job-level-display.component';
 
 @NgModule({
     imports: [
@@ -18,7 +20,9 @@ import { SpriteLoaderComponent } from './sprite-loader.component';
         FooterComponent,
         AlertMessagesComponent,
         MainMenuNavComponent,
-        SpriteLoaderComponent
+        SpriteLoaderComponent,
+        ExpBarComponent,
+        JobLevelDisplayComponent
     ],
     exports: [
         HeaderComponent,
@@ -26,7 +30,9 @@ import { SpriteLoaderComponent } from './sprite-loader.component';
         FooterComponent,
         AlertMessagesComponent,
         MainMenuNavComponent,
-        SpriteLoaderComponent
+        SpriteLoaderComponent,
+        ExpBarComponent,
+        JobLevelDisplayComponent
     ]
 })
 export class LayoutModule {}

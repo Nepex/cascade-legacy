@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-    selector: 'app-validation-messages',
+    selector: 'cascade-validation-messages',
     template:
     `<span *ngIf=" ( control.touched || submitted) && control.errors">
         <span class="form-control-feedback float-right" *ngIf="control.hasError('required')">

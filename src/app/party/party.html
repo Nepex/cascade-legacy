@@ -10,11 +10,11 @@
             </div>
 
             <div *ngIf="messages" class="col-12 text-center" style="padding-bottom: 15px; font-size: 12px;">
-                <app-alert-messages [messages]="messages"></app-alert-messages>
+                <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
             </div>
 
-            <!-- first party member -->            
-            <div class="col-3 text-center party-member">
+            <!-- first party member -->
+            <div class="col-6 col-lg-3 text-center party-member">
                 <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' && !party.partyMemberOne">
                     <i class="fa fa-user"></i>
                     <br />
@@ -23,20 +23,37 @@
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
 
-                 <span class="party-member-span" *ngIf="party.partyMemberOne">
-                    <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader>                    
+                <span class="party-member-span" *ngIf="party.partyMemberOne" style="font-size: 11px;">
+                    <strong style="font-size: 13px;">{{ party.partyMemberOne.name }}</strong>  <br />
+                        
+                    <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader> <br />
+                    
+                    Level <cascade-job-level-display [partyMember]="party.partyMemberOne"></cascade-job-level-display> {{ party.partyMemberOne.job }} <br />
+
+                    <span style="color: green;">
+                        {{ party.partyMemberOne.current_hp }} / {{ party.partyMemberOne.hp }}
+                    </span> <br />
+
+                    <span style="color: blue;">
+                        {{ party.partyMemberOne.current_mp }} / {{ party.partyMemberOne.mp }}
+                    </span> <br />
+
+                    <strong style="position: relative; top: 17px;">{{ party.partyMemberOne.experience }} / {{ party.partyMemberOne.experience_needed }} EXP</strong>
+
+                    <cascade-exp-bar [experience]="party.partyMemberOne.experience" [experienceNeeded]="party.partyMemberOne.experience_needed"></cascade-exp-bar>
                 </span>
+
             </div>
 
             <!-- second party member -->
-            <div class="col-3 text-center party-member">
+            <div class="col-6 col-lg-3 text-center party-member">
                 <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1'">                
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
                 </span>
 
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '2' && !party.partyMemberTwo">
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked !== '1' && !party.partyMemberTwo">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
@@ -50,14 +67,14 @@
             </div>
 
             <!-- third party member -->
-            <div class="col-3 text-center party-member">
+            <div class="col-6 col-lg-3 text-center party-member">
                 <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'">
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
                 </span>
 
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '3' && !party.PartyMemberThree">
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked !== '1' && user.party_slots_unlocked !== '2' && !party.PartyMemberThree">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
@@ -70,8 +87,8 @@
                 </span>
             </div>
 
-            <!-- fourth party member -->            
-            <div class="col-3 text-center party-member">
+            <!-- fourth party member -->
+            <div class="col-6 col-lg-3 text-center party-member">
                 <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'
                 || user.party_slots_unlocked === '3'">
                     <i class="fa fa-user-times"></i>

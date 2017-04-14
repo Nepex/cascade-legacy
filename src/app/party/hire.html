@@ -15,7 +15,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="name" class="cols-sm-2 control-label">Name</label>
-                        <app-validation-messages [control]="hireForm.controls.name" [submitted]="hireForm.submitted"></app-validation-messages>
+                        <cascade-validation-messages [control]="hireForm.controls.name" [submitted]="hireForm.submitted"></cascade-validation-messages>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-sm" formControlName="name" name="name" id="name" autocomplete="off" />
@@ -27,12 +27,12 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="name" class="cols-sm-2 control-label">Job</label>
-                        <app-validation-messages [control]="hireForm.controls.job" [submitted]="hireForm.submitted"></app-validation-messages>                        
+                        <cascade-validation-messages [control]="hireForm.controls.job" [submitted]="hireForm.submitted"></cascade-validation-messages>                        
                         <select class="form-control form-control-sm" formControlName="job">
                             <option value="">Choose</option>
-                            <option value="knight">Knight</option>
-                            <option value="priest">Priest</option>
-                            <option value="mage">Mage</option>                            
+                            <option value="Knight">Knight</option>
+                            <option value="Priest">Priest</option>
+                            <option value="Mage">Mage</option>                            
                         </select>
                     </div>
                 </div>
