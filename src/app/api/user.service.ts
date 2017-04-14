@@ -43,8 +43,6 @@ export class UserService {
         let serializedParams = this.paramSerializer.serialize(partyMember);
         let url = `http://127.0.0.1/cascade-api/posts/hire.php?${serializedParams}`;
 
-        console.log(url);
-
         return this.http.post(url, partyMember, {
             headers: headers
         });

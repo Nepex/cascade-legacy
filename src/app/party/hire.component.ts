@@ -21,11 +21,11 @@ export class HireComponent {
     hireForm: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.pattern(this.userRegex)]),
         job: new FormControl('', [Validators.required]),
-        sprite: new FormControl('sprite1.png', [Validators.required])
+        sprite: new FormControl('sprite1', [Validators.required])
     });
 
     selectSprite(s) {
-        this.hireForm.value.sprite = 'sprite' + s + '.png';
+        this.hireForm.value.sprite = 'sprite' + s;
     }
 
     hire() {

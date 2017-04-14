@@ -1,55 +1,94 @@
-<div class="wrapper">
+<div class="container">
 
     <cascade-header-members></cascade-header-members>
 
     <div class="container border-top-0" id="main-border">
         <div class="row">
 
-            <div class="col-12 text-center border-top-0" style="padding-top: 10px;padding-bottom: 15px;">
+            <div class="col-12 text-center border-top-0" style="padding-top: 10px;">
                 <cascade-main-menu-nav [selectedTab]="PARTY"></cascade-main-menu-nav>
             </div>
 
-            <div class="col-12 text-center" style="padding-bottom: 30px; font-size: 12px;">
+            <div *ngIf="messages" class="col-12 text-center" style="padding-bottom: 15px; font-size: 12px;">
                 <app-alert-messages [messages]="messages"></app-alert-messages>
             </div>
 
-            <div class="col-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1' && user.party_slots === '1'">
-                <span class="party-member-span">
+            <!-- first party member -->            
+            <div class="col-3 text-center party-member">
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' && !party.partyMemberOne">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
-            </div>
 
-            <div class="col-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1' && user.party_slots !== '1'">
-                <span class="party-member-span">
-                    <img src="../../assets/images/sprites/sprite_1.png" *ngIf="this.party.sprite === 'sprite1.png'">
+                 <span class="party-member-span" *ngIf="party.partyMemberOne">
+                    <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader>                    
                 </span>
             </div>
 
-            <span class="col-3 text-center party-member">
-                <span class="party-member-span">                
-                    <i class="fa fa-user-times"></i>
-                    <br />
-                    Locked
-                </span>
-            </span>
-
+            <!-- second party member -->
             <div class="col-3 text-center party-member">
-                <span class="party-member-span">
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1'">                
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
                 </span>
+
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '2' && !party.partyMemberTwo">
+                    <i class="fa fa-user"></i>
+                    <br />
+                    Slot available!
+                    <br /> <br />
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                </span>
+
+                <span class="party-member-span" *ngIf="party.partyMemberTwo">
+                    <cascade-sprite-loader [sprite]="party.partyMemberTwo.sprite"></cascade-sprite-loader>
+                </span>
             </div>
 
+            <!-- third party member -->
             <div class="col-3 text-center party-member">
-                <span class="party-member-span">
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'">
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
+                </span>
+
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '3' && !party.PartyMemberThree">
+                    <i class="fa fa-user"></i>
+                    <br />
+                    Slot available!
+                    <br /> <br />
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                </span>
+
+                <span class="party-member-span" *ngIf="party.partyMemberThree">
+                    <cascade-sprite-loader [sprite]="party.partyMemberThree.sprite"></cascade-sprite-loader>
+                </span>
+            </div>
+
+            <!-- fourth party member -->            
+            <div class="col-3 text-center party-member">
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'
+                || user.party_slots_unlocked === '3'">
+                    <i class="fa fa-user-times"></i>
+                    <br />
+                    Locked
+                </span>
+
+                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '4' && !party.partyMemberFour">
+                    <i class="fa fa-user"></i>
+                    <br />
+                    Slot available!
+                    <br /> <br />
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                </span>
+
+                <span class="party-member-span" *ngIf="party.partyMemberFour">
+                    <cascade-sprite-loader [sprite]="party.partyMemberFour.sprite"></cascade-sprite-loader>                    
                 </span>
             </div>
 

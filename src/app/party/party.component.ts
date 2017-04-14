@@ -32,7 +32,10 @@ export class PartyComponent {
             this.user = res[0][0];
 
             if (res[1]) {
-                this.party = res[1][0];
+                this.party.partyMemberOne = res[1][0];
+                this.party.partyMemberTwo = res[1][1];
+                this.party.partyMemberThree = res[1][2];
+                this.party.partyMemberFour = res[1][3];
             }
         });
     }
