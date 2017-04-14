@@ -5,6 +5,7 @@ import { SessionStateService } from './session-state.service';
 import { Observable } from 'rxjs/Observable';
 
 import { ParamSerializer } from './param-serializer';
+import { Environment } from './environment';
 
 @Injectable()
 export class SessionService {
@@ -12,10 +13,7 @@ export class SessionService {
     private oneTimeTokenUrl: string;
     private sessionUrl: string;
 
-    constructor(private sessionStateService: SessionStateService, private http: Http, private paramSerializer: ParamSerializer) {
-        // this.oneTimeTokenUrl = `${environment.apiBaseUrl}/sessions/onetimetoken`;
-        // this.sessionUrl = `http://127.0.0.1/cascade-api/authenticate.php`;
-    }
+    constructor(private sessionStateService: SessionStateService, private http: Http, private paramSerializer: ParamSerializer, private environment: Environment) {}
 
     getOneTimeToken(): Observable<any> {
         let headers = new Headers();
@@ -38,7 +36,7 @@ export class SessionService {
         headers.append('Content-Type', 'text/plain');
 
         let serializedParams = this.paramSerializer.serialize(creds);
-        let url = `http://127.0.0.1/cascade-api/authenticate.php?${serializedParams}`;
+        let url = `${this.environment.baseApiUrl}/authenticate.php?${serializedParams}`;
 
         let req = this.http.post(url, { headers: headers })
             .map((res) => {

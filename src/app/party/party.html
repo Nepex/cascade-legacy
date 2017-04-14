@@ -24,9 +24,6 @@
                 </span>
 
                 <span class="party-member-span" *ngIf="party.partyMemberOne" style="font-size: 11px;">
-
-                    
-
                     <strong style="font-size: 13px;">{{ party.partyMemberOne.name }}</strong> <br />
                         
                     <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader> <br />
@@ -49,7 +46,6 @@
 
                     <cascade-exp-bar [experience]="party.partyMemberOne.experience" [experienceNeeded]="party.partyMemberOne.experience_needed"></cascade-exp-bar>
                 </span>
-
             </div>
 
             <!-- second party member -->
@@ -68,8 +64,28 @@
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
 
-                <span class="party-member-span" *ngIf="party.partyMemberTwo">
-                    <cascade-sprite-loader [sprite]="party.partyMemberTwo.sprite"></cascade-sprite-loader>
+                <span class="party-member-span" *ngIf="party.partyMemberTwo" style="font-size: 11px;">
+                    <strong style="font-size: 13px;">{{ party.partyMemberTwo.name }}</strong> <br />
+                        
+                    <cascade-sprite-loader [sprite]="party.partyMemberTwo.sprite"></cascade-sprite-loader> <br />
+                    
+                    Level <cascade-job-level-display [partyMember]="party.partyMemberTwo"></cascade-job-level-display> {{ party.partyMemberTwo.job }} <br />
+
+                    <span style="color: green;">
+                        {{ party.partyMemberTwo.current_hp }} / {{ party.partyMemberTwo.hp }}
+                    </span> <br />
+
+                    <span style="color: blue;">
+                        {{ party.partyMemberTwo.current_mp }} / {{ party.partyMemberTwo.mp }}
+                    </span> <br />
+
+                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
+                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                    </div>
+
+                    <cascade-exp-bar [experience]="party.partyMemberTwo.experience" [experienceNeeded]="party.partyMemberTwo.experience_needed"></cascade-exp-bar>
                 </span>
             </div>
 
@@ -89,8 +105,28 @@
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
 
-                <span class="party-member-span" *ngIf="party.partyMemberThree">
-                    <cascade-sprite-loader [sprite]="party.partyMemberThree.sprite"></cascade-sprite-loader>
+                <span class="party-member-span" *ngIf="party.partyMemberThree" style="font-size: 11px;">
+                    <strong style="font-size: 13px;">{{ party.partyMemberThree.name }}</strong> <br />
+                        
+                    <cascade-sprite-loader [sprite]="party.partyMemberThree.sprite"></cascade-sprite-loader> <br />
+                    
+                    Level <cascade-job-level-display [partyMember]="party.partyMemberThree"></cascade-job-level-display> {{ party.partyMemberThree.job }} <br />
+
+                    <span style="color: green;">
+                        {{ party.partyMemberThree.current_hp }} / {{ party.partyMemberThree.hp }}
+                    </span> <br />
+
+                    <span style="color: blue;">
+                        {{ party.partyMemberThree.current_mp }} / {{ party.partyMemberThree.mp }}
+                    </span> <br />
+
+                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
+                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                    </div>
+
+                    <cascade-exp-bar [experience]="party.partyMemberThree.experience" [experienceNeeded]="party.partyMemberThree.experience_needed"></cascade-exp-bar>
                 </span>
             </div>
 
@@ -111,8 +147,28 @@
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
 
-                <span class="party-member-span" *ngIf="party.partyMemberFour">
-                    <cascade-sprite-loader [sprite]="party.partyMemberFour.sprite"></cascade-sprite-loader>                    
+                <span class="party-member-span" *ngIf="party.partyMemberFour" style="font-size: 11px;">
+                    <strong style="font-size: 13px;">{{ party.partyMemberFour.name }}</strong> <br />
+                        
+                    <cascade-sprite-loader [sprite]="party.partyMemberFour.sprite"></cascade-sprite-loader> <br />
+                    
+                    Level <cascade-job-level-display [partyMember]="party.partyMemberFour"></cascade-job-level-display> {{ party.partyMemberFour.job }} <br />
+
+                    <span style="color: green;">
+                        {{ party.partyMemberFour.current_hp }} / {{ party.partyMemberFour.hp }}
+                    </span> <br />
+
+                    <span style="color: blue;">
+                        {{ party.partyMemberFour.current_mp }} / {{ party.partyMemberFour.mp }}
+                    </span> <br />
+
+                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
+                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                    </div>
+
+                    <cascade-exp-bar [experience]="party.partyMemberFour.experience" [experienceNeeded]="party.partyMemberFour.experience_needed"></cascade-exp-bar>
                 </span>
             </div>
 

@@ -8,6 +8,7 @@ import { SessionService } from './session.service';
 import { SessionStateService } from './session-state.service';
 import { AuthenticatedHttpService } from './authenticated-http.service'; 
 import { ParamSerializer } from './param-serializer';
+import { Environment } from './environment';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { ParamSerializer } from './param-serializer';
         SessionService,
         SessionStateService,
         AuthenticatedHttpService,
-        ParamSerializer
+        ParamSerializer,
+        Environment
     ]
 })
 export class ApiModule {

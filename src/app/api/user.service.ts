@@ -4,17 +4,18 @@ import { Observable } from 'rxjs/Observable';
 
 import { ParamSerializer } from './param-serializer';
 import { SessionStateService } from './session-state.service';
+import { Environment } from './environment';
 
 @Injectable()
 export class UserService {
-    constructor(private http: Http, private paramSerializer: ParamSerializer, private sessionStateService: SessionStateService) { }
+    constructor(private http: Http, private paramSerializer: ParamSerializer, private sessionStateService: SessionStateService, private environment: Environment) { }
 
     create(user): Observable<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'text/plain');
 
         let serializedParams = this.paramSerializer.serialize(user);
-        let url = `http://127.0.0.1/cascade-api/posts/create-user.php?${serializedParams}`;
+        let url = `${this.environment.baseApiUrl}/posts/create-user.php?${serializedParams}`;
 
         return this.http.post(url, user, {
             headers: headers
@@ -26,7 +27,7 @@ export class UserService {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.sessionStateService.getToken()}`);
 
-        let url = `http://127.0.0.1/cascade-api/gets/get-user.php`;
+        let url = `${this.environment.baseApiUrl}/gets/get-user.php`;
 
         let req = this.http.get(url, {
             headers: headers
@@ -41,7 +42,7 @@ export class UserService {
         headers.append('Authorization', `${this.sessionStateService.getToken()}`);
 
         let serializedParams = this.paramSerializer.serialize(partyMember);
-        let url = `http://127.0.0.1/cascade-api/posts/hire.php?${serializedParams}`;
+        let url = `${this.environment.baseApiUrl}/posts/hire.php?${serializedParams}`;
 
         return this.http.post(url, partyMember, {
             headers: headers
@@ -53,7 +54,7 @@ export class UserService {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.sessionStateService.getToken()}`);
 
-        let url = `http://127.0.0.1/cascade-api/gets/get-party.php`;
+        let url = `${this.environment.baseApiUrl}/gets/get-party.php`;
 
         let req = this.http.get(url, {
             headers: headers
