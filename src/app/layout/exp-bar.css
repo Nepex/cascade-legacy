@@ -4,3 +4,13 @@
     margin-left: auto; 
     border: 1px solid #ddd;
 }
+
+.progress {
+    text-align:center;
+}
+.progress-value {
+    font-weight: bold;
+    position:absolute;
+    right:0;
+    left:0;
+}

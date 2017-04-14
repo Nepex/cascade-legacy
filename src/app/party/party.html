@@ -24,7 +24,10 @@
                 </span>
 
                 <span class="party-member-span" *ngIf="party.partyMemberOne" style="font-size: 11px;">
-                    <strong style="font-size: 13px;">{{ party.partyMemberOne.name }}</strong>  <br />
+
+                    
+
+                    <strong style="font-size: 13px;">{{ party.partyMemberOne.name }}</strong> <br />
                         
                     <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader> <br />
                     
@@ -38,7 +41,11 @@
                         {{ party.partyMemberOne.current_mp }} / {{ party.partyMemberOne.mp }}
                     </span> <br />
 
-                    <strong style="position: relative; top: 17px;">{{ party.partyMemberOne.experience }} / {{ party.partyMemberOne.experience_needed }} EXP</strong>
+                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
+                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                    </div>
 
                     <cascade-exp-bar [experience]="party.partyMemberOne.experience" [experienceNeeded]="party.partyMemberOne.experience_needed"></cascade-exp-bar>
                 </span>
