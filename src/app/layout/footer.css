@@ -1,3 +1,12 @@
 #footer {
     font-size: 10px;
 }
+
+.changelog-link {
+    color: #000;
+}
+
+.changelog-link:hover {
+    color: #000;
+    text-decoration: none;
+}

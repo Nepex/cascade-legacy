@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from './header.component';
 import { HeaderMembersComponent } from './header-members.component';
@@ -12,7 +13,8 @@ import { JobLevelDisplayComponent } from './job-level-display.component';
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule,
+        NgbModule.forRoot()
     ],
     declarations: [
         HeaderComponent,
