@@ -45,6 +45,7 @@ export class PartyComponent {
 
         modalRef.result.then((result) => {
             this.activate();
+            this.messages = [];
             this.messages.push({ message: 'Party member recruited.', type: 'success' });
         }, (reason) => { });
 
