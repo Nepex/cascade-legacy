@@ -9,7 +9,7 @@ import { AlertMessagesComponent } from './alert-messages.component';
 import { MainMenuNavComponent } from './main-menu-nav.component';
 import { SpriteLoaderComponent } from './sprite-loader.component';
 import { ExpBarComponent } from './exp-bar.component';
-import { JobLevelDisplayComponent } from './job-level-display.component';
+import { ConfirmModalComponent } from './confirm-modal.component';
 
 @NgModule({
     imports: [
@@ -24,7 +24,7 @@ import { JobLevelDisplayComponent } from './job-level-display.component';
         MainMenuNavComponent,
         SpriteLoaderComponent,
         ExpBarComponent,
-        JobLevelDisplayComponent
+        ConfirmModalComponent
     ],
     exports: [
         HeaderComponent,
@@ -33,8 +33,10 @@ import { JobLevelDisplayComponent } from './job-level-display.component';
         AlertMessagesComponent,
         MainMenuNavComponent,
         SpriteLoaderComponent,
-        ExpBarComponent,
-        JobLevelDisplayComponent
+        ExpBarComponent
+    ],
+    entryComponents: [
+        ConfirmModalComponent
     ]
 })
 export class LayoutModule {}

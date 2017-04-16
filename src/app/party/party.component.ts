@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { UserService } from '../api/index';
+import { UserService, PartyService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
-import { HireComponent } from './hire.component'; 
+import { HireComponent } from './hire.component';
+import { ConfirmModalComponent } from '../layout/confirm-modal.component';
 
 @Component({
     selector: 'app-party',
@@ -17,19 +18,22 @@ export class PartyComponent {
     party: any = {};
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
+    removeRequest: Observable<any>;
 
-    constructor(private userService: UserService, private modalService: NgbModal) {
+    constructor(private userService: UserService, private partyService: PartyService, private modalService: NgbModal) {
         this.activate();
     }
 
     activate() {
         this.loadingRequest = Observable.forkJoin(
             this.userService.getUser(),
-            this.userService.getParty()
+            this.partyService.getParty()
         );
 
         this.loadingRequest.subscribe(res => {
             this.user = res[0][0];
+
+            this.party = [];
 
             if (res[1]) {
                 this.party.partyMemberOne = res[1][0];
@@ -52,4 +56,28 @@ export class PartyComponent {
         return false;
     }
 
+    confirmRemove(id: number) {
+        const modalRef = this.modalService.open(ConfirmModalComponent);
+        modalRef.componentInstance.message = 'Are you sure you want to remove this party member?';
+
+        modalRef.result.then((result) => {
+            this.remove(id);
+        }, (reason) => { });
+    }
+
+    remove(id: number) {
+        this.messages = [];
+
+        if (this.removeRequest) {
+            return;
+        }
+
+        this.removeRequest = this.partyService.remove(id);
+        this.removeRequest.subscribe(
+            () => {
+                this.removeRequest = null;
+                this.messages.push({ message: 'Party member was removed.', type: 'success' });
+                this.activate();
+            });
+    }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -10,6 +10,9 @@ import { ParamSerializer } from '../api/param-serializer';
     styleUrls: ['./header-members.css']
 })
 export class HeaderMembersComponent {
+    @Input() user;
+    @Input() currency;
+
     constructor(private sessionStateService: SessionStateService, private router: Router) {}
 
     logout() {

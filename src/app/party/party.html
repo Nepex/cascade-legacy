@@ -1,6 +1,6 @@
 <div class="container">
 
-    <cascade-header-members></cascade-header-members>
+    <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
 
     <div class="container border-top-0" id="main-border">
         <div class="row">
@@ -15,7 +15,7 @@
 
             <!-- first party member -->
             <div class="col-6 col-lg-3 text-center party-member">
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' && !party.partyMemberOne">
+                <span class="party-member-span" *ngIf="!party.partyMemberOne">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
@@ -28,7 +28,7 @@
                         
                     <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader> <br />
                     
-                    Level <cascade-job-level-display [partyMember]="party.partyMemberOne"></cascade-job-level-display> {{ party.partyMemberOne.job }} <br />
+                    Level {{ party.partyMemberOne.level }} {{ party.partyMemberOne.job }} <br />
 
                     <span style="color: green;">
                         {{ party.partyMemberOne.current_hp }} / {{ party.partyMemberOne.hp }}
@@ -39,9 +39,10 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;  padding-right: 2px;"></i>
+                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberOne.id);"></i>                         
                     </div>
 
                     <cascade-exp-bar [experience]="party.partyMemberOne.experience" [experienceNeeded]="party.partyMemberOne.experience_needed"></cascade-exp-bar>
@@ -69,7 +70,7 @@
                         
                     <cascade-sprite-loader [sprite]="party.partyMemberTwo.sprite"></cascade-sprite-loader> <br />
                     
-                    Level <cascade-job-level-display [partyMember]="party.partyMemberTwo"></cascade-job-level-display> {{ party.partyMemberTwo.job }} <br />
+                    Level {{ party.partyMemberTwo.level }} {{ party.partyMemberTwo.job }} <br />
 
                     <span style="color: green;">
                         {{ party.partyMemberTwo.current_hp }} / {{ party.partyMemberTwo.hp }}
@@ -80,9 +81,10 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                                                                      
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberTwo.id);"></i>                                                 
                     </div>
 
                     <cascade-exp-bar [experience]="party.partyMemberTwo.experience" [experienceNeeded]="party.partyMemberTwo.experience_needed"></cascade-exp-bar>
@@ -110,7 +112,7 @@
                         
                     <cascade-sprite-loader [sprite]="party.partyMemberThree.sprite"></cascade-sprite-loader> <br />
                     
-                    Level <cascade-job-level-display [partyMember]="party.partyMemberThree"></cascade-job-level-display> {{ party.partyMemberThree.job }} <br />
+                    Level {{ party.partyMemberThree.level }} {{ party.partyMemberThree.job }} <br />
 
                     <span style="color: green;">
                         {{ party.partyMemberThree.current_hp }} / {{ party.partyMemberThree.hp }}
@@ -121,9 +123,10 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                                                                        
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberThree.id);"></i>                                                 
                     </div>
 
                     <cascade-exp-bar [experience]="party.partyMemberThree.experience" [experienceNeeded]="party.partyMemberThree.experience_needed"></cascade-exp-bar>
@@ -152,7 +155,7 @@
                         
                     <cascade-sprite-loader [sprite]="party.partyMemberFour.sprite"></cascade-sprite-loader> <br />
                     
-                    Level <cascade-job-level-display [partyMember]="party.partyMemberFour"></cascade-job-level-display> {{ party.partyMemberFour.job }} <br />
+                    Level {{ party.partyMemberFour.level }} {{ party.partyMemberFour.job }} <br />
 
                     <span style="color: green;">
                         {{ party.partyMemberFour.current_hp }} / {{ party.partyMemberFour.hp }}
@@ -163,9 +166,10 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-graduation-cap" ngbTooltip="Job" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                                                                       
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;"></i>
+                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberFour.id);"></i>                         
                     </div>
 
                     <cascade-exp-bar [experience]="party.partyMemberFour.experience" [experienceNeeded]="party.partyMemberFour.experience_needed"></cascade-exp-bar>

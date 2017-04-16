@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -28,7 +29,7 @@ export class CreateUserComponent {
         passwordConfirm: new FormControl('', [Validators.required])
     }, this.validateMatchingPasswords());
 
-    constructor(private http: Http, private paramSerializer: ParamSerializer, private userService: UserService) { }
+    constructor(private http: Http, private paramSerializer: ParamSerializer, private userService: UserService, private router: Router) { }
 
     validateMatchingPasswords() {
         return (group: FormGroup): { [key: string]: any } => {
@@ -88,9 +89,19 @@ export class CreateUserComponent {
                 return;
             } else {
                 this.messages.push({
-                    message: 'Account created successfully.',
+                    message: 'Account created successfully!',
                     type: 'success'
                 });
+
+                this.messages.push({
+                    message: 'Redirecting to login...',
+                    type: 'success'
+                });
+
+
+                setTimeout(() => {
+                    this.router.navigateByUrl('/login');
+                }, 3000);
 
                 this.createForm.reset();
             }

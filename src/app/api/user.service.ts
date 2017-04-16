@@ -35,31 +35,4 @@ export class UserService {
 
         return req;
     }
-
-    hirePartyMember(partyMember) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
-
-        let serializedParams = this.paramSerializer.serialize(partyMember);
-        let url = `${this.environment.baseApiUrl}/posts/hire.php?${serializedParams}`;
-
-        return this.http.post(url, partyMember, {
-            headers: headers
-        });
-    }
-
-    getParty() {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
-
-        let url = `${this.environment.baseApiUrl}/gets/get-party.php`;
-
-        let req = this.http.get(url, {
-            headers: headers
-        }).map(res => res.json());
-
-        return req;
-    }
 }
