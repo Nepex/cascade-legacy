@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService, PartyService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 import { HireComponent } from './hire.component';
+import { StatsComponent } from './stats.component';
 import { ConfirmModalComponent } from '../layout/confirm-modal.component';
 
 @Component({
@@ -54,6 +55,11 @@ export class PartyComponent {
         }, (reason) => { });
 
         return false;
+    }
+
+    displayStats(partyMember) {
+        const modalRef = this.modalService.open(StatsComponent, { size: 'sm' });
+        modalRef.componentInstance.partyMember = partyMember;
     }
 
     confirmRemove(id: number) {

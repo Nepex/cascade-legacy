@@ -39,7 +39,7 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                        
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberOne);"></i>                        
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;  padding-right: 2px;"></i>
                         <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberOne.id);"></i>                         
@@ -81,7 +81,7 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                                                                      
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberTwo);"></i>                                                                      
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberTwo.id);"></i>                                                 
@@ -123,7 +123,7 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                                                                        
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberThree);"></i>                                                                        
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberThree.id);"></i>                                                 
@@ -166,7 +166,7 @@
                     </span> <br />
 
                     <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;"></i>                                                                       
+                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberFour);"></i>                                                                       
                         <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
                         <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberFour.id);"></i>                         
