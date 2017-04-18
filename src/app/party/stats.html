@@ -11,18 +11,43 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-5 offset-1">
-                    HP: {{ partyMember.current_hp }} / {{ partyMember.hp }} <br />
-                    MP: {{ partyMember.current_mp }} / {{ partyMember.mp }}
+                <div class="col-12 text-center" style="padding-bottom:  10px;">
+                    <cascade-sprite-loader [sprite]="partyMember.sprite"></cascade-sprite-loader>
+                    <br />
+                    <div style="font-size: 11px; font-weight: bold; padding-top: 10px;">Level {{ partyMember.level }} {{ partyMember.job }}</div>
                 </div>
-                <div class="col-2" style="margin-left: auto; margin-right: auto;">
-                    <cascade-sprite-loader [sprite]="partyMember.sprite"></cascade-sprite-loader> <br />
+            </div>
+            
+            <div class="row">
+                <div class="col-2 offset-2">
+                    STR<br />
+                    MAG<br />
+                    DEF<br />
+                    HST<br />
                 </div>
-                <div class="col-4" style="font-size: 11px;">
-                    STR: {{ partyMember.strength }} <br />
-                    MAG: {{ partyMember.magic }} <br />
-                    DEF: {{ partyMember.defense }} <br />
-                    HST: {{ partyMember.haste }} <br />
+                <div class="col-2">
+                      {{ partyMember.strength }} <br />
+                      {{ partyMember.magic }} <br />
+                      {{ partyMember.defense }} <br />
+                      {{ partyMember.haste }} <br />
+                </div>
+                <div class="col-2" style="font-size: 11px;">
+                    <span style="color: green;">
+                        HP
+                    </span>
+                    <br />
+                    <span style="color: blue;">
+                        MP
+                    </span>
+                </div>
+                <div class="col-2">
+                    <span style="color: green;">
+                        {{ partyMember.hp }}
+                    </span>
+                    <br />
+                    <span style="color: blue;">
+                       {{ partyMember.mp }}
+                    </span>
                 </div>
             </div>
 

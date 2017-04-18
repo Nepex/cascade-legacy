@@ -12,25 +12,30 @@
 
     <!-- menu -->
     <div class="col-12">
+      <div class="dropdown" (offClick)="closeMenu()">
+        <div class="dropbtn">
+          <i class="fa fa-bars" style="cursor: pointer;" (click)="showMenu = !showMenu"></i>
+        </div>
+        <div class="dropdown-content" *ngIf="showMenu">
+          <a href="/party">
+            <i class="fa fa-user"></i> &nbsp; Menu
+          </a>
+          <a href="/explore">
+            <i class="fa fa-map" style="cursor: pointer;"></i> &nbsp; Explore
+          </a>
+          <div style="cursor: pointer;">
+            <i class="fa fa-cog" style="cursor: pointer;"></i> &nbsp; Settings
+          </div>
+          <div style="cursor: pointer;" (click)="logout();">
+            <i class="fa fa-sign-out" style="cursor: pointer;"></i> &nbsp; Logout
+          </div>
+        </div>
+      </div>
 
-      <!--<div class="float-left" style="font-size: 13px;">
-        Logged in as: {{ user }}
-        <i class="fa fa-diamond float-left"></i> {{ currency }}
-      </div>-->
+      <div class="float-right" style="font-size: 11px; padding-top: 5px; padding-right: 10px;">
+        <i class="fa fa-diamond"></i> {{ currency }} &nbsp; &nbsp;
+      </div>
 
-      <nav class="nav">
-        <ul class="nav ml-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link link-adjustment">menu</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link link-adjustment">explore</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link link-adjustment" (click)="logout();">logout</a>
-          </li>
-        </ul>
-      </nav>
     </div>
 
   </div>

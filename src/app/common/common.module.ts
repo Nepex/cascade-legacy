@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FormValidationMsgsComponent } from './form-validation-msgs.component';
 
+import { OffClickDirective } from './off-click.directive';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -11,10 +13,12 @@ import { FormValidationMsgsComponent } from './form-validation-msgs.component';
         ReactiveFormsModule
     ],
     declarations: [
-        FormValidationMsgsComponent
+        FormValidationMsgsComponent,
+        OffClickDirective
     ],
     exports: [
-        FormValidationMsgsComponent
+        FormValidationMsgsComponent,
+        OffClickDirective
     ]
 })
 export class CommonModule {

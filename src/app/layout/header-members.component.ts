@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SessionStateService } from '../api/index';
 import { ParamSerializer } from '../api/param-serializer';
+
 @Component({
     selector: 'cascade-header-members',
     templateUrl: './header-members.html',
@@ -13,10 +14,16 @@ export class HeaderMembersComponent {
     @Input() user;
     @Input() currency;
 
+    showMenu = false;
+
     constructor(private sessionStateService: SessionStateService, private router: Router) {}
 
     logout() {
         this.sessionStateService.logout();
         this.router.navigateByUrl('');
+    }
+
+    closeMenu() {
+        this.showMenu = false;
     }
 }
