@@ -75,26 +75,26 @@ export class CreateUserComponent {
 
             if (res._body === 'username taken') {
                 this.messages.push({
-                    message: 'That username is taken.',
+                    message: 'That username is taken',
                     type: 'error'
                 });
 
                 return;
             } else if (res._body === 'email taken') {
                 this.messages.push({
-                    message: 'That email is taken.',
+                    message: 'That email is taken',
                     type: 'error'
                 });
 
                 return;
             } else {
                 this.messages.push({
-                    message: 'Account created successfully!',
+                    message: 'Account created successfully',
                     type: 'success'
                 });
 
                 this.messages.push({
-                    message: 'Redirecting to login...',
+                    message: 'Redirecting to login',
                     type: 'success'
                 });
 

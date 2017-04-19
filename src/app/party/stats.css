@@ -41,3 +41,12 @@
     display: table-cell;
     vertical-align: middle;
 }
+
+:host >>>  .tooltip {
+    opacity: 1;
+    width: 125px;
+}
+
+:host >>>  .tooltip-inner {
+    font-size: 10px;
+}   

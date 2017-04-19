@@ -14,8 +14,8 @@
             </div>
 
             <!-- first party member -->
-            <div class="col-6 col-lg-3 text-center party-member">
-                <span class="party-member-span" *ngIf="!party.partyMemberOne">
+            <div class="col-6 col-lg-3 text-center party-member" *ngFor="let p of party">
+                <span class="party-member-span" *ngIf="!p">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
@@ -23,156 +23,95 @@
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
 
-                <span class="party-member-span" *ngIf="party.partyMemberOne" style="font-size: 11px;">
-                    <strong style="font-size: 13px;">{{ party.partyMemberOne.name }}</strong> <br />
+                <span class="party-member-span" *ngIf="p" style="font-size: 11px;">
+                    <strong style="font-size: 13px;">{{ p.name }}</strong> <br />
                         
-                    <cascade-sprite-loader [sprite]="party.partyMemberOne.sprite"></cascade-sprite-loader> <br />
+                    <cascade-sprite-loader [sprite]="p.sprite"></cascade-sprite-loader> <br />
                     
-                    Level {{ party.partyMemberOne.level }} {{ party.partyMemberOne.job }} <br />
+                    Level {{ p.level }} {{ p.job }} <br />
 
                     <span style="color: green;">
-                        {{ party.partyMemberOne.current_hp }} / {{ party.partyMemberOne.hp }}
+                        {{ p.current_hp }} / {{ p.hp }}
                     </span> <br />
 
-                    <span style="color: blue;">
-                        {{ party.partyMemberOne.current_mp }} / {{ party.partyMemberOne.mp }}
+                <span style="color: blue;">
+                        {{ p.current_mp }} / {{ p.mp }}
                     </span> <br />
 
-                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberOne);"></i>                        
-                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;  padding-right: 2px;"></i>
-                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberOne.id);"></i>                         
-                    </div>
+                <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
+                    <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(p);"></i>
+                    <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
+                    <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer;  padding-right: 2px;"></i>
+                    <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(p.id);"></i>
+                </div>
 
-                    <cascade-exp-bar [experience]="party.partyMemberOne.experience" [experienceNeeded]="party.partyMemberOne.experience_needed"></cascade-exp-bar>
+                <cascade-exp-bar [experience]="p.experience" [experienceNeeded]="p.experience_needed"></cascade-exp-bar>
                 </span>
             </div>
 
-            <!-- second party member -->
-            <div class="col-6 col-lg-3 text-center party-member">
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1'">                
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="party.length === 0">
+                <span class="party-member-span">
+                    <i class="fa fa-user"></i>
+                    <br />
+                    Slot available!
+                    <br /> <br />
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                </span>
+            </div>
+
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1'">
+                <span class="party-member-span">                
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
                 </span>
+            </div>
 
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked !== '1' && !party.partyMemberTwo">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked !== '1' && party.length < 2">
+                <span class="party-member-span">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
-
-                <span class="party-member-span" *ngIf="party.partyMemberTwo" style="font-size: 11px;">
-                    <strong style="font-size: 13px;">{{ party.partyMemberTwo.name }}</strong> <br />
-                        
-                    <cascade-sprite-loader [sprite]="party.partyMemberTwo.sprite"></cascade-sprite-loader> <br />
-                    
-                    Level {{ party.partyMemberTwo.level }} {{ party.partyMemberTwo.job }} <br />
-
-                    <span style="color: green;">
-                        {{ party.partyMemberTwo.current_hp }} / {{ party.partyMemberTwo.hp }}
-                    </span> <br />
-
-                    <span style="color: blue;">
-                        {{ party.partyMemberTwo.current_mp }} / {{ party.partyMemberTwo.mp }}
-                    </span> <br />
-
-                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberTwo);"></i>                                                                      
-                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberTwo.id);"></i>                                                 
-                    </div>
-
-                    <cascade-exp-bar [experience]="party.partyMemberTwo.experience" [experienceNeeded]="party.partyMemberTwo.experience_needed"></cascade-exp-bar>
-                </span>
             </div>
-
-            <!-- third party member -->
-            <div class="col-6 col-lg-3 text-center party-member">
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'">
+            
+            
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'">
+                <span class="party-member-span" >
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
                 </span>
+            </div>
 
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked !== '1' && user.party_slots_unlocked !== '2' && !party.partyMemberThree">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked !== '1' && user.party_slots_unlocked !== '2' && party.length < 3">
+                <span class="party-member-span">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
                 </span>
-
-                <span class="party-member-span" *ngIf="party.partyMemberThree" style="font-size: 11px;">
-                    <strong style="font-size: 13px;">{{ party.partyMemberThree.name }}</strong> <br />
-                        
-                    <cascade-sprite-loader [sprite]="party.partyMemberThree.sprite"></cascade-sprite-loader> <br />
-                    
-                    Level {{ party.partyMemberThree.level }} {{ party.partyMemberThree.job }} <br />
-
-                    <span style="color: green;">
-                        {{ party.partyMemberThree.current_hp }} / {{ party.partyMemberThree.hp }}
-                    </span> <br />
-
-                    <span style="color: blue;">
-                        {{ party.partyMemberThree.current_mp }} / {{ party.partyMemberThree.mp }}
-                    </span> <br />
-
-                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberThree);"></i>                                                                        
-                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberThree.id);"></i>                                                 
-                    </div>
-
-                    <cascade-exp-bar [experience]="party.partyMemberThree.experience" [experienceNeeded]="party.partyMemberThree.experience_needed"></cascade-exp-bar>
-                </span>
             </div>
 
-            <!-- fourth party member -->
-            <div class="col-6 col-lg-3 text-center party-member">
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'
-                || user.party_slots_unlocked === '3'">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'
+            || user.party_slots_unlocked === '3'">
+                <span class="party-member-span">
                     <i class="fa fa-user-times"></i>
                     <br />
                     Locked
                 </span>
+            </div>
 
-                <span class="party-member-span" *ngIf="user.party_slots_unlocked === '4' && !party.partyMemberFour">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '4' && party.length < 4">
+                <span class="party-member-span">
                     <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
                     <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
-                </span>
-
-                <span class="party-member-span" *ngIf="party.partyMemberFour" style="font-size: 11px;">
-                    <strong style="font-size: 13px;">{{ party.partyMemberFour.name }}</strong> <br />
-                        
-                    <cascade-sprite-loader [sprite]="party.partyMemberFour.sprite"></cascade-sprite-loader> <br />
-                    
-                    Level {{ party.partyMemberFour.level }} {{ party.partyMemberFour.job }} <br />
-
-                    <span style="color: green;">
-                        {{ party.partyMemberFour.current_hp }} / {{ party.partyMemberFour.hp }}
-                    </span> <br />
-
-                    <span style="color: blue;">
-                        {{ party.partyMemberFour.current_mp }} / {{ party.partyMemberFour.mp }}
-                    </span> <br />
-
-                    <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
-                        <i class="fa fa-bar-chart" ngbTooltip="Stats" placement="top" style="cursor: pointer; padding-right: 2px;" (click)="displayStats(party.partyMemberFour);"></i>                                                                       
-                        <i class="fa fa-shield" ngbTooltip="Equipment" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-fire" ngbTooltip="Spells" placement="top" style="cursor: pointer; padding-right: 2px;"></i>
-                        <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(party.partyMemberFour.id);"></i>                         
-                    </div>
-
-                    <cascade-exp-bar [experience]="party.partyMemberFour.experience" [experienceNeeded]="party.partyMemberFour.experience_needed"></cascade-exp-bar>
                 </span>
             </div>
 

@@ -57,7 +57,7 @@ export class LoginComponent {
             res => {
                 if (res === 'incorrect credentials') {
                     this.messages.push({
-                        message: 'Incorrect credentials.',
+                        message: 'Incorrect credentials',
                         type: 'error'
                     });
 

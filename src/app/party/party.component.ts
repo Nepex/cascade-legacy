@@ -16,7 +16,7 @@ import { ConfirmModalComponent } from '../layout/confirm-modal.component';
 export class PartyComponent {
 
     user: any = {};
-    party: any = {};
+    party: any = [];
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
     removeRequest: Observable<any>;
@@ -37,10 +37,9 @@ export class PartyComponent {
             this.party = [];
 
             if (res[1]) {
-                this.party.partyMemberOne = res[1][0];
-                this.party.partyMemberTwo = res[1][1];
-                this.party.partyMemberThree = res[1][2];
-                this.party.partyMemberFour = res[1][3];
+                for (let i = 0; i < res[1].length; i++) {
+                    this.party.push(res[1][i]);
+                }
             }
         });
     }
@@ -51,7 +50,7 @@ export class PartyComponent {
         modalRef.result.then((result) => {
             this.activate();
             this.messages = [];
-            this.messages.push({ message: 'Party member recruited.', type: 'success' });
+            this.messages.push({ message: 'Party member recruited', type: 'success' });
         }, (reason) => { });
 
         return false;
@@ -82,7 +81,7 @@ export class PartyComponent {
         this.removeRequest.subscribe(
             () => {
                 this.removeRequest = null;
-                this.messages.push({ message: 'Party member was removed.', type: 'success' });
+                this.messages.push({ message: 'Party member was removed', type: 'success' });
                 this.activate();
             });
     }
