@@ -16,6 +16,7 @@ import { AlertMessages } from '../layout/alert-messages.component';
 export class HireComponent {
     constructor(private activeModal: NgbActiveModal, private partyService: PartyService, private userService: UserService) { }
 
+    messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
     userRegex = /^[a-zA-Z0-9]*$/;
     hireForm: FormGroup = new FormGroup({
@@ -50,6 +51,15 @@ export class HireComponent {
         this.loadingRequest.subscribe(res => {
             this.loadingRequest = null;
             this.hireForm['submitted'] = false;
+
+            if (res._body === 'name taken') {
+                this.messages.push({
+                    message: 'Party member already exists',
+                    type: 'error'
+                });
+
+                return;
+            }
 
             this.activeModal.close();
         });

@@ -37,6 +37,20 @@ export class PartyService {
         return req;
     }
 
+    getSpells(name) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/gets/get-spells.php?party_member=${name}`;
+        
+        let req = this.http.get(url, {
+            headers: headers
+        }).map(res => res.json());
+
+        return req;
+    }
+
     remove(id) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

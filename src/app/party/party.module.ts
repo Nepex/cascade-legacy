@@ -10,6 +10,7 @@ import { CommonModule } from '../common/common.module';
 import { PartyComponent } from './party.component';
 import { HireComponent } from './hire.component'; 
 import { StatsComponent } from './stats.component';
+import { SpellsComponent } from './spells.component';
 
 @NgModule({
     imports: [
@@ -26,11 +27,13 @@ import { StatsComponent } from './stats.component';
     declarations: [
         PartyComponent,
         HireComponent,
-        StatsComponent
+        StatsComponent,
+        SpellsComponent
     ],
     entryComponents: [
         HireComponent,
-        StatsComponent
+        StatsComponent,
+        SpellsComponent
     ]
 })
 export class PartyModule { }

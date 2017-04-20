@@ -6,6 +6,7 @@ import { UserService, PartyService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 import { HireComponent } from './hire.component';
 import { StatsComponent } from './stats.component';
+import { SpellsComponent } from './spells.component';
 import { ConfirmModalComponent } from '../layout/confirm-modal.component';
 
 @Component({
@@ -17,6 +18,7 @@ export class PartyComponent {
 
     user: any = {};
     party: any = [];
+    spellsLearned: any;
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
     removeRequest: Observable<any>;
@@ -41,6 +43,31 @@ export class PartyComponent {
                     this.party.push(res[1][i]);
                 }
             }
+
+            // bind spells to party members
+            for (let i = 0; i < this.party.length; i++) {
+                this.partyService.getSpells(this.party[i].name)
+                    .subscribe(res => {
+                        if(!res) {
+                            return;
+                        }
+                        this.spellsLearned = res;
+                        for (let i = 0; i < this.party.length; i++) {
+                            for (let j = 0; j < this.spellsLearned.length; j++) {
+                                if (this.party[i].name === this.spellsLearned[j].party_member) {
+                                    this.party[i].spells = [];
+
+                                    this.party[i].spells.push({
+                                        spell_name: this.spellsLearned[j].spell_name,
+                                        cost: this.spellsLearned[j].cost,
+                                        description: this.spellsLearned[j].description,
+                                        icon: this.spellsLearned[j].spell_name.toLowerCase() + '.png'
+                                    });
+                                }
+                            }
+                        }
+                    });
+            }
         });
     }
 
@@ -58,6 +85,11 @@ export class PartyComponent {
 
     displayStats(partyMember) {
         const modalRef = this.modalService.open(StatsComponent, { size: 'sm' });
+        modalRef.componentInstance.partyMember = partyMember;
+    }
+
+    displaySpells(partyMember) {
+        const modalRef = this.modalService.open(SpellsComponent);
         modalRef.componentInstance.partyMember = partyMember;
     }
 
