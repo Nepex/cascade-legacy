@@ -35,40 +35,10 @@ export class PartyComponent {
         );
 
         this.loadingRequest.subscribe(res => {
-            this.user = res[0][0];
+            this.user = res[0];
+            this.party = res[1];
 
-            this.party = [];
-
-            if (res[1]) {
-                for (let i = 0; i < res[1].length; i++) {
-                    this.party.push(res[1][i]);
-                }
-            }
-
-            // bind spells to party members
-            for (let i = 0; i < this.party.length; i++) {
-                this.partyService.getSpells(this.party[i].name)
-                    .subscribe(res => {
-                        if (!res) {
-                            return;
-                        }
-                        this.spellsLearned = res;
-                        for (let i = 0; i < this.party.length; i++) {
-                            for (let j = 0; j < this.spellsLearned.length; j++) {
-                                if (this.party[i].name === this.spellsLearned[j].party_member) {
-                                    this.party[i].spells = [];
-
-                                    this.party[i].spells.push({
-                                        spell_name: this.spellsLearned[j].spell_name,
-                                        cost: this.spellsLearned[j].cost,
-                                        description: this.spellsLearned[j].description,
-                                        icon: this.spellsLearned[j].spell_name.toLowerCase() + '.png'
-                                    });
-                                }
-                            }
-                        }
-                    });
-            }
+            console.log(this.party)
         });
     }
 

@@ -31,11 +31,11 @@
                     Level {{ p.level }} {{ p.job }} <br />
 
                     <span style="color: green;">
-                        {{ p.current_hp }} / {{ p.hp }}
+                        {{ p.currHp }} / {{ p.hp }}
                     </span> <br />
 
                 <span style="color: blue;">
-                        {{ p.current_mp }} / {{ p.mp }}
+                        {{ p.currMp }} / {{ p.mp }}
                     </span> <br />
 
                 <div style="font-size: 12px; padding-top: 5px; padding-bottom: 5px;">
@@ -45,7 +45,7 @@
                     <i class="fa fa-times" ngbTooltip="Remove" placement="top" style="cursor: pointer;" (click)="confirmRemove(p.id);"></i>
                 </div>
 
-                <cascade-exp-bar [experience]="p.experience" [experienceNeeded]="p.experience_needed"></cascade-exp-bar>
+                <cascade-exp-bar [experience]="p.experience" [experienceNeeded]="p.experienceNeeded"></cascade-exp-bar>
                 </span>
             </div>
 
@@ -59,7 +59,7 @@
                 </span>
             </div>
 
-            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1'">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked === 1">
                 <span class="party-member-span">                
                     <i class="fa fa-user-times"></i>
                     <br />
@@ -67,7 +67,7 @@
                 </span>
             </div>
 
-            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked !== '1' && party.length < 2">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked !== 1 && party.length < 2">
                 <span class="party-member-span">
                     <i class="fa fa-user"></i>
                     <br />
@@ -78,7 +78,7 @@
             </div>
             
             
-            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked === 1 || user.partySlotsUnlocked === 2">
                 <span class="party-member-span" >
                     <i class="fa fa-user-times"></i>
                     <br />
@@ -86,7 +86,7 @@
                 </span>
             </div>
 
-            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked !== '1' && user.party_slots_unlocked !== '2' && party.length < 3">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked !== 1 && user.partySlotsUnlocked !== 2 && party.length < 3">
                 <span class="party-member-span">
                     <i class="fa fa-user"></i>
                     <br />
@@ -96,8 +96,8 @@
                 </span>
             </div>
 
-            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '1' || user.party_slots_unlocked === '2'
-            || user.party_slots_unlocked === '3'">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked === 1 || user.partySlotsUnlocked === 2
+            || user.partySlotsUnlocked === '3'">
                 <span class="party-member-span">
                     <i class="fa fa-user-times"></i>
                     <br />
@@ -105,7 +105,7 @@
                 </span>
             </div>
 
-            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.party_slots_unlocked === '4' && party.length < 4">
+            <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked === 4 && party.length < 4">
                 <span class="party-member-span">
                     <i class="fa fa-user"></i>
                     <br />

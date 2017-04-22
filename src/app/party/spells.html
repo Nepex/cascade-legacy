@@ -8,6 +8,7 @@
         </button>
     </div>
     <div class="modal-body">
+
         <div class="container">
 
             <div class="row" *ngIf="!partyMember.spells">
@@ -21,17 +22,20 @@
                     <tr>
                         <th class="text-center">Spell</th>
                         <th class="text-center">Cost</th>
-                        <th class="text-center">Description</th>
+                        <th class="text-center">Base</th>
+                        <th class="text-center">Type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let s of partyMember.spells">
+                    <tr *ngFor="let s of partyMember.spells" style="font-size: 11px;">
                         <td class="text-center ml-auto">
-                            <img src="../../assets/images/spell-icons/{{ s.icon }}" class="mx-auto d-block" style="width: 50px; height: 50px; padding-bottom: 5px;">
-                            <b>{{ s.spell_name }}</b>
+                            <cascade-icon-with-tooltip [item]="s" [iconType]="'spell'"></cascade-icon-with-tooltip>
+                            
+                            <b>{{ s.spellName }}</b>
                         </td>
-                        <td class="text-center" style="color: blue;">{{ s.cost }}MP</td>
-                        <td>{{ s.description }}</td>
+                        <td class="text-center" style="color: blue;">{{ s.cost }} MP</td>
+                        <td class="text-center">{{ s.base }}</td>
+                        <td class="text-center">{{ s.spellType }}</td>
                     </tr>
                 </tbody>
             </table>

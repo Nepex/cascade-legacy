@@ -20,15 +20,15 @@
 
             <div class="row">
                 <div class="col-2 offset-2">
-                    <span ngbTooltip="+Physical damage" placement="right">STR</span>
-                    <br /> <span ngbTooltip="+Magic damage/heals" placement="right">MAG</span>
-                    <br /> <span ngbTooltip="+Damage reduction" placement="right">DEF</span>
+                    <span ngbTooltip="+Physical dmg" placement="right">STR</span>
+                    <br /> <span ngbTooltip="+Magic dmg/heals" placement="right">MAG</span>
+                    <br /> <span ngbTooltip="-Physical dmg taken" placement="right">DEF</span>
+                    <br /> <span ngbTooltip="-Magic dmg taken" placement="right">RES</span>
                     <br /> <span ngbTooltip="+Turn speed" placement="right">HST</span>
-                    <br />
                 </div>
                 <div class="col-2">
-                    {{ partyMember.strength }} <br /> {{ partyMember.magic }} <br /> {{ partyMember.defense }} <br /> {{
-                    partyMember.haste }} <br />
+                    {{ partyMember.str }} <br /> {{ partyMember.mag }} <br /> {{ partyMember.def }} <br /> {{
+                    partyMember.res }} <br /> {{ partyMember.hst }} <br />
                 </div>
                 <div class="col-2" style="font-size: 11px;">
                     <span style="color: green;">

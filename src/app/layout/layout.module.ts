@@ -11,6 +11,7 @@ import { MainMenuNavComponent } from './main-menu-nav.component';
 import { SpriteLoaderComponent } from './sprite-loader.component';
 import { ExpBarComponent } from './exp-bar.component';
 import { ConfirmModalComponent } from './confirm-modal.component';
+import { IconWithTooltipComponent } from './icon-with-tooltip.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { ConfirmModalComponent } from './confirm-modal.component';
         MainMenuNavComponent,
         SpriteLoaderComponent,
         ExpBarComponent,
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        IconWithTooltipComponent
     ],
     exports: [
         HeaderComponent,
@@ -35,7 +37,8 @@ import { ConfirmModalComponent } from './confirm-modal.component';
         AlertMessagesComponent,
         MainMenuNavComponent,
         SpriteLoaderComponent,
-        ExpBarComponent
+        ExpBarComponent,
+        IconWithTooltipComponent
     ],
     entryComponents: [
         ConfirmModalComponent

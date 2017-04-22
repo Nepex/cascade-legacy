@@ -10,5 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class EquipmentComponent {
     @Input() partyMember;
 
-    constructor(private activeModal: NgbActiveModal) {}
+    constructor(private activeModal: NgbActiveModal) {
+        console.log(this.partyMember);
+    }
 }

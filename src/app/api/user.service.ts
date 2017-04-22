@@ -31,8 +31,28 @@ export class UserService {
 
         let req = this.http.get(url, {
             headers: headers
-        }).map(res => res.json());
+        }).map(res => {
+            let response = res.json();
+            
+            let user: User = {
+                currency: parseInt(response[0].currency),
+                email: response[0].email,
+                id: parseInt(response[0].id),
+                partySlotsUnlocked: parseInt(response[0].party_slots_unlocked),
+                username: response[0].username
+            }
+
+            return user;
+        });
 
         return req;
     }
+}
+
+export class User {
+    currency: number;
+    email: string;
+    id: number;
+    partySlotsUnlocked: number;
+    username: string;
 }
