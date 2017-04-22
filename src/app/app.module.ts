@@ -11,6 +11,7 @@ import { ChangeLogModule, ChangeLogComponent } from './changelog/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
 import { PartyModule, PartyComponent } from './party/index';
+import { InventoryModule, InventoryComponent } from './inventory/index';
 import { AuthGuard } from './auth-guard.service';
 
 import { AppComponent } from './app.component';
@@ -33,12 +34,14 @@ import { AppComponent } from './app.component';
     LoginModule,
     PartyModule,
     LayoutModule,
+    InventoryModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'changelog', component: ChangeLogComponent },
       { path: 'signup', component: CreateUserComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'party', component: PartyComponent, canActivate: [AuthGuard] }
+      { path: 'party', component: PartyComponent, canActivate: [AuthGuard] },
+      { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] }      
     ])
   ],
   providers: [

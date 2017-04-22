@@ -12,16 +12,29 @@
         [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
 </div>
 
-<div *ngIf="type === 'item'">
-    <!--<template #tipContent>
-        <img src="../../assets/images/spell-icons/{{ tipInfo.icon }}" style="width: 35px; height: 40px;"> &nbsp;
+<div *ngIf="iconType === 'item'">
+    <template #tipContent>
+        <img src="../../assets/images/item-icons/{{ tipInfo.icon }}" style="width: 35px; height: 40px;"> &nbsp;
         <b>
-            {{ tipInfo.spellName }} 
-            <span *ngIf="tipInfo.cost">({{ tipInfo.cost }})</span>
+            {{ tipInfo.name }} 
         </b> <br />
-        <b style="color: gold">{{ s.description }}</b>
+
+        <b *ngIf="tipInfo.bonusStr">+{{ tipInfo.bonusStr }} STR <br /></b> 
+        <b *ngIf="tipInfo.bonusMag">+{{ tipInfo.bonusMag }} MAG <br /></b> 
+        <b *ngIf="tipInfo.bonusDef">+{{ tipInfo.bonusDef }} DEF <br /></b> 
+        <b *ngIf="tipInfo.bonusRes">+{{ tipInfo.bonusRes }} RES <br /></b> 
+        <b *ngIf="tipInfo.bonusHst">+{{ tipInfo.bonusHst }} HST <br /></b> 
+        <b *ngIf="tipInfo.bonusHp">+{{ tipInfo.bonusHp }} HP <br /></b> 
+        <b *ngIf="tipInfo.bonusMp">+{{ tipInfo.bonusMp }} MP <br /></b> 
+        <b *ngIf="tipInfo.damageAmount">Inflicts {{ tipContent.damageAmount }} damage <br /></b>
+        <b *ngIf="tipInfo.healingAmount">Heals {{ tipInfo.healingAmount }} HP <br /></b> 
+        <b *ngIf="tipInfo.mpHealingAmount">Restores {{ tipInfo.mpHealingAmount }} MP <br /></b> 
+        
+        <b *ngIf="tipInfo.effect"><br /></b>       
+        
+        <b style="color: gold" *ngIf="tipInfo.description">{{ tipInfo.description }}</b>
     </template>
 
-    <img src="../../assets/images/spell-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 35px; height: 40px; padding-bottom: 5px;"
-        [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">-->
+    <img src="../../assets/images/item-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 50px; height: 50px; padding-bottom: 5px;"
+        [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
 </div>

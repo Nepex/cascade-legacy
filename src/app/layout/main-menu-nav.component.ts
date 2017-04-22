@@ -6,6 +6,5 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./main-menu-nav.css']
 })
 export class MainMenuNavComponent {
-    @Input() selectedTab = 'PARTY';
-
+    @Input() selectedTab;
 }

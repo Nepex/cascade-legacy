@@ -1,9 +1,9 @@
 <ul class="nav nav-pills nav-justified bordered-nav">
   <li class="nav-item">
-    <a class="nav-link" href="#" [ngClass]="{ 'tabselected': selectedTab === PARTY, 'link-adjustment': selectedTab !== PARTY }"><i class="fa fa-users"></i><br class="hidden-md-up img-fluid" />&nbsp;Party</a>
+    <a class="nav-link" href="/party" [ngClass]="{ 'tabselected': selectedTab === 'PARTY', 'link-adjustment': selectedTab !== 'PARTY' }"><i class="fa fa-users"></i><br class="hidden-md-up img-fluid" />&nbsp;Party</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link link-adjustment something" href="#"><i class="fa fa-briefcase"></i><br class="hidden-md-up img-fluid" />&nbsp;Inventory</a>
+    <a class="nav-link link-adjustment" href="/inventory" [ngClass]="{ 'tabselected': selectedTab === 'INVENTORY', 'link-adjustment': selectedTab !== 'INVENTORY' }"><i class="fa fa-briefcase"></i><br class="hidden-md-up img-fluid" />&nbsp;Inventory</a>
   </li>
   <li class="nav-item">
     <a class="nav-link link-adjustment" href="#"><i class="fa fa-book"></i><br class="hidden-md-up img-fluid" />&nbsp;Questlog</a>

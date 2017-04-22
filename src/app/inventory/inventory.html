@@ -1,0 +1,31 @@
+<div class="container">
+
+    <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
+
+    <div class="container border-top-0" id="main-border">
+        <div class="row">
+
+            <div class="col-12 text-center border-top-0" style="padding-top: 10px;">
+                <cascade-main-menu-nav [selectedTab]="'INVENTORY'"></cascade-main-menu-nav>
+            </div>
+
+            <div *ngIf="messages" class="col-12 text-center" style="padding-bottom: 17px; font-size: 12px;">
+                <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+            </div>
+
+            <div *ngIf="inventory.length === 0">
+                Your inventory is empty.
+            </div>
+
+            <div *ngIf="inventory.length > 0">
+                <div *ngFor="let i of inventory">
+                    <cascade-icon-with-tooltip [item]="i" [iconType]="'item'"></cascade-icon-with-tooltip>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <cascade-footer></cascade-footer>
+
+</div>
