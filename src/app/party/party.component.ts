@@ -7,6 +7,7 @@ import { AlertMessages } from '../layout/alert-messages.component';
 import { HireComponent } from './hire.component';
 import { StatsComponent } from './stats.component';
 import { SpellsComponent } from './spells.component';
+import { EquipmentComponent } from './equipment.component';
 import { ConfirmModalComponent } from '../layout/confirm-modal.component';
 
 @Component({
@@ -48,7 +49,7 @@ export class PartyComponent {
             for (let i = 0; i < this.party.length; i++) {
                 this.partyService.getSpells(this.party[i].name)
                     .subscribe(res => {
-                        if(!res) {
+                        if (!res) {
                             return;
                         }
                         this.spellsLearned = res;
@@ -85,6 +86,11 @@ export class PartyComponent {
 
     displayStats(partyMember) {
         const modalRef = this.modalService.open(StatsComponent, { size: 'sm' });
+        modalRef.componentInstance.partyMember = partyMember;
+    }
+
+    displayEquipment(partyMember) {
+        const modalRef = this.modalService.open(EquipmentComponent);
         modalRef.componentInstance.partyMember = partyMember;
     }
 

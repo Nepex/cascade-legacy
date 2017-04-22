@@ -11,7 +11,7 @@
         <form (ngSubmit)="hire()" [formGroup]="hireForm" novalidate>
             <div class="container">
 
-                <div class="row">
+                <div class="row" *ngIf="messages.length > 0">
                     <div class="col-12" style="padding-bottom: 30px;">
                         <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
                     </div>

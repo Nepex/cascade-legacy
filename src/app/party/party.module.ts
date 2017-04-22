@@ -11,6 +11,7 @@ import { PartyComponent } from './party.component';
 import { HireComponent } from './hire.component'; 
 import { StatsComponent } from './stats.component';
 import { SpellsComponent } from './spells.component';
+import { EquipmentComponent } from './equipment.component';
 
 @NgModule({
     imports: [
@@ -28,12 +29,14 @@ import { SpellsComponent } from './spells.component';
         PartyComponent,
         HireComponent,
         StatsComponent,
-        SpellsComponent
+        SpellsComponent,
+        EquipmentComponent
     ],
     entryComponents: [
         HireComponent,
         StatsComponent,
-        SpellsComponent
+        SpellsComponent,
+        EquipmentComponent
     ]
 })
 export class PartyModule { }
