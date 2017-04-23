@@ -1,6 +1,6 @@
 <div *ngIf="iconType === 'spell'">
     <template #tipContent>
-        <img src="../../assets/images/spell-icons/{{ tipInfo.icon }}" style="width: 35px; height: 40px; padding-right: 5px;">
+        <img src="../../assets/images/spell-icons/{{ tipInfo.icon }}" style="width: 40px; height: 40px; padding-right: 5px;">
         <b>
             {{ tipInfo.spellName }} 
             <span *ngIf="tipInfo.cost">({{ tipInfo.cost }})</span>
@@ -8,13 +8,13 @@
         <b style="color: gold">{{ tipInfo.description }}</b>
     </template>
 
-    <img src="../../assets/images/spell-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 35px; height: 40px; padding-bottom: 5px;"
+    <img src="../../assets/images/spell-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 35px; height: 35px; padding-bottom: 5px;"
         [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
 </div>
 
 <div *ngIf="iconType === 'item'">
     <template #tipContent>
-        <img src="../../assets/images/item-icons/{{ tipInfo.icon }}" style="width: 35px; height: 40px; padding-right: 5px;" *ngIf="item.id !== 'empty'">
+        <img src="../../assets/images/item-icons/{{ tipInfo.icon }}" style="width: 35px; height: 35px; padding-right: 5px;" *ngIf="item.id !== 'empty'">
         <b>{{ tipInfo.name }}</b> <br />
 
         <b *ngIf="tipInfo.bonusStr">+{{ tipInfo.bonusStr }} STR <br /></b>

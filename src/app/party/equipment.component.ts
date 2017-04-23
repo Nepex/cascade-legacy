@@ -29,6 +29,5 @@ export class EquipmentComponent implements OnInit {
     }
 
     unequip(item, slot) {
-        console.log(item);
     }
 }

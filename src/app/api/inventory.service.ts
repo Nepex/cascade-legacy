@@ -76,6 +76,10 @@ export class InventoryService {
             }
         }
     }
+
+    unequip(item) {
+        
+    }
 }
 
 export class Items {
