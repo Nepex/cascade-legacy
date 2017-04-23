@@ -13,6 +13,8 @@ export class InventoryService {
         private inventoryConversion: InventoryConversion) { }
 
     itemMapping: Items[] = [
+        { id: 'empty', name: 'Empty', icon: 'empty.png', description: 'This slot is empty.' },
+        
         // armor
         { id: 'leather_cap', name: 'Leather Cap', icon: 'leather_cap.png', bonusDef: 1, description: 'A cap made of leather.' },
         { id: 'leather_vest', name: 'Leather Vest', icon: 'leather_vest.png', bonusDef: 1, description: 'A vest made of leather.' },

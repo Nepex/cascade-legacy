@@ -13,3 +13,12 @@
 .modal-body {
     font-size: 12px;
 }
+
+:host >>>  .tooltip {
+    opacity: 1;
+    width: 125px;
+}
+
+ :host >>>  .tooltip-inner {
+    font-size: 10px;
+}    

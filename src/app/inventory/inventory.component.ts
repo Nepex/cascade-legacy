@@ -35,8 +35,6 @@ export class InventoryComponent {
             this.user = res[0];
             this.party = res[1];
             this.inventory = res[2];
-
-            console.log(this.inventory);
         });
     }
 }

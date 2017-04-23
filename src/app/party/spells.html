@@ -28,10 +28,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let s of partyMember.spells" style="font-size: 11px;">
-                        <td class="text-center ml-auto">
+                        <td class="text-center">
                             <cascade-icon-with-tooltip [item]="s" [iconType]="'spell'"></cascade-icon-with-tooltip>
                             
-                            <b>{{ s.spellName }}</b>
+                            {{ s.spellName }}
                         </td>
                         <td class="text-center" style="color: blue;">{{ s.cost }} MP</td>
                         <td class="text-center">{{ s.base }}</td>

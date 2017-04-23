@@ -13,3 +13,14 @@
 .modal-body {
     font-size: 12px;
 }
+
+.item-name {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.item-border {
+    border: 1px solid #eee;
+    width: 100%;
+    margin: 10px;
+}
