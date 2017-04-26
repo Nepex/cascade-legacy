@@ -24,3 +24,12 @@
     width: 100%;
     margin: 10px;
 }
+
+:host >>>  .tooltip {
+    opacity: 1;
+    width: 125px;
+}
+
+ :host >>>  .tooltip-inner {
+    font-size: 10px;
+}    

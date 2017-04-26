@@ -101,7 +101,7 @@ export class CreateUserComponent {
 
                 setTimeout(() => {
                     this.router.navigateByUrl('/login');
-                }, 3000);
+                }, 1500);
 
                 this.createForm.reset();
             }

@@ -63,6 +63,18 @@ export class PartyComponent {
     displayEquipment(partyMember) {
         const modalRef = this.modalService.open(EquipmentComponent);
         modalRef.componentInstance.partyMember = partyMember;
+
+        modalRef.result.then((result) => {
+            this.activate();
+            this.messages = [];
+            this.messages.push({ message: `${result} unequipped`, type: 'success' });
+        }, (reason) => { });
+
+        return false;
+    }
+
+    onUnequip() {
+        this.activate();
     }
 
     displaySpells(partyMember) {

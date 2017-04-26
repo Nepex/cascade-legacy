@@ -14,7 +14,7 @@ export class InventoryService {
 
     itemMapping: Items[] = [
         { id: 'empty', name: 'Empty', icon: 'empty.png', description: 'This slot is empty.' },
-        
+
         // armor
         { id: 'leather_cap', name: 'Leather Cap', icon: 'leather_cap.png', bonusDef: 1, description: 'A cap made of leather.' },
         { id: 'leather_vest', name: 'Leather Vest', icon: 'leather_vest.png', bonusDef: 1, description: 'A vest made of leather.' },
@@ -66,7 +66,7 @@ export class InventoryService {
                     bonusHp: this.itemMapping[i].bonusHp ? this.itemMapping[i].bonusHp : 0,
                     bonusMp: this.itemMapping[i].bonusMp ? this.itemMapping[i].bonusMp : 0,
                     healingAmount: this.itemMapping[i].healingAmount ? this.itemMapping[i].healingAmount : 0,
-                    mpHealingAmount: this.itemMapping[i].mpHealingAmount ? this.itemMapping[i].mpHealingAmount : 0,                    
+                    mpHealingAmount: this.itemMapping[i].mpHealingAmount ? this.itemMapping[i].mpHealingAmount : 0,
                     damageAmount: this.itemMapping[i].damageAmount ? this.itemMapping[i].damageAmount : 0,
                     effect: this.itemMapping[i].effect ? this.itemMapping[i].effect : null,
                     description: this.itemMapping[i].description ? this.itemMapping[i].description : null
@@ -78,7 +78,17 @@ export class InventoryService {
     }
 
     unequip(item) {
-        
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/puts/unequip-item.php`;
+
+        let req = this.http.put(url, item, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
     }
 }
 

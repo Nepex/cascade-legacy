@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { InventoryService } from '../api/index';
+import { AlertMessages } from '../layout/alert-messages.component';
 
 @Component({
     selector: 'cascade-equipment',
@@ -17,6 +19,9 @@ export class EquipmentComponent implements OnInit {
     offHand;
     accessory;
 
+    messages: AlertMessages[] = [];
+    loadingRequest: Observable<any>;
+
     constructor(private inventoryService: InventoryService, private activeModal: NgbActiveModal) {
     }
 
@@ -29,5 +34,17 @@ export class EquipmentComponent implements OnInit {
     }
 
     unequip(item, slot) {
+        if (item.id === 'empty') {
+            return;
+        }
+
+        item.slot = slot;
+        item.partyId = this.partyMember.id;
+
+        this.loadingRequest = this.inventoryService.unequip(item);
+
+        this.loadingRequest.subscribe(res => {
+            this.activeModal.close(item.name);
+        });
     }
 }

@@ -1,48 +1,60 @@
+
 <div class="modal-content">
     <div class="modal-header">
         <span class="modal-title pull-left">
             Equipment ({{ partyMember.name }})
         </span>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.dismiss('cancel')">
+        <div class="float-right">
+            <i class="fa fa-question-circle" aria-hidden="true" style="color: #7fccdd; position: relative; top: 3px; left: -5px; font-size: 16px;"
+                ngbTooltip="Click an item's name to unequip it." placement="left"></i>
+
+            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cancel')">
             <span style="color: #fff;" aria-hidden="true">&times;</span>
         </button>
+        </div>
     </div>
     <div class="modal-body">
         <div class="container">
 
+            <div class="row" *ngIf="messages.length > 0">
+                <div class="col-12" style="padding-bottom: 30px;">
+                    <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-3 offset-lg-4 col-4 offset-2 text-center">
                     <div class="item-border">
-                        <cascade-icon-with-tooltip [item]="helm" [iconType]="'item'" (click)="unequip(helm, 'helm')" style="cursor: pointer;"></cascade-icon-with-tooltip>
-                        <span class="item-name">{{ helm.name }}</span>
+                        <cascade-icon-with-tooltip [item]="helm" [iconType]="'item'"></cascade-icon-with-tooltip>
+                        <span class="item-name" (click)="unequip(helm, 'helm')" style="cursor: pointer;">{{ helm.name }}</span>
                     </div>
                 </div>
                 <div class="col-lg-3 col-4 text-center">
                     <div class="item-border">
-                        <cascade-icon-with-tooltip [item]="accessory" [iconType]="'item'" (click)="unequip(helm, 'accessory')" style="cursor: pointer;"></cascade-icon-with-tooltip>
-                        <span class="item-name">{{ accessory.name }}</span>
+                        <cascade-icon-with-tooltip [item]="accessory" [iconType]="'item'"></cascade-icon-with-tooltip>
+                        <span class="item-name" (click)="unequip(accessory, 'accessory')" style="cursor: pointer;">{{ accessory.name }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-3 offset-lg-1 col-4 text-center">
-                    <div class="item-border">                    
-                        <cascade-icon-with-tooltip [item]="mainHand" [iconType]="'item'" (click)="unequip(helm, 'mainHand')" style="cursor: pointer;"></cascade-icon-with-tooltip>
-                        <span class="item-name">{{ mainHand.name }}</span>
-                    </div>                    
+                    <div class="item-border">
+                        <cascade-icon-with-tooltip [item]="mainHand" [iconType]="'item'"></cascade-icon-with-tooltip>
+                        <span class="item-name" (click)="unequip(mainHand, 'mainHand')" style="cursor: pointer;">{{ mainHand.name }}</span>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-4 text-center">
-                    <div class="item-border">                    
-                        <cascade-icon-with-tooltip [item]="chest" [iconType]="'item'" (click)="unequip(helm, 'chest')" style="cursor: pointer;"></cascade-icon-with-tooltip>
-                        <span class="item-name">{{ chest.name }}</span>
-                    </div>                                      
+                    <div class="item-border">
+                        <cascade-icon-with-tooltip [item]="chest" [iconType]="'item'"></cascade-icon-with-tooltip>
+                        <span class="item-name" (click)="unequip(chest, 'chest')" style="cursor: pointer;">{{ chest.name }}</span>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-4 text-center">
-                    <div class="item-border">                    
-                        <cascade-icon-with-tooltip [item]="offHand" [iconType]="'item'" (click)="unequip(helm, 'offHand')" style="cursor: pointer;"></cascade-icon-with-tooltip>
-                        <span class="item-name">{{ offHand.name }}</span>
-                    </div>                                       
+                    <div class="item-border">
+                        <cascade-icon-with-tooltip [item]="offHand" [iconType]="'item'"></cascade-icon-with-tooltip>
+                        <span class="item-name" (click)="unequip(offHand, 'offHand')" style="cursor: pointer;">{{ offHand.name }}</span>
+                    </div>
                 </div>
             </div>
         </div>
