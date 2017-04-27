@@ -13,15 +13,29 @@
                 <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
             </div>
 
-            <div *ngIf="inventory.length === 0">
-                Your inventory is empty.
-            </div>
+            <div class="col-12">
+                <div class="row text-center" *ngIf="!inventoryEmpty">
 
-            <div *ngIf="inventory.length > 0">
-                <div *ngFor="let i of inventory">
-                    <cascade-icon-with-tooltip [item]="i" [iconType]="'item'"></cascade-icon-with-tooltip>
+                    <div class="col-12" style="padding-bottom: 15px;">
+                        <input type="text" class="form-control" placeholder="Search inventory..." autocomplete="off" [(ngModel)]="searchedItem" (ngModelChange)="searchInventory()"
+                        style="width: 85%; margin-left: auto; margin-right: auto;" />
+                    </div>
+
+                    <div class="col-sm-3 col-6" *ngFor="let i of inventory" style="padding-bottom: 20px; font-size: 11px;">
+                        <cascade-icon-with-tooltip [item]="i" [iconType]="'item'"></cascade-icon-with-tooltip>
+                        <div style="padding-bottom: 10px;">{{ i.name }} x{{ i.amount }}</div>
+                        <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable"><i class="fa fa-shield" aria-hidden="true"></i> Equip</button>
+                    </div>
+
+                    <div class="col-12">
+                        <span class="pull-right" style="padding-right: 7%; padding-top: 10px;">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="4" [size]="'sm'"></ngb-pagination>
+                        </span>
+                    </div>
+
                 </div>
             </div>
+
 
         </div>
     </div>

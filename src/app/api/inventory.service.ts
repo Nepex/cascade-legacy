@@ -16,12 +16,12 @@ export class InventoryService {
         { id: 'empty', name: 'Empty', icon: 'empty.png', description: 'This slot is empty.' },
 
         // armor
-        { id: 'leather_cap', name: 'Leather Cap', icon: 'leather_cap.png', bonusDef: 1, description: 'A cap made of leather.' },
-        { id: 'leather_vest', name: 'Leather Vest', icon: 'leather_vest.png', bonusDef: 1, description: 'A vest made of leather.' },
+        { id: 'leather_cap', name: 'Leather Cap', icon: 'leather_cap.png', bonusDef: 1, description: 'A cap made of leather.', equippable: true },
+        { id: 'leather_vest', name: 'Leather Vest', icon: 'leather_vest.png', bonusDef: 1, description: 'A vest made of leather.', equippable: true },
 
         // weapons
-        { id: 'practice_sword', name: 'Practice Sword', icon: 'practice_sword.png', bonusStr: 1, description: 'A beginner-level sword.' },
-        { id: 'practice_wand', name: 'Practice Wand', icon: 'practice_wand.png', bonusMag: 1, description: 'A beginner-level wand.' }
+        { id: 'practice_sword', name: 'Practice Sword', icon: 'practice_sword.png', bonusStr: 1, description: 'A beginner-level sword.', equippable: true },
+        { id: 'practice_wand', name: 'Practice Wand', icon: 'practice_wand.png', bonusMag: 1, description: 'A beginner-level wand.', equippable: true }
     ];
 
     getInventory() {
@@ -69,7 +69,9 @@ export class InventoryService {
                     mpHealingAmount: this.itemMapping[i].mpHealingAmount ? this.itemMapping[i].mpHealingAmount : 0,
                     damageAmount: this.itemMapping[i].damageAmount ? this.itemMapping[i].damageAmount : 0,
                     effect: this.itemMapping[i].effect ? this.itemMapping[i].effect : null,
-                    description: this.itemMapping[i].description ? this.itemMapping[i].description : null
+                    description: this.itemMapping[i].description ? this.itemMapping[i].description : null,
+                    equippable: this.itemMapping[i].equippable ? this.itemMapping[i].equippable : false,
+                    usable: this.itemMapping[i].usable ? this.itemMapping[i].usable : false,                    
                 };
 
                 return mappedItem;
@@ -109,4 +111,6 @@ export class Items {
     damageAmount?: number;
     effect?: string;
     description?: string;
+    equippable?: boolean;
+    usable?: boolean
 }

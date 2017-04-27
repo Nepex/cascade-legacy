@@ -2,33 +2,41 @@ export class InventoryConversion {
     createInventoryObj(obj) {
         let inventory = [];
 
-        // armor
-        if (parseInt(obj.leather_cap) > 0) {
-            inventory.push({
-                item: 'leather_cap',
-                amount: parseInt(obj.leather_cap)
-            });
+        delete obj.id;
+        delete obj.username;
+
+        // convert property names to strings
+        let propNameArray = Object.keys(obj);
+
+        // convert obj to string
+        let objAsString = JSON.stringify(obj);
+
+        // split values into an array
+        let splitObj = objAsString.split(/[:,]+/);
+
+        let amounts = [];
+        let amountIdxs = [];
+
+        // odd numbered indexs for the item amounts
+        for (let i = 0; i < 1000; i++) {
+            if (i % 2 != 0) {
+                amountIdxs.push(i);
+            }
         }
 
-        if (parseInt(obj.leather_vest) > 0) {
-            inventory.push({
-                item: 'leather_vest',
-                amount: parseInt(obj.leather_vest)
-            });
-        }
+        for (let i = 0; i < propNameArray.length; i++) {
+            // remove unnecessary characters
+            let removeCurly = splitObj[amountIdxs[i]].replace('}', '');
+            let removeQuotes = removeCurly.substring(1, removeCurly.length-1);
+            let finalAmount = parseInt(removeQuotes);
+            
+            if (!finalAmount) {
+                break;
+            }
 
-        // weapons
-        if (parseInt(obj.practice_sword) > 0) {
             inventory.push({
-                item: 'practice_sword',
-                amount: parseInt(obj.practice_sword)
-            });
-        }
-
-        if (parseInt(obj.practice_wand) > 0) {
-            inventory.push({
-                item: 'practice_wand',
-                amount: parseInt(obj.practice_wand)
+                item: propNameArray[i],
+                amount: finalAmount
             });
         }
 

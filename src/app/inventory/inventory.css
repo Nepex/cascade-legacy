@@ -3,10 +3,37 @@
 }
 
 #btn-1 {
+    cursor: pointer;
+    font-size: 11px;
+    color: #fff;
     background-color: #0099BC;
     border: 1px solid #0099BC;
 }
 
 #btn-1:hover {
     background-color: #0086A5;
+}
+
+:host >>> .page-link {
+    font-size: 14px;
+    line-height: 14px;
+    border: 1px solid #eee; 
+    color: #000;   
+    font-weight: bold;
+}
+
+:host >>> .page-item:last-of-type .page-link{
+    border: 1px solid #eee;        
+}
+
+:host >>> .page-item.disabled .page-link {
+    border: 1px solid #eee;            
+}
+
+:host >>> .page-item.active .page-link {
+    background: none;
+    color: #000;
+    border: 1px solid #eee;
+    background-color: #0099BC;    
+    color: #fff;
 }
