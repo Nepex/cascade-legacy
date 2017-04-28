@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <div class="container">
 
     <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
@@ -16,20 +19,28 @@
             <div class="col-12">
                 <div class="row text-center" *ngIf="!inventoryEmpty">
 
-                    <div class="col-12" style="padding-bottom: 15px;">
-                        <input type="text" class="form-control" placeholder="Search inventory..." autocomplete="off" [(ngModel)]="searchedItem" (ngModelChange)="searchInventory()"
-                        style="width: 85%; margin-left: auto; margin-right: auto;" />
+                    <div class="col-12" align="center">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="padding-bottom: 15px; width: 85%;">
+                            <div class="input-group-addon" style="border-radius: 0px;"><i class="fa fa-search" aria-hidden="true"></i></div>
+                            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup" placeholder="Search..." autocomplete="off"
+                                [(ngModel)]="searchedItem" (ngModelChange)="searchInventory()" style="border-radius: 0px;">
+                        </div>
                     </div>
 
-                    <div class="col-sm-3 col-6" *ngFor="let i of inventory" style="padding-bottom: 20px; font-size: 11px;">
+                    <div class="col-sm-3 col-6" *ngFor="let i of inventory | paginate: { itemsPerPage: 8, currentPage: currentPage }" style="padding-bottom: 20px; font-size: 11px;">
                         <cascade-icon-with-tooltip [item]="i" [iconType]="'item'"></cascade-icon-with-tooltip>
                         <div style="padding-bottom: 10px;">{{ i.name }} x{{ i.amount }}</div>
-                        <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable"><i class="fa fa-shield" aria-hidden="true"></i> Equip</button>
+                        <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable" (click)="equip(i)"><i class="fa fa-shield" aria-hidden="true"></i> Equip</button>
                     </div>
 
                     <div class="col-12">
                         <span class="pull-right" style="padding-right: 7%; padding-top: 10px;">
-                            <ngb-pagination [collectionSize]="totalItems" [(page)]="currentPage" [pageSize]="4" [size]="'sm'"></ngb-pagination>
+                            <pagination-controls (pageChange)="currentPage = $event"
+                            previousLabel=""
+                            nextLabel=""
+                            maxSize="9"
+                            directionLinks="true"
+                            class="pager"></pagination-controls> <!--  autoHide="true" -->
                         </span>
                     </div>
 

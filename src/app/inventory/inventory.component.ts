@@ -22,10 +22,7 @@ export class InventoryComponent {
     loadingRequest: Observable<any>;
     removeRequest: Observable<any>;
     searchedItem;
-    totalItems = 50;
-    pageSize: 2;
     currentPage = 1;
-    displayNPages = 5;
     inventoryEmpty = false;
 
     constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService) {
@@ -47,7 +44,6 @@ export class InventoryComponent {
             this.inventory = res[2];
             this.cachedInventory = res[2];
 
-            this.totalItems = this.inventory.length;
 
             if (this.inventory.length === 0) {
                 this.messages.push({
@@ -66,7 +62,9 @@ export class InventoryComponent {
         });
 
         this.inventory = filteredOptions;
-        this.totalItems = filteredOptions.length;
         this.currentPage = 0;
+    }
+
+    equip(i) {
     }
 }

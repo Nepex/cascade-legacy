@@ -1,6 +1,6 @@
 <div *ngIf="iconType === 'spell'">
     <template #tipContent>
-        <img src="../../assets/images/spell-icons/{{ tipInfo.icon }}" style="width: 40px; height: 40px; padding-right: 5px;">
+        <img src="../../assets/images/spell-icons/{{ tipInfo.icon }}" style="width: 35px; height: 30px; padding-right: 5px;">
         <b>
             {{ tipInfo.spellName }} 
             <span *ngIf="tipInfo.cost">({{ tipInfo.cost }})</span>
@@ -8,7 +8,7 @@
         <b style="color: gold">{{ tipInfo.description }}</b>
     </template>
 
-    <img src="../../assets/images/spell-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 35px; height: 35px; padding-bottom: 5px;"
+    <img src="../../assets/images/spell-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 45px; height: 45px; padding-bottom: 5px;"
         [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
 </div>
 

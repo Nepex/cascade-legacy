@@ -51,11 +51,10 @@
 
             <div class="col-6 col-lg-3 text-center party-member" *ngIf="party.length === 0">
                 <span class="party-member-span">
-                    <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
-                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();"><i class="fa fa-user"></i> Hire</button>
                 </span>
             </div>
 
@@ -69,11 +68,10 @@
 
             <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked !== 1 && party.length < 2">
                 <span class="party-member-span">
-                    <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
-                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();"><i class="fa fa-user"></i> Hire</button>
                 </span>
             </div>
             
@@ -88,11 +86,10 @@
 
             <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked !== 1 && user.partySlotsUnlocked !== 2 && party.length < 3">
                 <span class="party-member-span">
-                    <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
-                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();"><i class="fa fa-user"></i> Hire</button>
                 </span>
             </div>
 
@@ -107,11 +104,10 @@
 
             <div class="col-6 col-lg-3 text-center party-member" *ngIf="user.partySlotsUnlocked === 4 && party.length < 4">
                 <span class="party-member-span">
-                    <i class="fa fa-user"></i>
                     <br />
                     Slot available!
                     <br /> <br />
-                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();">Hire</button>
+                    <button class="btn btn-sm btn-primary" id="btn-1" style="cursor: pointer;" (click)="hire();"><i class="fa fa-user"></i> Hire</button>
                 </span>
             </div>
 

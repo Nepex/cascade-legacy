@@ -5,35 +5,36 @@
 #btn-1 {
     cursor: pointer;
     font-size: 11px;
+    border-radius: 0px;
     color: #fff;
     background-color: #0099BC;
     border: 1px solid #0099BC;
+    transition: 0s;
 }
 
 #btn-1:hover {
     background-color: #0086A5;
+    transition: 0s;    
 }
 
-:host >>> .page-link {
+.pager {
     font-size: 14px;
     line-height: 14px;
+    cursor: pointer;    
+}
+
+:host >>> .ngx-pagination .current {
     border: 1px solid #eee; 
-    color: #000;   
-    font-weight: bold;
+    background-color: #0099BC;
+    color: #fff;   
 }
 
-:host >>> .page-item:last-of-type .page-link{
-    border: 1px solid #eee;        
+:host >>> .ngx-pagination a {
 }
 
-:host >>> .page-item.disabled .page-link {
-    border: 1px solid #eee;            
+
+:host >>> .ngx-pagination a:hover {
+    background-color: #fff;
 }
 
-:host >>> .page-item.active .page-link {
-    background: none;
-    color: #000;
-    border: 1px solid #eee;
-    background-color: #0099BC;    
-    color: #fff;
-}
+
