@@ -71,7 +71,10 @@ export class InventoryService {
                     effect: this.itemMapping[i].effect ? this.itemMapping[i].effect : null,
                     description: this.itemMapping[i].description ? this.itemMapping[i].description : null,
                     equippable: this.itemMapping[i].equippable ? this.itemMapping[i].equippable : false,
-                    usable: this.itemMapping[i].usable ? this.itemMapping[i].usable : false,                    
+                    usable: this.itemMapping[i].usable ? this.itemMapping[i].usable : false,
+                    sellValue: this.itemMapping[i].sellValue ? this.itemMapping[i].sellValue : 0,                    
+                    buyValue: this.itemMapping[i].buyValue ? this.itemMapping[i].buyValue : 0,                    
+                    sellable: this.itemMapping[i].sellable ? this.itemMapping[i].sellable : true              
                 };
 
                 return mappedItem;
@@ -112,5 +115,8 @@ export class Items {
     effect?: string;
     description?: string;
     equippable?: boolean;
-    usable?: boolean
+    usable?: boolean;
+    sellable?: boolean;
+    sellValue?: number;
+    buyValue?: number;
 }

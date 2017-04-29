@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'underscore';
@@ -11,7 +11,7 @@ import { AlertMessages } from '../layout/alert-messages.component';
     templateUrl: 'inventory.html',
     styleUrls: ['inventory.css']
 })
-export class InventoryComponent {
+export class InventoryComponent implements OnInit {
 
     user: any = {};
     party: any = [];
@@ -26,10 +26,9 @@ export class InventoryComponent {
     inventoryEmpty = false;
 
     constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService) {
-        this.activate();
     }
 
-    activate() {
+    ngOnInit() {
         this.messages = [];
 
         this.loadingRequest = Observable.forkJoin(
@@ -44,6 +43,12 @@ export class InventoryComponent {
             this.inventory = res[2];
             this.cachedInventory = res[2];
 
+            for (let i = 0; i < this.inventory.length; i++) {
+                this.inventory[i].showParty = false;
+            }
+
+
+            console.log(this.inventory);
 
             if (this.inventory.length === 0) {
                 this.messages.push({
@@ -66,5 +71,17 @@ export class InventoryComponent {
     }
 
     equip(i) {
+    }
+
+    sellItem(item) {
+        
+    }
+    
+    closeMenu(item) {
+        for (let i = 0; i < this.inventory.length; i++) {
+            if (item.id === this.inventory[i].id) {
+                this.inventory[i].showParty = false;
+            }
+        }
     }
 }

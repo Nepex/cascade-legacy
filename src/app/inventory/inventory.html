@@ -19,8 +19,8 @@
             <div class="col-12">
                 <div class="row text-center" *ngIf="!inventoryEmpty">
 
-                    <div class="col-12" align="center">
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="padding-bottom: 15px; width: 85%;">
+                    <div class="col-12" align="">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0 search-box" style="padding-bottom: 15px;">
                             <div class="input-group-addon" style="border-radius: 0px;"><i class="fa fa-search" aria-hidden="true"></i></div>
                             <input type="text" class="form-control form-control-sm" id="inlineFormInputGroup" placeholder="Search..." autocomplete="off"
                                 [(ngModel)]="searchedItem" (ngModelChange)="searchInventory()" style="border-radius: 0px;">
@@ -30,8 +30,26 @@
                     <div class="col-sm-3 col-6" *ngFor="let i of inventory | paginate: { itemsPerPage: 8, currentPage: currentPage }" style="padding-bottom: 20px; font-size: 11px;">
                         <cascade-icon-with-tooltip [item]="i" [iconType]="'item'"></cascade-icon-with-tooltip>
                         <div style="padding-bottom: 10px;">{{ i.name }} x{{ i.amount }}</div>
-                        <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable" (click)="equip(i)"><i class="fa fa-shield" aria-hidden="true"></i> Equip</button>
+
+
+                        <div class="dropdown" (offClick)="closeMenu(i)">
+                            <div class="dropbtn">
+                                <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable" (click)="i.showParty = !i.showParty" style="margin-right: 5px; margin-bottom: 5px;" title="Equip">
+                                        <i class="fa fa-shield" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="dropdown-content" *ngIf="i.showParty" style="cursor: pointer">
+                                <div *ngFor="let p of party" (click)="equip(p, i)" >
+                                    {{ p.name }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-sm" id="btn-1" style="margin-right: 14px; margin-bottom: 5px;" *ngIf="i.sellable" title="Sell One ({{ i.sellValue }})" (click)="sellItem(i)">
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                        </button>
                     </div>
+
 
                     <div class="col-12">
                         <span class="pull-right" style="padding-right: 7%; padding-top: 10px;">

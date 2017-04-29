@@ -18,15 +18,12 @@
 }
 
 #btn-1 {
-    transition: 0s;    
-    border-radius: 0px;
     background-color: #0099BC;
     border: 1px solid #0099BC;
     font-size: 11px;
 }
 
 #btn-1:hover {
-    transition: 0s;
     background-color: #0086A5;
 }
 
