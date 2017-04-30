@@ -43,10 +43,10 @@ export class InventoryComponent implements OnInit {
             for (let i = 0; i < this.inventory.length; i++) {
                 this.inventory[i].showParty = false;
             }
-            
+
             if (this.inventory.length === 0) {
                 this.messages.push({
-                    message: "Your inventory is empty.",
+                    message: "Your inventory is empty",
                     type: "error"
                 });
 
@@ -101,13 +101,36 @@ export class InventoryComponent implements OnInit {
                     return;
                 }
 
-                this.messages.push({ message: `${item.name} equipped`, type: 'success' });
+                this.messages.push({ message: `${item.name} equipped to ${p.name}`, type: 'success' });
+                this.ngOnInit();
+            });
+    }
+
+    useItem(p, i) {
+        let item = i;
+        item.partyId = p.id;
+
+        this.loadingRequest = this.inventoryService.use(item);
+        this.loadingRequest.subscribe(
+            res => {
+                this.messages = [];
+                this.loadingRequest = null;
+
+                this.messages.push({ message: `${item.name} used on ${p.name}`, type: 'success' });
                 this.ngOnInit();
             });
     }
 
     sellItem(item) {
+        this.loadingRequest = this.inventoryService.sell(item);
+        this.loadingRequest.subscribe(
+            res => {
+                this.messages = [];
+                this.loadingRequest = null;
 
+                this.messages.push({ message: `${item.name} has been sold`, type: 'success' });
+                this.ngOnInit();
+            });
     }
 
     closeMenu(item) {

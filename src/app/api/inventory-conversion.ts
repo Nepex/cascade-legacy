@@ -40,8 +40,6 @@ export class InventoryConversion {
             });
         }
 
-        console.log(inventory);
-
         return inventory;
     }
 }

@@ -11,7 +11,7 @@
     </div>
 
     <!-- menu -->
-    <div class="col-12">
+    <div class="col-12"  style="z-index: 100;">
       <div class="dropdown" (offClick)="closeMenu()">
         <div class="dropbtn">
           <i class="fa fa-bars" style="cursor: pointer;" (click)="showMenu = !showMenu"></i>
@@ -23,7 +23,7 @@
           <a href="#">
             <i class="fa fa-map" style="cursor: pointer;"></i> &nbsp; Explore
           </a>
-          <div style="cursor: pointer;">
+          <div style="cursor: pointer;" (click)="displaySettings();">
             <i class="fa fa-cog" style="cursor: pointer;"></i> &nbsp; Settings
           </div>
           <div style="cursor: pointer;" (click)="logout();">

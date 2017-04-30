@@ -1,0 +1,89 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="modal-title pull-left">
+            Account Settings
+        </span>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.dismiss('cancel')">
+            <span style="color:#fff" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+
+            <div class="row" *ngIf="messages.length > 0">
+                <div class="col-12" style="padding-bottom: 30px;">
+                    <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+                </div>
+            </div>
+
+            <form (ngSubmit)="changeEmail()" [formGroup]="emailForm" novalidate>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">New Email</label>
+                            <cascade-validation-messages [control]="emailForm.controls.newEmail" [submitted]="emailForm.submitted"></cascade-validation-messages>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" formControlName="newEmail" name="name" id="name" autocomplete="off"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group text-center">
+                            <input type="submit" value="Change Email" class="btn btn-primary btn-sm" id="btn-1" style="margin-top: 25px; cursor: pointer;"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <form (ngSubmit)="changePassword()" [formGroup]="passwordForm" novalidate>
+
+                <div class="row" style="padding-top: 30px;">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Old Password</label>
+                            <cascade-validation-messages [control]="passwordForm.controls.oldPassword" [submitted]="passwordForm.submitted"></cascade-validation-messages>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="password" class="form-control form-control-sm" formControlName="oldPassword" name="name" id="name" autocomplete="off"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">New Password</label>
+                            <cascade-validation-messages [control]="passwordForm.controls.newPassword" [submitted]="passwordForm.submitted"></cascade-validation-messages>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="password" class="form-control form-control-sm" formControlName="newPassword" name="name" id="name" autocomplete="off"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group text-center">
+                            <input type="submit" value="Change Password" class="btn btn-primary btn-sm" id="btn-1" style="margin-top: 25px; cursor: pointer;"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

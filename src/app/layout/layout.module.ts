@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '../common/common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,9 +13,12 @@ import { SpriteLoaderComponent } from './sprite-loader.component';
 import { ExpBarComponent } from './exp-bar.component';
 import { ConfirmModalComponent } from './confirm-modal.component';
 import { IconWithTooltipComponent } from './icon-with-tooltip.component';
+import { SettingsComponent } from './settings-modal.component';
 
 @NgModule({
     imports: [
+        FormsModule,
+        ReactiveFormsModule,
         BrowserModule,
         CommonModule,
         NgbModule.forRoot()
@@ -28,6 +32,7 @@ import { IconWithTooltipComponent } from './icon-with-tooltip.component';
         SpriteLoaderComponent,
         ExpBarComponent,
         ConfirmModalComponent,
+        SettingsComponent,
         IconWithTooltipComponent
     ],
     exports: [
@@ -41,7 +46,8 @@ import { IconWithTooltipComponent } from './icon-with-tooltip.component';
         IconWithTooltipComponent
     ],
     entryComponents: [
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        SettingsComponent
     ]
 })
 export class LayoutModule {}

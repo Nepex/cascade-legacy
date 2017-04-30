@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-
 @Component({
     selector: 'cascade-stats',
     templateUrl: './stats.html',
@@ -11,5 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class StatsComponent {
     @Input() partyMember: any;
 
-    constructor(private activeModal: NgbActiveModal) { }
+    constructor(private activeModal: NgbActiveModal) {
+        
+    }
 }

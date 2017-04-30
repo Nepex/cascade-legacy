@@ -10,14 +10,13 @@
     <div class="modal-body">
 
         <div class="container">
-
-            <div class="row" *ngIf="!partyMember.spells">
-                <div class="col-12 text-center">
-                    No spells have been learned.
+            <div class="row">
+                <div class="col-12 text-center" style="padding-bottom: 20px; font-size: 12px;">
+                    <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
                 </div>
             </div>
 
-            <table class="table table-striped" *ngIf="partyMember.spells" style="border: 1px solid #eee">
+            <table class="table table-striped" *ngIf="partyMember.spells" style="border: 1px solid #eee; margin-bottom: 20px;">
                 <thead style="background-color: #0099BC; color: #fff;">
                     <tr>
                         <th class="text-center">Spell</th>
@@ -30,7 +29,7 @@
                     <tr *ngFor="let s of partyMember.spells" style="font-size: 11px;">
                         <td class="text-center">
                             <cascade-icon-with-tooltip [item]="s" [iconType]="'spell'"></cascade-icon-with-tooltip>
-                            
+
                             {{ s.spellName }}
                         </td>
                         <td class="text-center" style="color: blue;">{{ s.cost }} MP</td>

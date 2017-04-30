@@ -6,6 +6,7 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 import { UserService } from './user.service';
 import { PartyService } from './party.service';
 import { InventoryService } from './inventory.service';
+import { SettingsService } from './settings.service';
 import { InventoryConversion } from './inventory-conversion';
 import { SessionService } from './session.service';
 import { SessionStateService } from './session-state.service';
@@ -24,6 +25,7 @@ import { Environment } from './environment';
         PartyService,
         InventoryService,
         InventoryConversion,
+        SettingsService,
         SessionService,
         SessionStateService,
         AuthenticatedHttpService,
