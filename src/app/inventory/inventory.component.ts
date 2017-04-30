@@ -20,7 +20,6 @@ export class InventoryComponent implements OnInit {
     spellsLearned: any;
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
-    removeRequest: Observable<any>;
     searchedItem;
     currentPage = 1;
     inventoryEmpty = false;
@@ -29,8 +28,6 @@ export class InventoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.messages = [];
-
         this.loadingRequest = Observable.forkJoin(
             this.userService.getUser(),
             this.partyService.getParty(),
@@ -46,10 +43,7 @@ export class InventoryComponent implements OnInit {
             for (let i = 0; i < this.inventory.length; i++) {
                 this.inventory[i].showParty = false;
             }
-
-
-            console.log(this.inventory);
-
+            
             if (this.inventory.length === 0) {
                 this.messages.push({
                     message: "Your inventory is empty.",
@@ -70,13 +64,52 @@ export class InventoryComponent implements OnInit {
         this.currentPage = 0;
     }
 
-    equip(i) {
+    equip(p, i) {
+        let item = i;
+        let itemIdToRemove: string;
+
+        // map party member's currently equipped item to a variable
+        switch (item.slot) {
+            case 'mainHand':
+                itemIdToRemove = p.mainHand;
+                break;
+            case 'offHand':
+                itemIdToRemove = p.offHand;
+                break;
+            case 'helm':
+                itemIdToRemove = p.helm;
+                break;
+            case 'chest':
+                itemIdToRemove = p.chest;
+                break;
+        }
+
+        item.partyId = p.id;
+        item.itemToRemove = this.inventoryService.getItem(itemIdToRemove, 1);
+
+        this.loadingRequest = this.inventoryService.equip(item);
+        this.loadingRequest.subscribe(
+            res => {
+                this.messages = [];
+                this.loadingRequest = null;
+
+                if (res._body === 'invalid job') {
+                    this.messages.push({
+                        message: `${p.job}s cannot use that`,
+                        type: 'error'
+                    });
+                    return;
+                }
+
+                this.messages.push({ message: `${item.name} equipped`, type: 'success' });
+                this.ngOnInit();
+            });
     }
 
     sellItem(item) {
-        
+
     }
-    
+
     closeMenu(item) {
         for (let i = 0; i < this.inventory.length; i++) {
             if (item.id === this.inventory[i].id) {

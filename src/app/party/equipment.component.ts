@@ -38,7 +38,6 @@ export class EquipmentComponent implements OnInit {
             return;
         }
 
-        item.slot = slot;
         item.partyId = this.partyMember.id;
 
         this.loadingRequest = this.inventoryService.unequip(item);

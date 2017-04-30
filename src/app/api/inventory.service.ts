@@ -12,16 +12,16 @@ export class InventoryService {
     constructor(private http: Http, private paramSerializer: ParamSerializer, private sessionStateService: SessionStateService, private environment: Environment,
         private inventoryConversion: InventoryConversion) { }
 
-    itemMapping: Items[] = [
+    itemMapping: Item[] = [
         { id: 'empty', name: 'Empty', icon: 'empty.png', description: 'This slot is empty.' },
 
         // armor
-        { id: 'leather_cap', name: 'Leather Cap', icon: 'leather_cap.png', bonusDef: 1, description: 'A cap made of leather.', equippable: true },
-        { id: 'leather_vest', name: 'Leather Vest', icon: 'leather_vest.png', bonusDef: 1, description: 'A vest made of leather.', equippable: true },
+        { id: 'leather_cap', name: 'Leather Cap', icon: 'leather_cap.png', bonusDef: 1, description: 'A cap made of leather.', equippable: true, slot: 'helm' },
+        { id: 'leather_vest', name: 'Leather Vest', icon: 'leather_vest.png', bonusDef: 1, description: 'A vest made of leather.', equippable: true, slot: 'chest' },
 
         // weapons
-        { id: 'practice_sword', name: 'Practice Sword', icon: 'practice_sword.png', bonusStr: 1, description: 'A beginner-level sword.', equippable: true },
-        { id: 'practice_wand', name: 'Practice Wand', icon: 'practice_wand.png', bonusMag: 1, description: 'A beginner-level wand.', equippable: true }
+        { id: 'practice_sword', name: 'Practice Sword', icon: 'practice_sword.png', bonusStr: 1, description: 'A beginner-level sword.', equippable: true, slot: 'mainHand', jobs: ['Knight'] },
+        { id: 'practice_wand', name: 'Practice Wand', icon: 'practice_wand.png', bonusMag: 1, description: 'A beginner-level wand.', equippable: true, slot: 'mainHand', jobs: ['Mage', 'Priest'] }
     ];
 
     getInventory() {
@@ -53,7 +53,7 @@ export class InventoryService {
         for (let i = 0; i < this.itemMapping.length; i++) {
             if (item === this.itemMapping[i].id) {
 
-                let mappedItem: Items = {
+                let mappedItem: Item = {
                     id: this.itemMapping[i].id,
                     name: this.itemMapping[i].name,
                     amount: amount,
@@ -72,9 +72,11 @@ export class InventoryService {
                     description: this.itemMapping[i].description ? this.itemMapping[i].description : null,
                     equippable: this.itemMapping[i].equippable ? this.itemMapping[i].equippable : false,
                     usable: this.itemMapping[i].usable ? this.itemMapping[i].usable : false,
-                    sellValue: this.itemMapping[i].sellValue ? this.itemMapping[i].sellValue : 0,                    
-                    buyValue: this.itemMapping[i].buyValue ? this.itemMapping[i].buyValue : 0,                    
-                    sellable: this.itemMapping[i].sellable ? this.itemMapping[i].sellable : true              
+                    sellValue: this.itemMapping[i].sellValue ? this.itemMapping[i].sellValue : 0,
+                    buyValue: this.itemMapping[i].buyValue ? this.itemMapping[i].buyValue : 0,
+                    sellable: this.itemMapping[i].sellable ? this.itemMapping[i].sellable : true,
+                    slot: this.itemMapping[i].slot ? this.itemMapping[i].slot : null,
+                    jobs: this.itemMapping[i].jobs ? this.itemMapping[i].jobs : 'any'                    
                 };
 
                 return mappedItem;
@@ -95,9 +97,37 @@ export class InventoryService {
 
         return req;
     }
+
+    equip(item) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/puts/equip-item.php`;
+
+        let req = this.http.put(url, item, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
+
+    use(item) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/puts/use-item.php`;
+
+        let req = this.http.put(url, item, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
 }
 
-export class Items {
+export class Item {
     id: string;
     name: string;
     amount?: number;
@@ -119,4 +149,6 @@ export class Items {
     sellable?: boolean;
     sellValue?: number;
     buyValue?: number;
+    slot?: string;
+    jobs?: string[] | string;
 }

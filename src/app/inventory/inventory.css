@@ -76,6 +76,13 @@
     background-color: #fff;
 }
 
+:host >>>  .tooltip {
+    opacity: 1;
+}
+
+:host >>>  .tooltip-inner {
+    font-size: 11px;
+}
 
 
 @media (min-width: 344px) {
@@ -83,7 +90,6 @@
         max-width: 100%;
     }
 }
-
 
 @media (min-width: 544px) {
     .search-box {

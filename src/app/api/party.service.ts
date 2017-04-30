@@ -16,7 +16,7 @@ export class PartyService {
         headers.append('Authorization', `${this.sessionStateService.getToken()}`);
 
         let serializedParams = this.paramSerializer.serialize(partyMember);
-        let url = `${this.environment.baseApiUrl}/posts/hire.php?${serializedParams}`;
+        let url = `${this.environment.baseApiUrl}/posts/create-party-member.php?${serializedParams}`;
 
         return this.http.post(url, partyMember, {
             headers: headers

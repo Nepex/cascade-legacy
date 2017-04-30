@@ -29,9 +29,9 @@ export class InventoryConversion {
             let removeCurly = splitObj[amountIdxs[i]].replace('}', '');
             let removeQuotes = removeCurly.substring(1, removeCurly.length-1);
             let finalAmount = parseInt(removeQuotes);
-            
+
             if (!finalAmount) {
-                break;
+                continue;
             }
 
             inventory.push({
@@ -39,6 +39,8 @@ export class InventoryConversion {
                 amount: finalAmount
             });
         }
+
+        console.log(inventory);
 
         return inventory;
     }

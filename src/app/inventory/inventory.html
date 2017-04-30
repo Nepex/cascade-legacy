@@ -34,18 +34,20 @@
 
                         <div class="dropdown" (offClick)="closeMenu(i)">
                             <div class="dropbtn">
-                                <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable" (click)="i.showParty = !i.showParty" style="margin-right: 5px; margin-bottom: 5px;" title="Equip">
+                                <button class="btn btn-sm" id="btn-1" *ngIf="i.equippable" (click)="i.showParty = !i.showParty" style="margin-right: 5px; margin-bottom: 5px;"
+                                ngbTooltip="Equip" placement="top">
                                         <i class="fa fa-shield" aria-hidden="true"></i>
                                 </button>
                             </div>
                             <div class="dropdown-content" *ngIf="i.showParty" style="cursor: pointer">
-                                <div *ngFor="let p of party" (click)="equip(p, i)" >
+                                <div *ngFor="let p of party" (click)="equip(p, i); closeMenu(i);" >
                                     {{ p.name }}
                                 </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-sm" id="btn-1" style="margin-right: 14px; margin-bottom: 5px;" *ngIf="i.sellable" title="Sell One ({{ i.sellValue }})" (click)="sellItem(i)">
+                        <button class="btn btn-sm" id="btn-1" style="margin-right: 14px; margin-bottom: 5px;" *ngIf="i.sellable" (click)="sellItem(i)"
+                        ngbTooltip="Sell ({{ i.sellValue }})" placement="top">
                             <i class="fa fa-diamond" aria-hidden="true"></i>
                         </button>
                     </div>

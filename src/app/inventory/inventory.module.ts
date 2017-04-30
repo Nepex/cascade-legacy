@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApiModule } from '../api/index';
 import { LayoutModule } from '../layout/layout.module';
@@ -19,7 +20,8 @@ import { InventoryComponent } from './inventory.component';
         ApiModule,
         CommonModule,
         LayoutModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        NgbModule.forRoot()
     ],
     declarations: [
         InventoryComponent
