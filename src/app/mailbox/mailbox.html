@@ -1,0 +1,44 @@
+<style>
+
+</style>
+<div class="container">
+
+    <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
+
+    <div class="container border-top-0" id="main-border">
+        <div class="row">
+
+            <div class="col-12 text-center border-top-0" style="padding-top: 10px;">
+                <cascade-main-menu-nav [selectedTab]="'MAILBOX'"></cascade-main-menu-nav>
+            </div>
+
+            <div class="col-12 text-center" style="padding-bottom: 20px; font-size: 12px;">
+                <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+            </div>
+
+            <div class="col-12">
+                <div class="pull-left" style="font-size: 13px; margin-left: 25px; ">
+                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-right: 25px; margin-bottom: 10px;" ngbTooltip="Send Mail"
+                        placement="top">
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    </button>
+
+                    <div style="padding-bottom: 20px;">
+                        0 Messages &nbsp; | &nbsp; 0 New Messages
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+
+                <!-- create ngFor to display messages -->
+                <table>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <cascade-footer></cascade-footer>
+
+</div>

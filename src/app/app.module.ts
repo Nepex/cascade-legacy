@@ -11,6 +11,7 @@ import { ChangeLogModule, ChangeLogComponent } from './changelog/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
 import { PartyModule, PartyComponent } from './party/index';
+import { MailboxModule, MailboxComponent } from './mailbox/index';
 import { InventoryModule, InventoryComponent } from './inventory/index';
 import { AuthGuard } from './auth-guard.service';
 
@@ -31,6 +32,7 @@ import { AppComponent } from './app.component';
     HomeModule,
     ChangeLogModule,
     CreateUserModule,
+    MailboxModule,
     LoginModule,
     PartyModule,
     LayoutModule,
@@ -41,7 +43,8 @@ import { AppComponent } from './app.component';
       { path: 'signup', component: CreateUserComponent },
       { path: 'login', component: LoginComponent },
       { path: 'party', component: PartyComponent, canActivate: [AuthGuard] },
-      { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] }      
+      { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
+      { path: 'mailbox', component: MailboxComponent, canActivate: [AuthGuard] }                 
     ])
   ],
   providers: [

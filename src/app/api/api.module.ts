@@ -5,6 +5,7 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 
 import { UserService } from './user.service';
 import { PartyService } from './party.service';
+import { MailboxService } from './mailbox.service';
 import { InventoryService } from './inventory.service';
 import { SettingsService } from './settings.service';
 import { InventoryConversion } from './inventory-conversion';
@@ -23,6 +24,7 @@ import { Environment } from './environment';
     providers: [
         UserService,
         PartyService,
+        MailboxService,
         InventoryService,
         InventoryConversion,
         SettingsService,
