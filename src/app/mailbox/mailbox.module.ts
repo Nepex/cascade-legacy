@@ -9,6 +9,8 @@ import { ApiModule } from '../api/index';
 import { LayoutModule } from '../layout/layout.module';
 import { CommonModule } from '../common/common.module';
 import { MailboxComponent } from './mailbox.component';
+import { SendMessageComponent } from './send-message.component';
+import { ReadMessageComponent } from './read-message.component';
 
 @NgModule({
     imports: [
@@ -24,10 +26,14 @@ import { MailboxComponent } from './mailbox.component';
         NgbModule.forRoot()
     ],
     declarations: [
-        MailboxComponent
+        MailboxComponent,
+        SendMessageComponent,
+        ReadMessageComponent
     ],
     entryComponents: [
-        MailboxComponent
+        MailboxComponent,
+        SendMessageComponent,
+        ReadMessageComponent
     ]
 })
 export class MailboxModule { }

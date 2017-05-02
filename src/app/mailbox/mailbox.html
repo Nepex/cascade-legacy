@@ -9,31 +9,73 @@
         <div class="row">
 
             <div class="col-12 text-center border-top-0" style="padding-top: 10px;">
-                <cascade-main-menu-nav [selectedTab]="'MAILBOX'"></cascade-main-menu-nav>
+                <cascade-main-menu-nav [selectedTab]="'MAILBOX'" [newMessages]="newMessages"></cascade-main-menu-nav>
             </div>
 
             <div class="col-12 text-center" style="padding-bottom: 20px; font-size: 12px;">
                 <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
             </div>
 
-            <div class="col-12">
-                <div class="pull-left" style="font-size: 13px; margin-left: 25px; ">
-                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-right: 25px; margin-bottom: 10px;" ngbTooltip="Send Mail"
-                        placement="top">
+            <div class="col-lg-10 offset-lg-1 col-12">
+                <div class="pull-left" style="font-size: 13px; ">
+                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;" ngbTooltip="Send Mail" placement="top"
+                        (click)="sendMessage()">
                         <i class="fa fa-comment-o" aria-hidden="true"></i>
                     </button>
-
-                    <div style="padding-bottom: 20px;">
-                        0 Messages &nbsp; | &nbsp; 0 New Messages
-                    </div>
                 </div>
+
+                <span class="pull-right" style="padding-bottom: 20px; position: relative; top: 2px; font-size: 12px;">
+                        {{ mail.length }} Message<span *ngIf="mail.length > 1">s</span> &nbsp; | &nbsp; {{
+                        newMessages }} New Message<span *ngIf="newMessages > 1">s</span>
+                </span>
+            </div>
+
+            <div class="col-lg-10 offset-lg-1 col-12">
+
+                <table class="table table-hover" style="font-size: 12px;" *ngIf="mail.length > 0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>From</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let m of mail | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+                            <td style="width: 5%"><i class="fa fa-times" aria-hidden="true" style="cursor: pointer;" (click)="confirmRemove(m)"></i></td>
+                            <td style="width: 5%; cursor: pointer;" (click)="displayMessage(m)">
+                                <i class="fa fa-envelope-open-o" aria-hidden="true" *ngIf="m.read === 'true'"></i>
+                                <i class="fa fa-envelope" aria-hidden="true" *ngIf="m.read === 'false'"></i>
+                            </td>
+                            <td style="width: 30; cursor: pointer;" (click)="displayMessage(m)">
+                                <strong *ngIf="m.read === 'false'">{{ m.sender }}</strong>
+                                <span *ngIf="m.read === 'true'">{{ m.sender}} </span>
+                            </td>
+                            <td style="width: 30%; cursor: pointer;" (click)="displayMessage(m)">
+                                <strong *ngIf="m.read === 'false'">{{ m.date }}</strong>
+                                <span *ngIf="m.read === 'true'">{{ m.date }}</span>
+                            </td>
+                            <td style="width: 30%; cursor: pointer;" (click)="displayMessage(m)">
+                                <strong *ngIf="m.read === 'false'">{{ m.time }}</strong>
+                                <span *ngIf="m.read === 'true'">{{ m.time }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="col-12">
-
-                <!-- create ngFor to display messages -->
-                <table>
-                </table>
+                <span class="pull-right" style="padding-right: 7%; padding-top: 10px;">
+                            <pagination-controls (pageChange)="currentPage = $event"
+                            previousLabel=""
+                            nextLabel=""
+                            maxSize="9"
+                            directionLinks="true"
+                            class="pager"
+                            autoHide="true"></pagination-controls>
+                        </span>
             </div>
 
         </div>

@@ -1,0 +1,36 @@
+.modal-header { 
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    background: #0099BC;
+    border-bottom: 3px solid #0086A5;
+    font-size: 14px;
+    letter-spacing: 1pt;
+}
+
+.modal-body {
+    font-size: 12px;
+}
+
+#btn-1 {
+    background-color: #0099BC;
+    border: 1px solid #0099BC;
+}
+
+#btn-1:hover {
+    background-color: #0086A5;
+}
+
+:host >>>  .tooltip {
+    opacity: 1;
+}
+
+:host >>>  .tooltip-inner {
+    font-size: 11px;
+}
+
+.radio-btn {
+    margin-top: 10px;
+}

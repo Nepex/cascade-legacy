@@ -1,0 +1,60 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="modal-title pull-left">
+            Send Message
+        </span>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.dismiss('cancel')">
+            <span style="color:#fff" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="sendMessage()" [formGroup]="messageForm" novalidate>
+            <div class="container">
+
+                <div class="row" *ngIf="messages.length > 0">
+                    <div class="col-12" style="padding-bottom: 30px;">
+                        <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="receiver" class="cols-sm-2 control-label">Deliver to</label>
+                            <cascade-validation-messages [control]="messageForm.controls.receiver" [submitted]="messageForm.submitted"></cascade-validation-messages>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" formControlName="receiver" name="receiver" id="receiver" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="message" class="cols-sm-2 control-label">Message</label>
+                            <cascade-validation-messages [control]="messageForm.controls.message" [submitted]="messageForm.submitted"></cascade-validation-messages>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <textarea class="form-control form-control-sm" formControlName="message" name="message" id="message" autocomplete="off"
+                                    placeholder="Char limit 500" style="font-size: 11px; height: 200px; resize: none;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                <div class="col-12">
+                    <input type="submit" value="Send" class="btn btn-primary btn-sm pull-right" id="btn-1" style="cursor: pointer;" (click)="sendMessage();"
+                        ngbTooltip="Send" placement="top">
+                </div>
+            </div>
+
+            </div>
+        </form>
+    </div>
+</div>

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'underscore';
 
-import { UserService, PartyService, InventoryService } from '../api/index';
+import { UserService, PartyService, InventoryService, MailboxService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 
 @Component({
@@ -15,6 +15,7 @@ export class InventoryComponent implements OnInit {
 
     user: any = {};
     party: any = [];
+    mail: any = [];
     inventory: any = [];
     cachedInventory: any;
     spellsLearned: any;
@@ -23,15 +24,18 @@ export class InventoryComponent implements OnInit {
     searchedItem;
     currentPage = 1;
     inventoryEmpty = false;
+    newMessages = 0;
+    newMessagesLoaded = false;
 
-    constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService) {
+    constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService, private mailboxService: MailboxService) {
     }
 
     ngOnInit() {
         this.loadingRequest = Observable.forkJoin(
             this.userService.getUser(),
             this.partyService.getParty(),
-            this.inventoryService.getInventory()
+            this.inventoryService.getInventory(),
+            this.mailboxService.getMessages()
         );
 
         this.loadingRequest.subscribe(res => {
@@ -39,6 +43,7 @@ export class InventoryComponent implements OnInit {
             this.party = res[1];
             this.inventory = res[2];
             this.cachedInventory = res[2];
+            this.mail = res[3];
 
             for (let i = 0; i < this.inventory.length; i++) {
                 this.inventory[i].showParty = false;
@@ -51,6 +56,15 @@ export class InventoryComponent implements OnInit {
                 });
 
                 this.inventoryEmpty = true;
+            }
+
+            if (!this.newMessagesLoaded) {
+                for (let i = 0; i < this.mail.length; i++) {
+                    if (this.mail[i].read === 'false') {
+                        this.newMessages++;
+                    }
+                }
+                this.newMessagesLoaded = true;
             }
         });
     }
@@ -101,7 +115,7 @@ export class InventoryComponent implements OnInit {
                     return;
                 }
 
-                this.messages.push({ message: `${item.name} equipped to ${p.name}`, type: 'success' });
+                this.messages.push({ message: `${item.name} equipped`, type: 'success' });
                 this.ngOnInit();
             });
     }
@@ -116,7 +130,7 @@ export class InventoryComponent implements OnInit {
                 this.messages = [];
                 this.loadingRequest = null;
 
-                this.messages.push({ message: `${item.name} used on ${p.name}`, type: 'success' });
+                this.messages.push({ message: `${item.name} has been used`, type: 'success' });
                 this.ngOnInit();
             });
     }

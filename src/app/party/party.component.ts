@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { UserService, PartyService, InventoryService } from '../api/index';
+import { UserService, PartyService, InventoryService, MailboxService } from '../api/index';
 import { AlertMessages } from '../layout/alert-messages.component';
 import { HireComponent } from './hire.component';
 import { StatsComponent } from './stats.component';
@@ -20,12 +20,16 @@ export class PartyComponent {
     user: any = {};
     party: any = [];
     inventory: any = {};
+    mail: any = [];
     spellsLearned: any;
     messages: AlertMessages[] = [];
+    newMessages = 0;
+    newMessagesLoaded = false;
     loadingRequest: Observable<any>;
     removeRequest: Observable<any>;
 
-    constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService, private modalService: NgbModal) {
+    constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService, private modalService: NgbModal,
+        private mailboxService: MailboxService) {
         this.activate();
     }
 
@@ -33,13 +37,24 @@ export class PartyComponent {
         this.loadingRequest = Observable.forkJoin(
             this.userService.getUser(),
             this.partyService.getParty(),
-            this.inventoryService.getInventory()
+            this.inventoryService.getInventory(),
+            this.mailboxService.getMessages()
         );
 
         this.loadingRequest.subscribe(res => {
             this.user = res[0];
             this.party = res[1];
             this.inventory = res[2];
+            this.mail = res[3];
+
+            if (!this.newMessagesLoaded) {
+                for (let i = 0; i < this.mail.length; i++) {
+                    if (this.mail[i].read === 'false') {
+                        this.newMessages++;
+                    }
+                }
+                this.newMessagesLoaded = true;
+            }
         });
     }
 

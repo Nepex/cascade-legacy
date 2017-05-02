@@ -1,0 +1,34 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="modal-title pull-left">
+            Read Message
+        </span>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="activeModal.close('cancel')">
+            <span style="color:#fff" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+
+            <div class="row">
+                
+                <div class="col-12" style="border: 1px solid #eee; min-height: 100px; margin-top: 5px; margin-bottom: 5px; border-radius: 5px;">
+                    <span class="pull-left" style="font-weight: bold;">
+                        {{ message.sender }}: &nbsp;
+                    </span>
+                    {{ message.message }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary btn-sm pull-right" id="btn-1" style="cursor: pointer; font-size: 11px; position: relative; left: 15px;" (click)="reply(message.sender)"
+                        ngbTooltip="Reply" placement="top">
+                        <i class="fa fa-reply" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
