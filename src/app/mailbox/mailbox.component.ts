@@ -113,9 +113,6 @@ export class MailboxComponent {
                 type: 'success'
             });
         }, (reason) => {
-
-            console.log('he')
-
         });
     }
 }
