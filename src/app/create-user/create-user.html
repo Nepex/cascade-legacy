@@ -17,7 +17,7 @@
                                     <div class="cols-sm-10">
                                         <div class="input-group">
                                             <input type="text" class="form-control form-control-sm" formControlName="username" name="username" id="username" autocomplete="off"
-                                            />
+                                            spellcheck="false" autofocus />
                                         </div>
                                     </div>
                                 </div>
@@ -27,7 +27,7 @@
                                     <cascade-validation-messages [control]="createForm.controls.email" [submitted]="createForm.submitted"></cascade-validation-messages>
                                     <div class="cols-sm-10">
                                         <div class="input-group">
-                                            <input type="text" class="form-control form-control-sm" formControlName="email" name="email" id="email" autocomplete="off" />
+                                            <input type="text" class="form-control form-control-sm" formControlName="email" name="email" id="email" spellcheck="false" autocomplete="off" />
                                         </div>
                                     </div>
                                 </div>

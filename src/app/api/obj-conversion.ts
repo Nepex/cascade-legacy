@@ -1,5 +1,5 @@
-export class InventoryConversion {
-    createInventoryObj(obj) {
+export class ObjConversion {
+    convertObj (obj) {
         let inventory = [];
 
         delete obj.id;

@@ -4,13 +4,13 @@ import { Observable } from 'rxjs/Observable';
 
 import { ParamSerializer } from './param-serializer';
 import { SessionStateService } from './session-state.service';
-import { InventoryConversion } from './inventory-conversion';
+import { ObjConversion } from './obj-conversion';
 import { Environment } from './environment';
 
 @Injectable()
 export class InventoryService {
     constructor(private http: Http, private paramSerializer: ParamSerializer, private sessionStateService: SessionStateService, private environment: Environment,
-        private inventoryConversion: InventoryConversion) { }
+        private objConversion: ObjConversion) { }
 
     itemMapping: Item[] = [
         { id: 'empty', name: 'Empty', icon: 'empty.png', description: 'This slot is empty.' },
@@ -40,7 +40,7 @@ export class InventoryService {
             let response = res.json();
             let inventory = [];
 
-            let inventoryBeforeMap = this.inventoryConversion.createInventoryObj(response[0]);
+            let inventoryBeforeMap = this.objConversion.convertObj(response[0]);
 
             for (let i = 0; i < inventoryBeforeMap.length; i++) {
                 inventory.push(this.getItem(inventoryBeforeMap[i].item, inventoryBeforeMap[i].amount));

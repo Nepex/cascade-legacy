@@ -1,0 +1,42 @@
+#main-border {
+    border: 1px solid #eee;
+}
+
+#btn-1 {
+    color: #fff;
+    background-color: #0099BC;
+    border: 1px solid #0099BC;
+    font-size: 11px;
+}
+
+#btn-1:hover {
+    background-color: #0086A5;
+}
+
+:host >>>  .tooltip {
+    opacity: 1;
+}
+
+:host >>>  .tooltip-inner {
+    font-size: 11px;
+}
+
+.pager {
+    font-size: 14px;
+    line-height: 14px;
+    cursor: pointer;
+}
+
+:host >>> .ngx-pagination .current {
+    border: 1px solid #eee; 
+    background-color: #0099BC;
+    color: #fff;   
+}
+
+:host >>> .ngx-pagination a {
+}
+
+
+:host >>> .ngx-pagination a:hover {
+    background-color: #fff;
+}

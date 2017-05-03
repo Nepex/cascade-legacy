@@ -6,9 +6,10 @@ import { Ng2Webstorage } from 'ng2-webstorage';
 import { UserService } from './user.service';
 import { PartyService } from './party.service';
 import { MailboxService } from './mailbox.service';
+import { QuestService } from './quest.service';
 import { InventoryService } from './inventory.service';
 import { SettingsService } from './settings.service';
-import { InventoryConversion } from './inventory-conversion';
+import { ObjConversion } from './obj-conversion';
 import { SessionService } from './session.service';
 import { SessionStateService } from './session-state.service';
 import { AuthenticatedHttpService } from './authenticated-http.service'; 
@@ -25,8 +26,9 @@ import { Environment } from './environment';
         UserService,
         PartyService,
         MailboxService,
+        QuestService,
         InventoryService,
-        InventoryConversion,
+        ObjConversion,
         SettingsService,
         SessionService,
         SessionStateService,

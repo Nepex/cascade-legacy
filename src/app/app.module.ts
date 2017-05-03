@@ -11,6 +11,7 @@ import { ChangeLogModule, ChangeLogComponent } from './changelog/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
 import { PartyModule, PartyComponent } from './party/index';
+import { QuestLogModule, QuestLogComponent } from './questlog/index';
 import { MailboxModule, MailboxComponent } from './mailbox/index';
 import { InventoryModule, InventoryComponent } from './inventory/index';
 import { AuthGuard } from './auth-guard.service';
@@ -35,6 +36,7 @@ import { AppComponent } from './app.component';
     MailboxModule,
     LoginModule,
     PartyModule,
+    QuestLogModule,
     LayoutModule,
     InventoryModule,
     RouterModule.forRoot([
@@ -44,6 +46,7 @@ import { AppComponent } from './app.component';
       { path: 'login', component: LoginComponent },
       { path: 'party', component: PartyComponent, canActivate: [AuthGuard] },
       { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
+      { path: 'questlog', component: QuestLogComponent, canActivate: [AuthGuard] },      
       { path: 'mailbox', component: MailboxComponent, canActivate: [AuthGuard] }                 
     ])
   ],
