@@ -24,16 +24,18 @@ export class MailboxService {
 
             let messages: Message[] = [];
 
-            for (let i = 0; i < response.length; i++) {
-                messages.push({
-                    id: response[i].id,
-                    sender: response[i].sender,
-                    receiver: response[i].receiver,
-                    message: response[i].message,
-                    date: response[i].dateOf,
-                    time: response[i].timeOf,
-                    read: response[i].seen
-                });
+            if (response) {
+                for (let i = 0; i < response.length; i++) {
+                    messages.push({
+                        id: response[i].id,
+                        sender: response[i].sender,
+                        receiver: response[i].receiver,
+                        message: response[i].message,
+                        date: response[i].dateOf,
+                        time: response[i].timeOf,
+                        read: response[i].seen
+                    });
+                }
             }
 
             return messages;

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import * as _ from 'underscore';
 
 import { UserService, PartyService, MailboxService } from '../api/index';
@@ -14,19 +16,29 @@ import { ConfirmModalComponent } from '../layout/confirm-modal.component';
     templateUrl: 'mailbox.html',
     styleUrls: ['mailbox.css']
 })
-export class MailboxComponent {
+export class MailboxComponent implements OnInit, OnDestroy {
 
     user: any = {};
     mail = [];
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
     removeRequest: Observable<any>;
+    refreshCycle: Subscription;
     currentPage = 1;
+
+    cachedNewMessages = 0;
     newMessages = 0;
     newMessagesLoaded = false;
 
     constructor(private userService: UserService, private partyService: PartyService, private mailboxService: MailboxService,
         private modalService: NgbModal) {
+        this.activate();
+    }
+
+    activate() {
+        this.refreshCycle = Observable.timer(0, 10000).subscribe(() => {
+            this.updateMessages();
+        });
     }
 
     ngOnInit() {
@@ -35,33 +47,43 @@ export class MailboxComponent {
             this.mailboxService.getMessages()
         );
 
-
-
         this.loadingRequest.subscribe(res => {
             this.user = res[0];
             this.mail = res[1];
 
             this.mail = this.mail.reverse();
 
+            this.cachedNewMessages = 0;
+
             if (!this.newMessagesLoaded) {
                 for (let i = 0; i < this.mail.length; i++) {
                     if (this.mail[i].read === 'false') {
-                        this.newMessages++;
+                        this.cachedNewMessages++;
                     }
                 }
+
+                this.newMessages = this.cachedNewMessages;
                 this.newMessagesLoaded = true;
             }
         });
-
     }
 
-    confirmRemove(id: number) {
-        const modalRef = this.modalService.open(ConfirmModalComponent);
-        modalRef.componentInstance.message = 'Are you sure you want to remove this message?';
+    ngOnDestroy() {
+        this.refreshCycle.unsubscribe();
+    }
 
-        modalRef.result.then((result) => {
+    updateMessages() {
+        this.newMessagesLoaded = false;
+        this.ngOnInit();
+    }
+
+    confirmRemove(id) {
+        const modalRef = this.modalService.open(ConfirmModalComponent);
+        modalRef.componentInstance.message = 'Are you sure you want to remove message(s)?';
+
+        modalRef.result.then(() => {
             this.remove(id);
-        }, (reason) => { });
+        });
     }
 
     remove(m) {
@@ -71,12 +93,22 @@ export class MailboxComponent {
             return;
         }
 
-        this.removeRequest = this.mailboxService.remove(m.id);
+        if (m === 'all') {
+            this.removeRequest = this.mailboxService.remove(m);
+            var message = 'All messages removed';
+        } else {
+            this.removeRequest = this.mailboxService.remove(m.id);
+            var message = 'Message removed';
+        }
+
         this.removeRequest.subscribe(
             () => {
+
                 this.removeRequest = null;
-                this.messages.push({ message: 'Message was deleted', type: 'success' });
+                this.newMessages = 0;
+                this.newMessagesLoaded = false;
                 this.ngOnInit();
+                this.messages.push({ message: message, type: 'success' });
             });
     }
 
@@ -95,24 +127,9 @@ export class MailboxComponent {
             this.ngOnInit();
             this.messages = [];
         });
-
-        return false;
     }
 
     sendMessage() {
         const modalRef = this.modalService.open(SendMessageComponent);
-
-        modalRef.result.then((result) => {
-            this.newMessages = 0;
-            this.newMessagesLoaded = false;
-            this.ngOnInit();
-
-            this.messages = [];
-            this.messages.push({
-                message: 'Message sent',
-                type: 'success'
-            });
-        }, (reason) => {
-        });
     }
 }

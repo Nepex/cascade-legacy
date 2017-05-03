@@ -81,7 +81,20 @@ export class SendMessageComponent {
             this.messageForm.reset();
             this.messageForm['submitted'] = false;
 
-            this.activeModal.close();
+            this.messages = [];
+            this.messages.push({
+                message: 'Message sent',
+                type: 'success'
+            });
+
+            this.messages.push({
+                message: 'Closing window...',
+                type: 'success'
+            });
+
+            setTimeout(() => {
+                this.activeModal.close();
+            }, 1000)
         });
 
     }

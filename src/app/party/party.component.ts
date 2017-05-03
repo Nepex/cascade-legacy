@@ -23,8 +23,6 @@ export class PartyComponent {
     mail: any = [];
     spellsLearned: any;
     messages: AlertMessages[] = [];
-    newMessages = 0;
-    newMessagesLoaded = false;
     loadingRequest: Observable<any>;
     removeRequest: Observable<any>;
 
@@ -46,15 +44,6 @@ export class PartyComponent {
             this.party = res[1];
             this.inventory = res[2];
             this.mail = res[3];
-
-            if (!this.newMessagesLoaded) {
-                for (let i = 0; i < this.mail.length; i++) {
-                    if (this.mail[i].read === 'false') {
-                        this.newMessages++;
-                    }
-                }
-                this.newMessagesLoaded = true;
-            }
         });
     }
 

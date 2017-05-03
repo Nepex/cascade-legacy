@@ -24,8 +24,6 @@ export class InventoryComponent implements OnInit {
     searchedItem;
     currentPage = 1;
     inventoryEmpty = false;
-    newMessages = 0;
-    newMessagesLoaded = false;
 
     constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService, private mailboxService: MailboxService) {
     }
@@ -56,15 +54,6 @@ export class InventoryComponent implements OnInit {
                 });
 
                 this.inventoryEmpty = true;
-            }
-
-            if (!this.newMessagesLoaded) {
-                for (let i = 0; i < this.mail.length; i++) {
-                    if (this.mail[i].read === 'false') {
-                        this.newMessages++;
-                    }
-                }
-                this.newMessagesLoaded = true;
             }
         });
     }

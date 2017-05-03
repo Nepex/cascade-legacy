@@ -22,8 +22,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm" id="btn-1" (click)="activeModal.close('ok')">Ok</button>
-        <button type="button" class="btn btn-sm" id="btn-1" (click)="activeModal.dismiss('cancel')">Cancel</button>
+        <button type="button" class="btn btn-sm" id="btn-1" (click)="activeModal.close('ok')" style="cursor: pointer;">Ok</button>
+        <button type="button" class="btn btn-sm" id="btn-1" (click)="activeModal.dismiss('cancel')" style="cursor: pointer;">Cancel</button>
       </div>
     </div>
   `,
