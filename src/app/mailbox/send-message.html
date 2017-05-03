@@ -25,7 +25,7 @@
                             <cascade-validation-messages [control]="messageForm.controls.receiver" [submitted]="messageForm.submitted"></cascade-validation-messages>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" formControlName="receiver" name="receiver" id="receiver" autocomplete="off" />
+                                    <input type="text" class="form-control form-control-sm" formControlName="receiver" name="receiver" id="receiver" autocomplete="off" spellcheck="false" />
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <textarea class="form-control form-control-sm" formControlName="message" name="message" id="message" autocomplete="off"
-                                    placeholder="Char limit 500" style="font-size: 11px; height: 200px; resize: none;"></textarea>
+                                    placeholder="Char limit 500" style="font-size: 11px; height: 200px; resize: none;" spellcheck="false"></textarea>
                                 </div>
                             </div>
                         </div>
