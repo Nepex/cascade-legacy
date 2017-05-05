@@ -83,6 +83,11 @@ export class MailboxComponent implements OnInit, OnDestroy {
 
         modalRef.result.then(() => {
             this.remove(id);
+        }, (reason) => {
+            this.newMessages = 0;
+            this.newMessagesLoaded = false;
+            this.ngOnInit();
+            this.messages = [];
         });
     }
 
@@ -131,5 +136,9 @@ export class MailboxComponent implements OnInit, OnDestroy {
 
     sendMessage() {
         const modalRef = this.modalService.open(SendMessageComponent);
+
+        modalRef.result.then((result) => {
+        }, (reason) => {
+        });
     }
 }

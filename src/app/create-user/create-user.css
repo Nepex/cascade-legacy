@@ -16,6 +16,47 @@
     background-color: #0086A5;
 }
 
+@media (min-width: 344px) {
+    .frame {
+       height: 100vh;
+    }
+
+    .inner-frame {
+        height: 100vh;
+    }
+
+    #main-border {
+        border: 0px solid #eee; 
+    }
+
+    .create-box {
+        position: relative; 
+        top: 50%; 
+        transform: translateY(-50%);
+    }
+}
+
+@media (min-width: 544px) {
+    .frame {
+        height: 100%;
+    }
+
+    .inner-frame {
+        height: 100%;
+    }
+
+    #main-border {
+        border: 1px solid #eee;
+    }
+
+    .create-box {
+        position: relative; 
+        top: 0%; 
+        transform: translateY(0%);
+    }
+}
+
+
 /*input.ng-touched.ng-invalid {
     border: 1px solid #bb0000;
 }

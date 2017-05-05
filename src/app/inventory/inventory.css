@@ -89,12 +89,20 @@
     .search-box {
         max-width: 100%;
     }
+
+    .frame {
+        height: 100vh;
+    }
 }
 
 @media (min-width: 544px) {
     .search-box {
         max-width: 93%;
         padding-left: 7%;
+    }
+
+    .frame {
+        height: 100%;
     }
 }
 
@@ -121,4 +129,3 @@
         padding-left: 7%;
     }
 }
-

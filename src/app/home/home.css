@@ -1,5 +1,6 @@
-#main-border {
-    border: 1px solid #eee;
+@font-face {
+    font-family: Pristina;
+    src: url(../../assets/fonts/Pristina.ttf);
 }
 
 #btn-1 {
@@ -7,6 +8,62 @@
     border: 1px solid #0099BC;
 }
 
+.cascade-title {
+    font-family: Pristina;
+    font-size: 20px;    
+}
+
+
+.home-options {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; 
+    top: 50%; 
+    transform: translateY(-50%);
+    font-family: Pristina;
+    font-size: 28px;    
+}
+
 #btn-1:hover {
     background-color: #0086A5;
+}
+
+@media (min-width: 344px) {
+    .frame {
+       height: 100vh;
+    }
+
+    .inner-frame{
+        height: 100vh;
+    }
+    
+}
+
+@media (min-width: 544px) {
+    .frame {
+        height: 100%;
+    }
+
+    .inner-frame {
+        height: 450px;
+    }
+
+    #main-border {
+        border: 0px solid #eee; 
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    #main-border {
+        border: 1px solid #eee;
+    }
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
 }

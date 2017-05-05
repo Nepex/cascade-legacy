@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LayoutModule } from './layout/layout.module';
 import { CommonModule } from './common/common.module';
 import { HomeModule, HomeComponent } from './home/index';
+import { ExploreModule, ExploreComponent, ArcComponent } from './explore/index';
 import { ChangeLogModule, ChangeLogComponent } from './changelog/index';
 import { CreateUserModule, CreateUserComponent } from './create-user/index';
 import { LoginModule, LoginComponent } from './login/index';
@@ -28,6 +30,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule,
     HttpModule,
     CommonModule,
     HomeModule,
@@ -36,6 +39,7 @@ import { AppComponent } from './app.component';
     MailboxModule,
     LoginModule,
     PartyModule,
+    ExploreModule,
     QuestLogModule,
     LayoutModule,
     InventoryModule,
@@ -47,7 +51,9 @@ import { AppComponent } from './app.component';
       { path: 'party', component: PartyComponent, canActivate: [AuthGuard] },
       { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
       { path: 'questlog', component: QuestLogComponent, canActivate: [AuthGuard] },      
-      { path: 'mailbox', component: MailboxComponent, canActivate: [AuthGuard] }                 
+      { path: 'mailbox', component: MailboxComponent, canActivate: [AuthGuard] },
+      { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
+      { path: 'arc', component: ArcComponent, canActivate: [AuthGuard] }                 
     ])
   ],
   providers: [

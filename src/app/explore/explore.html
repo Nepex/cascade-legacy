@@ -1,0 +1,51 @@
+<div class="container" style="padding: 0; overflow-x: hidden">
+    <cascade-header-members [user]="user.username" [currency]="user.currency">
+    </cascade-header-members>
+
+    <div class="container border-top-0" id="main-border">
+        <div class="row">
+
+            <div *ngIf="messages.length > 0" class="col-12 text-center" style="padding-bottom: 20px; font-size: 12px;">
+                <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+            </div>
+
+            <div class="col-12 text-center" style="padding: 0; position: relative;">
+                <img src="../assets/images/cascade-world-map.jpg" class="img-fluid world-map">
+                <div class="map-link arc">
+                    <a href="/arc">Arc</a>
+                </div>
+                <div class="map-link mage-tower">
+                    Mage Tower
+                </div>
+                <div class="map-link volcanic-fields">
+                    Volcanic Fields
+                </div>
+                <div class="map-link icy-peaks">
+                    Icy Peaks
+                </div>
+                <div class="map-link frozen-tundra">
+                    Frozen Tundra
+                </div>
+                <div class="map-link emerald-forest">
+                    Emerald Forest
+                </div>
+                <div class="map-link skys-mountain">
+                    Sky's Mountain
+                </div>
+                <div class="map-link barren-wastes">
+                    Barren Wastes
+                </div>
+                <div class="map-link ritual-grounds">
+                    Ritual Grounds
+                </div>
+                <div class="map-link bandits-casino">
+                    Bandit's Casino
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <cascade-footer></cascade-footer>
+</div>

@@ -1,0 +1,47 @@
+<div class="container" style="padding: 0px; overflow-x: hidden">
+    <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
+
+    <div class="container border-top-0" id="main-border">
+        <div class="row">
+
+            <div *ngIf="messages.length > 0" class="col-12 text-center" style="padding-bottom: 20px; font-size: 12px;">
+                <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
+            </div>
+
+            <div class="col-12 text-center" style="padding: 0; position: relative;">
+                <img src="../assets/images/backdrops/arc.jpg" class="img-fluid frame">
+                <div class="welcome">Arc</div>
+
+                <div class="dialogue" [@visibilityChanged]="state">
+                    <div class="dialogue-box">
+                        <div class="row">
+                            <div class="col-lg-3 offset-lg-3 col-6">
+                                <img src="../assets/images/dialogue-faces/tour-guide.png" class="img-fluid">
+                            </div>
+                            <div class="col-lg-3 col-6 text-center">
+                                <div *ngIf="tourDialoguePhase !== 2" class="char-name">Erika</div>
+
+                                <div style="position: relative; top: 50%; transform: translateY(-50%);">
+                                    <div *ngIf="tourDialoguePhase === 1">
+                                        I am the tour guide here. Where would you like to go?
+                                        <div (click)="nextDialogue()" style="cursor: pointer; padding-top: 5px;" class="continue">Continue...</div>
+                                    </div>
+
+                                    <div *ngIf="tourDialoguePhase === 2">
+                                        <a href="#">Townsquare</a><br />
+                                        <a href="#">Blue Moon Inn</a><br />
+                                        <a href="#">General Store</a><br />
+                                        <a href="#">Equipment Shop</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <cascade-footer></cascade-footer>
+</div>

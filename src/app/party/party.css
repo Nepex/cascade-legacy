@@ -34,3 +34,28 @@
 :host >>>  .tooltip-inner {
     font-size: 11px;
 }
+
+
+@media (min-width: 344px) {
+    .frame {
+       height: 100vh;
+    }
+}
+
+@media (min-width: 544px) {
+    .frame {
+        height: 100%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+}
