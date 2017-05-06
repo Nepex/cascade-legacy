@@ -14,6 +14,7 @@ import { ExpBarComponent } from './exp-bar.component';
 import { ConfirmModalComponent } from './confirm-modal.component';
 import { IconWithTooltipComponent } from './icon-with-tooltip.component';
 import { SettingsComponent } from './settings-modal.component';
+import { DialogueSceneComponent } from './dialogue-scene.component';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { SettingsComponent } from './settings-modal.component';
         ExpBarComponent,
         ConfirmModalComponent,
         SettingsComponent,
-        IconWithTooltipComponent
+        IconWithTooltipComponent,
+        DialogueSceneComponent
     ],
     exports: [
         HeaderComponent,
@@ -43,7 +45,8 @@ import { SettingsComponent } from './settings-modal.component';
         MainMenuNavComponent,
         SpriteLoaderComponent,
         ExpBarComponent,
-        IconWithTooltipComponent
+        IconWithTooltipComponent,
+        DialogueSceneComponent
     ],
     entryComponents: [
         ConfirmModalComponent,

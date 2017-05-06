@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,19 +11,17 @@ import { AlertMessages } from '../../layout/alert-messages.component';
 @Component({
     selector: 'app-arc',
     templateUrl: 'arc.html',
-    styleUrls: ['arc.css'],
-    animations: [
-        trigger('visibilityChanged', [
-            state('hidden', style({ opacity: 0 })),
-            state('shown', style({ opacity: 1 })),
-
-            transition('hidden => shown', animate('1000ms ease-in'))
-        ])
-    ]
+    styleUrls: ['arc.css']
 })
 export class ArcComponent implements OnInit {
 
     state = 'hidden';
+
+    portrait;
+    speakerName;
+    dialogue;
+    backdrop;
+    continuable;
 
     tourDialoguePhase = 1;
     user: any = {};
@@ -46,9 +43,21 @@ export class ArcComponent implements OnInit {
         setTimeout(() => {
             this.state = 'shown';
         }, 50);
+
+        this.continuable = true;
+        this.backdrop = 'arc.jpg';
+        this.speakerName = 'Erika';
+        this.portrait = 'tour-guide.png';
+        this.dialogue = 'I am the tour guide here. Where would you like to go?';
     }
 
-    nextDialogue() {
-        this.tourDialoguePhase++;
+    nextDialogue(e) {
+        if (e === 1) {
+            this.dialogue = '<a href="#">Townsquare</a><br />';
+            this.dialogue += '<a href="#">Blue Moon Inn</a><br />';
+            this.dialogue += '<a href="#">General Store</a><br />';
+            this.dialogue += '<a href="#">Equipment Shop</a>';
+            this.continuable = false;
+        }
     }
 }

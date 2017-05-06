@@ -6,6 +6,8 @@ import { FormValidationMsgsComponent } from './form-validation-msgs.component';
 
 import { OffClickDirective } from './off-click.directive';
 
+import { SafeHtmlPipe } from './safe-html.pipe';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -14,11 +16,16 @@ import { OffClickDirective } from './off-click.directive';
     ],
     declarations: [
         FormValidationMsgsComponent,
-        OffClickDirective
+        OffClickDirective,
+        SafeHtmlPipe        
     ],
     exports: [
         FormValidationMsgsComponent,
-        OffClickDirective
+        OffClickDirective,
+        SafeHtmlPipe
+    ],
+    providers: [
+        SafeHtmlPipe
     ]
 })
 export class CommonModule {

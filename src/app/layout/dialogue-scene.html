@@ -1,0 +1,22 @@
+<div class="col-12 text-center" style="padding: 0; position: relative;">
+    <img src="../assets/images/backdrops/{{ backdrop }}" class="img-fluid frame">
+    <div class="welcome">Arc</div>
+
+    <div class="dialogue" [@visibilityChanged]="state">
+        <div class="dialogue-box">
+            <div class="row">
+                <div class="col-lg-3 offset-lg-3 col-6">
+                    <img src="../assets/images/dialogue-faces/{{ portrait }}" class="img-fluid">
+                </div>
+                <div class="col-lg-3 col-6 text-center">
+                    <div class="char-name">{{ speakerName }}</div>
+
+                    <div style="position: relative; top: 50%; transform: translateY(-50%);">
+                        <div [innerHtml]="dialogue | safeHtml"></div>
+                        <div (click)="progressDialogue()" *ngIf="continuable" class="continue" style="cursor: pointer; padding-top: 5px;">Continue...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

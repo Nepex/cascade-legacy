@@ -6,11 +6,12 @@
 }
 
 .progress {
-    text-align:center;
+    text-align: center;
 }
+
 .progress-value {
     font-weight: bold;
-    position:absolute;
-    right:0;
-    left:0;
+    position: absolute;
+    right: 0;
+    left: 0;
 }
