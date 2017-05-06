@@ -8,8 +8,8 @@
             </div>
         </div>
 
-        <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [continuable]="continuable"
-            [backAllowed]="backAllowed" (nextScene)="progressDialogue($event)" [zoneTitle]="zoneTitle" [decisionAllowed]='decisionAllowed'></cascade-dialogue-scene>
+        <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [continueAllowed]="continueAllowed"
+            [backAllowed]="backAllowed" [decisionAllowed]='decisionAllowed' (nextScene)="progressDialogue($event)" [zoneTitle]="zoneTitle" [leaveAllowed]="leaveAllowed"></cascade-dialogue-scene>
         
         <div class="black-screen" [@visibilityChanged]="blackScreen"></div>
     </div>

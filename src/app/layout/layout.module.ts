@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '../common/common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeaderComponent } from './header.component';
 import { HeaderMembersComponent } from './header-members.component';
@@ -20,6 +21,7 @@ import { DialogueSceneComponent } from './dialogue-scene.component';
     imports: [
         FormsModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
         BrowserModule,
         CommonModule,
         NgbModule.forRoot()

@@ -8,26 +8,27 @@
 
                 <!-- when there is a speaker -->
                 <div class="row">
-                    <div class="col-lg-3 offset-lg-3 col-6" *ngIf="portrait">
+                    <div class="col-lg-3 offset-lg-3 col-6" *ngIf="speakerName">
                         <img src="../assets/images/dialogue-faces/{{ portrait }}" class="img-fluid portrait">
                     </div>
-                    <div class="col-lg-3 col-6 text-center" *ngIf="portrait">
+                    <div class="col-lg-3 col-6 text-center" *ngIf="speakerName">
                         <div class="speaker-name">{{ speakerName }}</div>
 
                         <div class="response">
                             <div [innerHtml]="dialogue | safeHtml"></div>
-                            <div (click)="progressDialogue('nextScene')" *ngIf="continuable" class="continue" style="cursor: pointer; padding-top: 5px;">Continue</div>
+                            <div (click)="progressDialogue('nextScene')" *ngIf="leaveAllowed" class="continue" style="cursor: pointer; padding-top: 5px;">Leave</div>                            
+                            <div (click)="progressDialogue('nextScene')" *ngIf="continueAllowed" class="continue" style="cursor: pointer; padding-top: 5px;">Continue</div>
                             <div (click)="progressDialogue('prevScene')" *ngIf="backAllowed" class="back" style="cursor: pointer; padding-top: 5px;">Back</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- when it's time for a response -->
-                <div class="row" *ngIf="!portrait" class="response">
+                <div class="row" *ngIf="!speakerName" class="response">
                     <div class="col-12 text-center">
                         <div>
                             <div [innerHtml]="dialogue | safeHtml"></div>
-                            <div (click)="progressDialogue('nextScene')" *ngIf="decisionAllowed" class="back" style="cursor: pointer; padding-top: 5px;">Yes</div>
+                            <div (click)="progressDialogue('nextScene')" *ngIf="decisionAllowed" class="continue" style="cursor: pointer; padding-top: 5px;">Yes</div>
                             <div (click)="progressDialogue('prevScene')" *ngIf="decisionAllowed" class="back" style="cursor: pointer; padding-top: 5px;">No</div>
 
                             <div *ngIf="arcMenu">
@@ -37,7 +38,8 @@
                                 <a href="/arc/equipment-store">Equipment Store</a>
                             </div>
 
-                            <div (click)="progressDialogue('nextScene')" *ngIf="continuable" class="continue" style="cursor: pointer; padding-top: 5px;">Continue</div>
+                            <div (click)="progressDialogue('nextScene')" *ngIf="leaveAllowed" class="continue" style="cursor: pointer; padding-top: 5px;">Leave</div>                            
+                            <div (click)="progressDialogue('nextScene')" *ngIf="continueAllowed" class="continue" style="cursor: pointer; padding-top: 5px;">Continue</div>
                             <div (click)="progressDialogue('prevScene')" *ngIf="backAllowed" class="back" style="cursor: pointer; padding-top: 5px;">Back</div>
                         </div>
                     </div>

@@ -22,9 +22,9 @@ export class InventoryService {
         // weapons
         { id: 'practice_sword', name: 'Practice Sword', icon: 'practice_sword.png', bonusStr: 1, description: 'A beginner-level sword.', equippable: true, slot: 'mainHand', jobs: ['Knight'] },
         { id: 'practice_wand', name: 'Practice Wand', icon: 'practice_wand.png', bonusMag: 1, description: 'A beginner-level wand.', equippable: true, slot: 'mainHand', jobs: ['Mage', 'Priest'] },
-    
+
         // consumables
-        { id: 'potion', name: 'Potion', icon: 'potion.png', description: 'Heals target for 100 HP.', usable: true, healingAmount: 100, sellValue: 50 }        
+        { id: 'potion', name: 'Potion', icon: 'potion.png', description: 'Heals target for 100 HP.', usable: true, healingAmount: 100, sellValue: 50 }
     ];
 
     getInventory() {
@@ -121,6 +121,20 @@ export class InventoryService {
         headers.append('Authorization', `${this.sessionStateService.getToken()}`);
 
         let url = `${this.environment.baseApiUrl}/puts/use-item.php`;
+
+        let req = this.http.put(url, item, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
+
+    buy(item) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/puts/buy-item.php`;
 
         let req = this.http.put(url, item, {
             headers: headers

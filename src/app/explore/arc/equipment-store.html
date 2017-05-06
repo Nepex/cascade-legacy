@@ -8,9 +8,11 @@
             </div>
         </div>
 
-        <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [continuable]="continuable"
-            [backAllowed]="backAllowed" (nextScene)="progressDialogue($event)" [zoneTitle]="zoneTitle"></cascade-dialogue-scene>
+        <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [continueAllowed]="continueAllowed"
+            [backAllowed]="backAllowed" [decisionAllowed]="decisionAllowed" [leaveAllowed]="leaveAllowed" (nextScene)="progressDialogue($event)"
+            [zoneTitle]="zoneTitle"></cascade-dialogue-scene>
 
+        <div class="shop-window" *ngIf="showShop"></div>
     </div>
 
     <cascade-footer></cascade-footer>

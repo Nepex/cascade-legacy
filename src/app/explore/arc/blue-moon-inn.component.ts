@@ -32,12 +32,12 @@ export class ArcBlueMoonInnComponent implements OnInit {
     speakerName;
     dialogue;
     backdrop;
-    continuable;
+    continueAllowed;
     backAllowed;
     decisionAllowed;
     zoneTitle;
+    leaveAllowed;
 
-    tourDialoguePhase = 1;
     user: any = {};
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
@@ -54,7 +54,7 @@ export class ArcBlueMoonInnComponent implements OnInit {
             this.user = res[0];
         });
 
-        this.continuable = true;
+        this.continueAllowed = true;
         this.backAllowed = true;
         this.decisionAllowed = false;
         this.zoneTitle = 'Arc (Blue Moon Inn)';
@@ -68,27 +68,23 @@ export class ArcBlueMoonInnComponent implements OnInit {
         if (e < 0) {
             this.router.navigateByUrl('/arc');
         } else if (e === 0) {
-            // scene 1 - asking if wants to stay at inn
-            this.continuable = true;
+            // asking if wants to stay at inn
+            this.continueAllowed = true;
             this.backAllowed = true;
             this.decisionAllowed = false;
-            this.zoneTitle = 'Arc (Blue Moon Inn)';
-            this.backdrop = 'arc-blue-moon-inn2.jpg';
             this.speakerName = 'Lisbeth';
             this.portrait = 'arc-lisbeth.png';
             this.dialogue = 'Would you like to stay for <i class="fa fa-diamond"></i>15?';
         } else if (e === 1) {
-            // scene 2 - decision
-            this.continuable = false;
+            // decision
+            this.continueAllowed = false;
             this.backAllowed = false;
             this.decisionAllowed = true;
-            this.zoneTitle = 'Arc (Blue Moon Inn)';
-            this.backdrop = 'arc-blue-moon-inn2.jpg';
             this.speakerName = null;
             this.portrait = null;
             this.dialogue = null;
         } else if (e === 2) {
-            // scene 3 - sleep at inn if there is enough
+            // sleep at inn if there is enough
             this.blackScreen = 'shown';
 
             setTimeout(() => {
@@ -98,25 +94,23 @@ export class ArcBlueMoonInnComponent implements OnInit {
                     if (res['_body'] === 'insufficient funds') {
                         this.blackScreen = 'hidden';
 
-                        this.continuable = true;
+                        this.continueAllowed = true;
                         this.backAllowed = false;
                         this.decisionAllowed = false;
-                        this.zoneTitle = 'Arc (Blue Moon Inn)';
-                        this.backdrop = 'arc-blue-moon-inn2.jpg';
                         this.speakerName = null;
                         this.portrait = null;
                         this.dialogue = 'Insufficient funds.';
                     } else {
                         this.blackScreen = 'hidden';
 
-                        this.continuable = true;
+                        this.leaveAllowed = true;
                         this.backAllowed = false;
                         this.decisionAllowed = false;
                         this.zoneTitle = 'Arc (Blue Moon Inn)';
                         this.backdrop = 'arc-blue-moon-inn2.jpg';
                         this.speakerName = null;
                         this.portrait = null;
-                        this.dialogue = 'Your party members wake up feeling rejuvenated.';
+                        this.dialogue = 'Your party members wake up feeling refreshed.';
                     }
                 });
             }, 2000);

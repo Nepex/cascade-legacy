@@ -8,7 +8,7 @@
                 <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
             </div>
 
-            <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [continuable]="continuable"
+            <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [continueAllowed]="continueAllowed"
                 [backAllowed]="backAllowed" (nextScene)="progressDialogue($event)" [zoneTitle]="zoneTitle" [arcMenu]='arcMenu'></cascade-dialogue-scene>
 
         </div>

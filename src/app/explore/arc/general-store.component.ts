@@ -16,17 +16,19 @@ import { AlertMessages } from '../../layout/alert-messages.component';
 })
 export class ArcGeneralStoreComponent implements OnInit {
 
-    state = 'hidden';
+    shopWindow = 'hidden';
 
     portrait;
     speakerName;
     dialogue;
     backdrop;
-    continuable;
+    continueAllowed;
     backAllowed;
     zoneTitle;
+    decisionAllowed;
+    leaveAllowed;
+    showShop = false;
 
-    tourDialoguePhase = 1;
     user: any = {};
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
@@ -43,21 +45,41 @@ export class ArcGeneralStoreComponent implements OnInit {
             this.user = res[0];
         });
 
-        setTimeout(() => {
-            this.state = 'shown';
-        }, 50);
-
-        this.continuable = false;
         this.backAllowed = true;
+        this.continueAllowed = true;
         this.zoneTitle = 'Arc (General Store)';
         this.backdrop = 'arc-general-store.jpg';
         this.speakerName = 'Lucca';
         this.portrait = 'arc-lucca.png';
-        this.dialogue = 'We sell potions and other curatives.';
+        this.dialogue = 'We sell potions and other curatives. Would you like to look?';
     }
 
     progressDialogue(e) {
         if (e < 0) {
+            this.router.navigateByUrl('/arc');
+        } else if (e === 0) {
+            // ask if user wants to shop
+            this.backAllowed = true;
+            this.continueAllowed = true;
+            this.zoneTitle = 'Arc (General Store)';
+            this.backdrop = 'arc-general-store.jpg';
+            this.speakerName = 'Lucca';
+            this.portrait = 'arc-lucca.png';
+            this.dialogue = 'We sell potions and other curatives. Would you like to look?';
+        } else if (e === 1) {
+            // decision
+            this.continueAllowed = false;
+            this.backAllowed = false;
+            this.decisionAllowed = true;
+            this.speakerName = null;
+            this.portrait = null;
+            this.dialogue = null;
+        } if (e === 2) {
+            // if yes, open shop window
+            this.decisionAllowed = false;
+            this.leaveAllowed = true;
+            this.showShop = true;
+        } if (e === 3) {
             this.router.navigateByUrl('/arc');
         }
     }

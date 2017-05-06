@@ -11,22 +11,22 @@ import { AlertMessages } from '../../layout/alert-messages.component';
 
 @Component({
     selector: 'app-arc-equipment-store',
-    templateUrl: 'blue-moon-inn.html',
+    templateUrl: 'equipment-store.html',
     styleUrls: ['arc.css']
 })
 export class ArcEquipmentStoreComponent implements OnInit {
-
-    state = 'hidden';
 
     portrait;
     speakerName;
     dialogue;
     backdrop;
-    continuable;
+    continueAllowed;
     backAllowed;
     zoneTitle;
+    decisionAllowed
+    leaveAllowed;
+    showShop = false;
 
-    tourDialoguePhase = 1;
     user: any = {};
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
@@ -43,21 +43,39 @@ export class ArcEquipmentStoreComponent implements OnInit {
             this.user = res[0];
         });
 
-        setTimeout(() => {
-            this.state = 'shown';
-        }, 50);
-
-        this.continuable = false;
+        this.continueAllowed = true;
         this.backAllowed = true;
         this.zoneTitle = 'Arc (Equipment Store)';
         this.backdrop = 'arc-equipment-store.jpg';
         this.speakerName = 'Tosin';
         this.portrait = 'arc-tosin.png';
-        this.dialogue = 'Take a look around.';
+        this.dialogue = 'Welcome to my armory. Would you like to do business?';
     }
 
     progressDialogue(e) {
         if (e < 0) {
+            this.router.navigateByUrl('/arc');
+        } else if (e === 0) {
+            this.continueAllowed = true;
+            this.backAllowed = true;
+            this.zoneTitle = 'Arc (Equipment Store)';
+            this.backdrop = 'arc-equipment-store.jpg';
+            this.speakerName = 'Tosin';
+            this.portrait = 'arc-tosin.png';
+            this.dialogue = 'Welcome to my armory. Would you like to do business?';
+        } else if (e === 1) {
+            this.continueAllowed = false;
+            this.backAllowed = false;
+            this.decisionAllowed = true;
+            this.speakerName = null;
+            this.portrait = null;
+            this.dialogue = null;
+        } if (e === 2) {
+            // if yes, open shop window
+            this.decisionAllowed = false;
+            this.leaveAllowed = true;
+            this.showShop = true;
+        } if (e === 3) {
             this.router.navigateByUrl('/arc');
         }
     }

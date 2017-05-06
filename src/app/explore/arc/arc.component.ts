@@ -21,12 +21,11 @@ export class ArcComponent implements OnInit {
     speakerName;
     dialogue;
     backdrop;
-    continuable;
+    continueAllowed;
     backAllowed;
     zoneTitle;
     arcMenu;
 
-    tourDialoguePhase = 1;
     user: any = {};
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
@@ -47,7 +46,7 @@ export class ArcComponent implements OnInit {
             this.state = 'shown';
         }, 50);
 
-        this.continuable = true;
+        this.continueAllowed = true;
         this.backAllowed = false;
         this.arcMenu = false;
         this.zoneTitle = 'Arc';
@@ -59,7 +58,7 @@ export class ArcComponent implements OnInit {
 
     progressDialogue(e) {
         if (e === 0) {
-            this.continuable = true;
+            this.continueAllowed = true;
             this.backAllowed = false;
             this.backdrop = 'arc.jpg';
             this.speakerName = 'Erika';
@@ -72,7 +71,7 @@ export class ArcComponent implements OnInit {
             this.portrait = null;
             this.dialogue = null;
 
-            this.continuable = false;
+            this.continueAllowed = false;
             this.backAllowed = true;
         }
     }

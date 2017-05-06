@@ -20,9 +20,10 @@ export class DialogueSceneComponent implements OnInit {
     @Input() dialogue = '';
     @Input() backdrop = '';
     @Input() zoneTitle = '';    
-    @Input() continuable = false;
+    @Input() continueAllowed = false;
     @Input() backAllowed = false;
     @Input() decisionAllowed =  false;
+    @Input() leaveAllowed = false;
 
     // Scene specific responses
     @Input() arcMenu = false;

@@ -22,7 +22,7 @@ export class ArcTownSquareComponent implements OnInit {
     speakerName;
     dialogue;
     backdrop;
-    continuable;
+    continueAllowed;
     backAllowed;
     zoneTitle;
 
@@ -47,7 +47,7 @@ export class ArcTownSquareComponent implements OnInit {
             this.state = 'shown';
         }, 50);
 
-        this.continuable = false;
+        this.continueAllowed = false;
         this.backAllowed = true;
         this.zoneTitle = 'Arc (Townsquare)';
         this.backdrop = 'arc-townsquare.jpg';
