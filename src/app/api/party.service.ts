@@ -128,6 +128,25 @@ export class PartyService {
 
         return req;
     }
+
+
+    useInn(cost) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let body = {
+            cost: cost
+        }
+
+        let url = `${this.environment.baseApiUrl}/puts/use-inn.php`;
+
+        let req = this.http.put(url, body, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
 }
 
 export class Party {

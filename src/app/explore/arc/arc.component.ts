@@ -24,6 +24,7 @@ export class ArcComponent implements OnInit {
     continuable;
     backAllowed;
     zoneTitle;
+    arcMenu;
 
     tourDialoguePhase = 1;
     user: any = {};
@@ -48,6 +49,7 @@ export class ArcComponent implements OnInit {
 
         this.continuable = true;
         this.backAllowed = false;
+        this.arcMenu = false;
         this.zoneTitle = 'Arc';
         this.backdrop = 'arc.jpg';
         this.speakerName = 'Erika';
@@ -65,11 +67,11 @@ export class ArcComponent implements OnInit {
             this.dialogue = 'Welcome to Arc. I am the tour guide here. Where would you like to go?';
         }
         else if (e === 1) {
-            this.dialogue = '<a href="/arc/townsquare">Townsquare</a><br />';
-            this.dialogue += '<a href="/arc/blue-moon-inn">Blue Moon Inn</a><br />';
-            this.dialogue += '<a href="/arc/general-store">General Store</a><br />';
-            this.dialogue += '<a href="/arc/equipment-store">Equipment Store</a><br />';
-            
+            this.arcMenu = true;
+            this.speakerName = null;
+            this.portrait = null;
+            this.dialogue = null;
+
             this.continuable = false;
             this.backAllowed = true;
         }

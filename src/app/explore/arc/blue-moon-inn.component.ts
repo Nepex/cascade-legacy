@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,17 +7,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'underscore';
 
-import { UserService } from '../../api/index';
+import { UserService, PartyService } from '../../api/index';
 import { AlertMessages } from '../../layout/alert-messages.component';
 
 @Component({
     selector: 'app-arc-blue-moon-inn',
     templateUrl: 'blue-moon-inn.html',
-    styleUrls: ['arc.css']
+    styleUrls: ['arc.css'],
+    animations: [
+        trigger('visibilityChanged', [
+            state('hidden', style({ display: 'none', opacity: 0 })),
+            state('shown', style({ display: 'block', opacity: 1 })),
+
+            transition('hidden => shown', animate('1000ms ease-in')),
+            transition('shown => hidden', animate('1000ms ease-out'))
+        ])
+    ]
 })
 export class ArcBlueMoonInnComponent implements OnInit {
 
-    state = 'hidden';
+    blackScreen = 'hidden';
 
     portrait;
     speakerName;
@@ -24,6 +34,7 @@ export class ArcBlueMoonInnComponent implements OnInit {
     backdrop;
     continuable;
     backAllowed;
+    decisionAllowed;
     zoneTitle;
 
     tourDialoguePhase = 1;
@@ -31,7 +42,7 @@ export class ArcBlueMoonInnComponent implements OnInit {
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
 
-    constructor(private userService: UserService, private router: Router) {
+    constructor(private userService: UserService, private router: Router, private partyService: PartyService) {
     }
 
     ngOnInit() {
@@ -43,12 +54,9 @@ export class ArcBlueMoonInnComponent implements OnInit {
             this.user = res[0];
         });
 
-        setTimeout(() => {
-            this.state = 'shown';
-        }, 50);
-
-        this.continuable = false;
+        this.continuable = true;
         this.backAllowed = true;
+        this.decisionAllowed = false;
         this.zoneTitle = 'Arc (Blue Moon Inn)';
         this.backdrop = 'arc-blue-moon-inn2.jpg';
         this.speakerName = 'Lisbeth';
@@ -58,6 +66,62 @@ export class ArcBlueMoonInnComponent implements OnInit {
 
     progressDialogue(e) {
         if (e < 0) {
+            this.router.navigateByUrl('/arc');
+        } else if (e === 0) {
+            // scene 1 - asking if wants to stay at inn
+            this.continuable = true;
+            this.backAllowed = true;
+            this.decisionAllowed = false;
+            this.zoneTitle = 'Arc (Blue Moon Inn)';
+            this.backdrop = 'arc-blue-moon-inn2.jpg';
+            this.speakerName = 'Lisbeth';
+            this.portrait = 'arc-lisbeth.png';
+            this.dialogue = 'Would you like to stay for <i class="fa fa-diamond"></i>15?';
+        } else if (e === 1) {
+            // scene 2 - decision
+            this.continuable = false;
+            this.backAllowed = false;
+            this.decisionAllowed = true;
+            this.zoneTitle = 'Arc (Blue Moon Inn)';
+            this.backdrop = 'arc-blue-moon-inn2.jpg';
+            this.speakerName = null;
+            this.portrait = null;
+            this.dialogue = null;
+        } else if (e === 2) {
+            // scene 3 - sleep at inn if there is enough
+            this.blackScreen = 'shown';
+
+            setTimeout(() => {
+                this.loadingRequest = this.partyService.useInn(15);
+
+                this.loadingRequest.subscribe(res => {
+                    if (res['_body'] === 'insufficient funds') {
+                        this.blackScreen = 'hidden';
+
+                        this.continuable = true;
+                        this.backAllowed = false;
+                        this.decisionAllowed = false;
+                        this.zoneTitle = 'Arc (Blue Moon Inn)';
+                        this.backdrop = 'arc-blue-moon-inn2.jpg';
+                        this.speakerName = null;
+                        this.portrait = null;
+                        this.dialogue = 'Insufficient funds.';
+                    } else {
+                        this.blackScreen = 'hidden';
+
+                        this.continuable = true;
+                        this.backAllowed = false;
+                        this.decisionAllowed = false;
+                        this.zoneTitle = 'Arc (Blue Moon Inn)';
+                        this.backdrop = 'arc-blue-moon-inn2.jpg';
+                        this.speakerName = null;
+                        this.portrait = null;
+                        this.dialogue = 'Your party members wake up feeling rejuvenated.';
+                    }
+                });
+            }, 2000);
+
+        } else if (e === 3) {
             this.router.navigateByUrl('/arc');
         }
     }

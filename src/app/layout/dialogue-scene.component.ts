@@ -15,13 +15,17 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
     ]
 })
 export class DialogueSceneComponent implements OnInit {
-    @Input() speakerName;
-    @Input() portrait;
-    @Input() dialogue;
-    @Input() backdrop;
-    @Input() zoneTitle;    
-    @Input() continuable;
-    @Input() backAllowed;
+    @Input() speakerName = '';
+    @Input() portrait = '';
+    @Input() dialogue = '';
+    @Input() backdrop = '';
+    @Input() zoneTitle = '';    
+    @Input() continuable = false;
+    @Input() backAllowed = false;
+    @Input() decisionAllowed =  false;
+
+    // Scene specific responses
+    @Input() arcMenu = false;
 
     state = 'hidden';
     scene = 0;
