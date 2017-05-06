@@ -9,7 +9,7 @@
     </template>
 
     <img src="../../assets/images/spell-icons/{{ item.icon }}" class="mx-auto d-block" style="width: 45px; height: 45px; padding-bottom: 5px;"
-        [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
+        [ngbTooltip]="tipContent" [placement]="'top'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
 </div>
 
 <div *ngIf="iconType === 'item'">
@@ -31,5 +31,5 @@
     </template>
 
     <img src="../../assets/images/item-icons/{{ item.icon }}" style="width: 50px; height: 50px; padding-bottom: 5px;"
-        [ngbTooltip]="tipContent" [placement]="'right'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
+        [ngbTooltip]="tipContent" [placement]="'top'" #t="ngbTooltip" (mouseenter)="tipInfo = item;">
 </div>

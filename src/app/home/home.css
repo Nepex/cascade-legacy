@@ -28,6 +28,14 @@
     background-color: #0086A5;
 }
 
+a:active {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 @media (min-width: 344px) {
     .frame {
        height: 100vh;

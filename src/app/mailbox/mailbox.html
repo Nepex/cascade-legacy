@@ -15,12 +15,12 @@
 
             <div class="col-lg-10 offset-lg-1 col-12">
                 <div class="pull-left" style="font-size: 13px; ">
-                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;" ngbTooltip="Send Mail" placement="top"
-                        (click)="sendMessage()">
+                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;"
+                        title="Send Mail" (click)="sendMessage()">
                         <i class="fa fa-comment-o" aria-hidden="true"></i>
                     </button> &nbsp;
-                    <button *ngIf="this.mail.length > 1" class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;" ngbTooltip="Remove All"
-                        placement="top" (click)="confirmRemove('all')">
+                    <button *ngIf="this.mail.length > 1" class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;"
+                        title="Remove All" (click)="confirmRemove('all')">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>

@@ -1,6 +1,6 @@
 :host >>>  .tooltip {
-    opacity: .8;
-    width: 250px;
+    opacity: .9;
+    width: 150px;
 }
 
 :host >>>  .tooltip-inner {
