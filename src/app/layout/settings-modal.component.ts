@@ -29,6 +29,7 @@ export class SettingsComponent {
     });
 
     changeEmail() {
+        this.messages = [];
         this.emailForm['submitted'] = true;
 
         if (!this.emailForm.valid) {
@@ -45,12 +46,21 @@ export class SettingsComponent {
             this.loadingRequest = null;
             this.emailForm['submitted'] = false;
 
-            this.messages.push({
-                message: 'Email successfully changed',
-                type: 'success'
-            });
+            if (res._body === 'email taken') {
+                this.messages.push({
+                    message: 'That email is taken',
+                    type: 'error'
+                });
 
-            this.emailForm.reset();
+                return;
+            } else {
+                this.messages.push({
+                    message: 'Email successfully changed',
+                    type: 'success'
+                });
+
+                this.emailForm.reset();
+            }
         });
     }
 
