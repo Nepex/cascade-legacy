@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
@@ -14,13 +14,16 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
         ])
     ]
 })
-export class DialogueSceneComponent {
+export class DialogueSceneComponent implements OnInit {
     @Input() speakerName;
     @Input() portrait;
     @Input() dialogue;
     @Input() backdrop;
+    @Input() zoneTitle;    
     @Input() continuable;
+    @Input() backAllowed;
 
+    state = 'hidden';
     scene = 0;
 
     @Output() nextScene = new EventEmitter();
@@ -29,8 +32,19 @@ export class DialogueSceneComponent {
 
     }
 
-    progressDialogue() {
-        this.scene = this.scene + 1;
+    ngOnInit() {
+        setTimeout(() => {
+            this.state = 'shown';
+        }, 50);
+    }
+
+    progressDialogue(d) {
+        if (d === 'nextScene') {
+            this.scene = this.scene + 1;
+        } else {
+            this.scene = this.scene - 1;
+        }
+
         this.nextScene.emit(this.scene);
     }
 }

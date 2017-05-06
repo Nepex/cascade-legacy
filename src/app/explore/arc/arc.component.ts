@@ -22,6 +22,8 @@ export class ArcComponent implements OnInit {
     dialogue;
     backdrop;
     continuable;
+    backAllowed;
+    zoneTitle;
 
     tourDialoguePhase = 1;
     user: any = {};
@@ -45,19 +47,31 @@ export class ArcComponent implements OnInit {
         }, 50);
 
         this.continuable = true;
+        this.backAllowed = false;
+        this.zoneTitle = 'Arc';
         this.backdrop = 'arc.jpg';
         this.speakerName = 'Erika';
-        this.portrait = 'tour-guide.png';
-        this.dialogue = 'I am the tour guide here. Where would you like to go?';
+        this.portrait = 'arc-erika.png';
+        this.dialogue = 'Welcome to Arc. I am the tour guide here. Where would you like to go?';
     }
 
-    nextDialogue(e) {
-        if (e === 1) {
-            this.dialogue = '<a href="#">Townsquare</a><br />';
-            this.dialogue += '<a href="#">Blue Moon Inn</a><br />';
-            this.dialogue += '<a href="#">General Store</a><br />';
-            this.dialogue += '<a href="#">Equipment Shop</a>';
+    progressDialogue(e) {
+        if (e === 0) {
+            this.continuable = true;
+            this.backAllowed = false;
+            this.backdrop = 'arc.jpg';
+            this.speakerName = 'Erika';
+            this.portrait = 'arc-erika.png';
+            this.dialogue = 'Welcome to Arc. I am the tour guide here. Where would you like to go?';
+        }
+        else if (e === 1) {
+            this.dialogue = '<a href="/arc/townsquare">Townsquare</a><br />';
+            this.dialogue += '<a href="/arc/blue-moon-inn">Blue Moon Inn</a><br />';
+            this.dialogue += '<a href="/arc/general-store">General Store</a><br />';
+            this.dialogue += '<a href="/arc/equipment-store">Equipment Store</a><br />';
+            
             this.continuable = false;
+            this.backAllowed = true;
         }
     }
 }

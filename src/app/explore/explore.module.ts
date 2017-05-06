@@ -11,6 +11,11 @@ import { LayoutModule } from '../layout/layout.module';
 import { CommonModule } from '../common/common.module';
 import { ExploreComponent } from './explore.component';
 import { ArcComponent } from './arc/arc.component';
+import { ArcTownSquareComponent } from './arc/townsquare.component';
+import { ArcBlueMoonInnComponent } from './arc/blue-moon-inn.component';
+import { ArcGeneralStoreComponent } from './arc/general-store.component';
+import { ArcEquipmentStoreComponent } from './arc/equipment-store.component';
+
 
 @NgModule({
     imports: [
@@ -28,7 +33,11 @@ import { ArcComponent } from './arc/arc.component';
     ],
     declarations: [
         ExploreComponent,
-        ArcComponent
+        ArcComponent,
+        ArcTownSquareComponent,
+        ArcBlueMoonInnComponent,
+        ArcGeneralStoreComponent,
+        ArcEquipmentStoreComponent
     ],
 })
 export class ExploreModule { }
