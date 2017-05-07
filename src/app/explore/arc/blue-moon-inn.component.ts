@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'underscore';
 
 import { UserService, PartyService } from '../../api/index';
-import { AlertMessages } from '../../layout/alert-messages.component';
 
 @Component({
     selector: 'app-arc-blue-moon-inn',
@@ -39,7 +38,6 @@ export class ArcBlueMoonInnComponent implements OnInit {
     leaveAllowed;
 
     user: any = {};
-    messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
 
     constructor(private userService: UserService, private router: Router, private partyService: PartyService) {

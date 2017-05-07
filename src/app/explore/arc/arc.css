@@ -35,10 +35,81 @@
     z-index: 1;
 }
 
+.tabselected {
+    border: 0;
+    border-radius: 0;
+    font-size: 15px;
+    color: #fff;
+    background-color: #0086A5;
+}
+
+.link-adjustment {
+    font-size: 15px;
+    color: #eee;
+}
+
+.link-adjustment:hover {
+    border-radius: 0;
+    background-color: #0086A5;
+    color: #fff;
+}
+
+.bordered-nav {
+    background-color: #0099BC;
+    border: 1px solid #eee;
+}
+
+.buy-sell-table {
+    color: #fff;
+    font-size: 11px;
+}
+
+:host >>> .ngx-pagination .current {
+    border: 1px solid #eee;
+    background-color: #0099BC;
+    color: #fff;
+}
+
+:host >>> .ngx-pagination a {
+    color: #fff;
+}
+
+:host >>> .ngx-pagination a:hover {
+    background-color: #fff;
+}
+
 :host >>> .tooltip {
     opacity: 1;
 }
 
 :host >>> .tooltip-inner {
     font-size: 11px;
+}
+
+:host >>> .tooltip {
+    opacity: 1;
+}
+
+:host >>> .tooltip-inner {
+    font-size: 11px;
+}
+
+@media (min-width: 344px) {
+    .pager {
+        position:  relative;
+        top: -15px;
+        font-size: 10px;
+        line-height: 14px;
+        cursor: pointer;
+    }
+}
+
+@media (min-width: 544px) {
+    .pager {
+        position:  relative;
+        top: 0px;
+        font-size: 14px;
+        line-height: 14px;
+        cursor: pointer;
+    }
 }

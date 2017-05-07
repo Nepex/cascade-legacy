@@ -24,7 +24,7 @@ export class InventoryService {
         { id: 'practice_wand', name: 'Practice Wand', icon: 'practice_wand.png', bonusMag: 1, description: 'A beginner-level wand.', equippable: true, slot: 'mainHand', jobs: ['Mage', 'Priest'] },
 
         // consumables
-        { id: 'potion', name: 'Potion', icon: 'potion.png', description: 'Heals target for 100 HP.', usable: true, healingAmount: 100, sellValue: 50 }
+        { id: 'potion', name: 'Potion', icon: 'potion.png', description: 'Heals target for 100 HP.', usable: true, healingAmount: 100, sellValue: 50, buyValue: 100 }
     ];
 
     getInventory() {

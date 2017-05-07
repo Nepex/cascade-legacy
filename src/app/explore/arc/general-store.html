@@ -2,16 +2,99 @@
     <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
 
     <div class="container border-top-0" id="main-border">
-        <div class="row">
-            <div *ngIf="messages.length > 0" class="col-12 text-center" style="padding-bottom: 20px; font-size: 12px;">
-                <cascade-alert-messages [messages]="messages"></cascade-alert-messages>
-            </div>
-        </div>
-
+        
         <cascade-dialogue-scene [portrait]="portrait" [backdrop]="backdrop" [dialogue]="dialogue" [speakerName]="speakerName" [backAllowed]="backAllowed"
-            [continueAllowed]="continueAllowed" [leaveAllowed]="leaveAllowed" [decisionAllowed]="decisionAllowed" (nextScene)="progressDialogue($event)" [zoneTitle]="zoneTitle"></cascade-dialogue-scene>
+            [continueAllowed]="continueAllowed" [leaveAllowed]="leaveAllowed" [decisionAllowed]="decisionAllowed" (nextScene)="progressDialogue($event)"
+            [zoneTitle]="zoneTitle"></cascade-dialogue-scene>
 
-        <div class="shop-window" *ngIf="showShop"></div>
+        <div class="shop-window" *ngIf="showShop">
+            <ul class="nav nav-pills nav-justified bordered-nav" style="border:0">
+                <li class="nav-item">
+                    <div class="nav-link" (click)="selectedTab = 'BUY'" [ngClass]="{ 'tabselected': selectedTab === 'BUY', 'link-adjustment': selectedTab !== 'BUY' }" style="cursor: pointer;">Buy</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link link-adjustment" (click)="selectedTab = 'SELL'" [ngClass]="{ 'tabselected': selectedTab === 'SELL', 'link-adjustment': selectedTab !== 'SELL' }" style="cursor: pointer;">Sell</div>
+                </li>
+            </ul>
+
+            <div class="row" *ngIf="selectedTab === 'BUY'">
+                <div class="col-12">
+                    <table class="table table-hover buy-sell-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Item</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let s of itemsForSell | paginate: { itemsPerPage: 5, currentPage: currentPage }">
+                                <td class="text-center">
+                                    <cascade-icon-with-tooltip [item]="s" [iconType]="'item'"></cascade-icon-with-tooltip>
+                                    {{ s.name }}
+                                </td>
+                                <td class="text-center">
+                                    {{ s.buyValue }}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer;" (click)="buyItem(s)">Buy</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <span class="pull-right">
+                        <pagination-controls (pageChange)="currentPage = $event"
+                        previousLabel=""
+                        nextLabel=""
+                        maxSize="3"
+                        directionLinks="true"
+                        autoHide="true"
+                        class="pager"></pagination-controls>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="selectedTab === 'SELL'">
+                <div class="col-12">
+                    <table class="table table-hover buy-sell-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Item</th>
+                                <th class="text-center">Value</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of inventory | paginate: { itemsPerPage: 2, currentPage: currentPage }">
+                                <td class="text-center" *ngIf="i.sellable">
+                                    <cascade-icon-with-tooltip [item]="i" [iconType]="'item'"></cascade-icon-with-tooltip>
+                                    {{ i.name }} x{{ i.amount }}
+                                </td>
+                                <td class="text-center">
+                                    {{ i.sellValue }}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer;" (click)="sellItem(i)">Sell</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <span class="pull-right">
+                        <pagination-controls (pageChange)="currentPage = $event"
+                        previousLabel=""
+                        nextLabel=""
+                        maxSize="3"
+                        directionLinks="true"
+                        autoHide="true"
+                        class="pager"></pagination-controls>
+                    </span>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <cascade-footer></cascade-footer>
