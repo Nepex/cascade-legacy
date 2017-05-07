@@ -124,18 +124,6 @@ export class InventoryComponent implements OnInit {
             });
     }
 
-    sellItem(item) {
-        this.loadingRequest = this.inventoryService.sell(item);
-        this.loadingRequest.subscribe(
-            res => {
-                this.messages = [];
-                this.loadingRequest = null;
-
-                this.messages.push({ message: `${item.name} has been sold`, type: 'success' });
-                this.ngOnInit();
-            });
-    }
-
     closeMenu(item) {
         for (let i = 0; i < this.inventory.length; i++) {
             if (item.id === this.inventory[i].id) {

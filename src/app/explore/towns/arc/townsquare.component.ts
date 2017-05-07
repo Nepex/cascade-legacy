@@ -6,13 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'underscore';
 
-import { UserService } from '../../api/index';
-import { AlertMessages } from '../../layout/alert-messages.component';
+import { UserService } from '../../../api/index';
+import { AlertMessages } from '../../../layout/alert-messages.component';
 
 @Component({
     selector: 'app-arc-townsquare',
     templateUrl: 'townsquare.html',
-    styleUrls: ['arc.css']
+    styleUrls: ['../towns.css']
 })
 export class ArcTownSquareComponent implements OnInit {
 

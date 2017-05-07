@@ -8,6 +8,7 @@ import { PartyService } from './party.service';
 import { MailboxService } from './mailbox.service';
 import { QuestService } from './quest.service';
 import { InventoryService } from './inventory.service';
+import { LocationService } from './location.service';
 import { SettingsService } from './settings.service';
 import { ObjConversion } from './obj-conversion';
 import { SessionService } from './session.service';
@@ -30,6 +31,7 @@ import { Environment } from './environment';
         InventoryService,
         ObjConversion,
         SettingsService,
+        LocationService,
         SessionService,
         SessionStateService,
         AuthenticatedHttpService,

@@ -6,12 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'underscore';
 
-import { UserService, InventoryService } from '../../api/index';
+import { UserService, InventoryService } from '../../../api/index';
 
 @Component({
     selector: 'app-arc-general-store',
     templateUrl: 'general-store.html',
-    styleUrls: ['arc.css']
+    styleUrls: ['../towns.css']
 })
 export class ArcGeneralStoreComponent implements OnInit {
 

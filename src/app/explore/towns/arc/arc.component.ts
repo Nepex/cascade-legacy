@@ -5,13 +5,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import * as _ from 'underscore';
 
-import { UserService } from '../../api/index';
-import { AlertMessages } from '../../layout/alert-messages.component';
+import { UserService } from '../../../api/index';
+import { AlertMessages } from '../../../layout/alert-messages.component';
 
 @Component({
     selector: 'app-arc',
     templateUrl: 'arc.html',
-    styleUrls: ['arc.css']
+    styleUrls: ['../towns.css']
 })
 export class ArcComponent implements OnInit {
 

@@ -4,6 +4,7 @@ export { PartyService } from './party.service';
 export { MailboxService } from './mailbox.service';
 export { QuestService } from './quest.service';
 export { InventoryService } from './inventory.service';
+export { LocationService } from './location.service';
 export { SettingsService } from './settings.service';
 export { SessionService } from './session.service';
 export { SessionStateService } from './session-state.service';

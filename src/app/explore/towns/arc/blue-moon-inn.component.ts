@@ -7,12 +7,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'underscore';
 
-import { UserService, PartyService } from '../../api/index';
+import { UserService, PartyService } from '../../../api/index';
 
 @Component({
     selector: 'app-arc-blue-moon-inn',
     templateUrl: 'blue-moon-inn.html',
-    styleUrls: ['arc.css'],
+    styleUrls: ['../towns.css'],
     animations: [
         trigger('visibilityChanged', [
             state('hidden', style({ display: 'none', opacity: 0 })),
@@ -62,6 +62,16 @@ export class ArcBlueMoonInnComponent implements OnInit {
         this.dialogue = 'Would you like to stay for <i class="fa fa-diamond"></i>15?';
     }
 
+    refresh() {
+        this.loadingRequest = Observable.forkJoin(
+            this.userService.getUser(),
+        );
+
+        this.loadingRequest.subscribe(res => {
+            this.user = res[0];
+        });
+    }
+
     progressDialogue(e) {
         if (e < 0) {
             this.router.navigateByUrl('/arc');
@@ -109,6 +119,8 @@ export class ArcBlueMoonInnComponent implements OnInit {
                         this.speakerName = null;
                         this.portrait = null;
                         this.dialogue = 'Your party members wake up feeling refreshed.';
+
+                        this.refresh();
                     }
                 });
             }, 2000);

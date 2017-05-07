@@ -16,6 +16,7 @@ import { ConfirmModalComponent } from './confirm-modal.component';
 import { IconWithTooltipComponent } from './icon-with-tooltip.component';
 import { SettingsComponent } from './settings-modal.component';
 import { DialogueSceneComponent } from './dialogue-scene.component';
+import { TravelComponent } from './travel.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { DialogueSceneComponent } from './dialogue-scene.component';
         ConfirmModalComponent,
         SettingsComponent,
         IconWithTooltipComponent,
-        DialogueSceneComponent
+        DialogueSceneComponent,
+        TravelComponent
     ],
     exports: [
         HeaderComponent,
@@ -48,7 +50,8 @@ import { DialogueSceneComponent } from './dialogue-scene.component';
         SpriteLoaderComponent,
         ExpBarComponent,
         IconWithTooltipComponent,
-        DialogueSceneComponent
+        DialogueSceneComponent,
+        TravelComponent        
     ],
     entryComponents: [
         ConfirmModalComponent,

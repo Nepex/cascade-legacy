@@ -10,11 +10,14 @@ import { ApiModule } from '../api/index';
 import { LayoutModule } from '../layout/layout.module';
 import { CommonModule } from '../common/common.module';
 import { ExploreComponent } from './explore.component';
-import { ArcComponent } from './arc/arc.component';
-import { ArcTownSquareComponent } from './arc/townsquare.component';
-import { ArcBlueMoonInnComponent } from './arc/blue-moon-inn.component';
-import { ArcGeneralStoreComponent } from './arc/general-store.component';
-import { ArcEquipmentStoreComponent } from './arc/equipment-store.component';
+
+import { ArcComponent } from './towns/arc/arc.component';
+import { ArcTownSquareComponent } from './towns/arc/townsquare.component';
+import { ArcBlueMoonInnComponent } from './towns/arc/blue-moon-inn.component';
+import { ArcGeneralStoreComponent } from './towns/arc/general-store.component';
+import { ArcEquipmentStoreComponent } from './towns/arc/equipment-store.component';
+
+import { RitualGroundsComponent } from './zones/ritual-grounds/ritual-grounds.component';
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import { ArcEquipmentStoreComponent } from './arc/equipment-store.component';
         ArcTownSquareComponent,
         ArcBlueMoonInnComponent,
         ArcGeneralStoreComponent,
-        ArcEquipmentStoreComponent
+        ArcEquipmentStoreComponent,
+        RitualGroundsComponent
     ],
 })
 export class ExploreModule { }
