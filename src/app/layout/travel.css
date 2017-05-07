@@ -1,0 +1,36 @@
+.travel-table {
+    background-image: url('../../assets/images/backdrops/ritual-grounds.jpg');
+    background-size: cover;
+    height: 101%;
+    width: 100%;
+}
+
+td {
+    height: 50px;
+    width: 50px;
+    border: 0;
+}
+
+.on-location {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.off-location {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+@media (min-width: 344px) {
+    .table-container {
+        height: 97vh;
+    }
+}
+
+@media (min-width: 544px) {
+    .table-container {
+        height: 650px;
+        padding-bottom: -5px;
+    }
+    .travel-table {
+        height: 101%;
+    }
+}
