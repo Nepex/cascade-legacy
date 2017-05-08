@@ -21,6 +21,7 @@ import { UserService, LocationService } from '../../../api/index';
 export class RitualGroundsComponent {
 
     blackScreen = 'hidden';
+    travelSpan = 7;
 
     loadingRequest: Observable<any>;
     moveRequest: Observable<any>;
@@ -29,6 +30,7 @@ export class RitualGroundsComponent {
         x: 4,
         y: 1
     };
+
     user: any = {};
 
     constructor(private userService: UserService, private locationService: LocationService) { }
@@ -45,28 +47,40 @@ export class RitualGroundsComponent {
     }
 
     move(direction) {
-        if (direction === 'left' && this.location.x - 1 > 0) {
-            this.location.x = this.location.x - 1;
+        if (direction === 'left') {
+            if (this.location.x - 1 <= 0) {
+                this.location.x = this.travelSpan;
+            } else {
+                this.location.x = this.location.x - 1;
+            }
             this.randomEncounter();
         }
 
-        else if (direction === 'right' && this.location.x + 1 <= 7) {
-            this.location.x = this.location.x + 1;
+        else if (direction === 'right') {
+            if (this.location.x + 1 > this.travelSpan) {
+                this.location.x = 1;
+            } else {
+                this.location.x = this.location.x + 1;
+            }
             this.randomEncounter();
         }
 
-        else if (direction === 'down' && this.location.y - 1 > 0) {
-            this.location.y = this.location.y - 1;
+        else if (direction === 'down') {
+            if (this.location.y - 1 <= 0) {
+                this.location.y = this.travelSpan;
+            } else {
+                this.location.y = this.location.y - 1;
+            }
             this.randomEncounter();
         }
 
-        else if (direction === 'up' && this.location.y + 1 <= 7) {
-            this.location.y = this.location.y + 1;
+        else if (direction === 'up') {
+            if (this.location.y + 1 > this.travelSpan) {
+                this.location.y = 1;
+            } else {
+                this.location.y = this.location.y + 1;
+            }
             this.randomEncounter();
-        }
-
-        else {
-            return;
         }
 
         this.moveRequest = this.locationService.setLocation(this.location)
@@ -78,13 +92,13 @@ export class RitualGroundsComponent {
 
         let randomNumber = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
 
-        if (randomNumber < 30) {
-            this.blackScreen = 'shown';
+        // if (randomNumber < 30) {
+        //     this.blackScreen = 'shown';
 
-            setTimeout(() => {
-                this.blackScreen = 'hidden';
-            }, 2000);
-        }
+        //     setTimeout(() => {
+        //         this.blackScreen = 'hidden';
+        //     }, 2000);
+        // }
     }
 }
 
