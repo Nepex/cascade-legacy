@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { CommonModule } from '../common/common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxAniModule } from 'ngxani';
 
 import { HeaderComponent } from './header.component';
 import { HeaderMembersComponent } from './header-members.component';
@@ -27,7 +28,8 @@ import { BattleComponent } from './battle.component';
         BrowserAnimationsModule,
         BrowserModule,
         CommonModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        NgxAniModule
     ],
     declarations: [
         HeaderComponent,

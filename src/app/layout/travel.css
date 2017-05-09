@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Pristina;
+    src: url(../../assets/fonts/Pristina.ttf);
+}
+
 .travel-table {
     background-image: url('../../assets/images/backdrops/ritual-grounds.jpg');
     background-size: cover;
@@ -19,18 +24,143 @@ td {
     background-color: rgba(0, 0, 0, 0.0);
 }
 
+.moving-character {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 48;
+}
+
+.travel-arrows {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 49;
+}
+
+.arrows:hover {
+    color: #ddd;
+}
+
+.black-screen {
+    background-color: #000;
+    width: 100%;
+    height: 101%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 50;
+}
+
 @media (min-width: 344px) {
-    .table-container {
+    .travel-container {
         height: 97vh;
+    }
+    .left-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 50%;
+        left: 7%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+    .right-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 50%;
+        left: 88.5%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+    .up-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 1%;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+    }
+    .down-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 93%;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+    }
+    .black-screen-text {
+        font-family: Pristina;
+        font-size: 30px;
+        color: #fff;
+        font-weight: bold;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+        text-shadow: 2px 2px black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 
 @media (min-width: 544px) {
-    .table-container {
+    .travel-container {
         height: 650px;
         padding-bottom: -5px;
     }
     .travel-table {
         height: 101%;
+    }
+    .left-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 50%;
+        left: 3%;
+        transform: translateY(-50%);
+    }
+    .right-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 50%;
+        left: 95%;
+        transform: translateY(-50%);
+    }
+    .up-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 1%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .down-arrow {
+        color: #fff;
+        font-size: 25px;
+        position: absolute;
+        top: 93%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .black-screen-text {
+        font-family: Pristina;
+        font-size: 35px;
+        color: #fff;
+        font-weight: bold;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+        text-shadow: 2px 2px black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }

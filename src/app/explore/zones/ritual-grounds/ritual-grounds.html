@@ -5,25 +5,7 @@
     <div class="container border-top-0" id="main-border" style="padding: 0">
         <div class="row">
             <div class="col-12">
-                <cascade-travel [zone]="location.zone" [x]="location.x" [y]="location.y"></cascade-travel>
-
-                <div class="travel-arrows">
-                    <div class="left-arrow arrows" (click)="move('left')"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
-                    <div class="right-arrow arrows" (click)="move('right')"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
-                    <div class="down-arrow arrows" (click)="move('down')"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
-                    <div class="up-arrow arrows" (click)="move('up')"><i class="fa fa-arrow-up" aria-hidden="true"></i></div>
-                </div>
-
-
-                <div class="black-screen" [@visibilityChanged]="blackScreen">
-                    <div class="black-screen-text">
-                        Enemy encountered!
-                    </div>
-                </div>
-
-                <div class="battle-screen" *ngIf="inCombat">
-                    <cascade-battle></cascade-battle>
-                </div>
+                <cascade-travel [zone]="zone"></cascade-travel>
             </div>
         </div>
 
