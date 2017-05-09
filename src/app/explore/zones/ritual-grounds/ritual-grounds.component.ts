@@ -22,6 +22,7 @@ export class RitualGroundsComponent {
 
     blackScreen = 'hidden';
     travelSpan = 7;
+    inCombat = false;
 
     loadingRequest: Observable<any>;
     moveRequest: Observable<any>;
@@ -92,13 +93,14 @@ export class RitualGroundsComponent {
 
         let randomNumber = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
 
-        // if (randomNumber < 30) {
-        //     this.blackScreen = 'shown';
+        if (randomNumber < 30) {
+            this.blackScreen = 'shown';
 
-        //     setTimeout(() => {
-        //         this.blackScreen = 'hidden';
-        //     }, 2000);
-        // }
+            setTimeout(() => {
+                this.blackScreen = 'hidden';
+                this.inCombat = true;
+            }, 2000);
+        }
     }
 }
 

@@ -20,6 +20,10 @@
                         Enemy encountered!
                     </div>
                 </div>
+
+                <div class="battle-screen" *ngIf="inCombat">
+                    <cascade-battle></cascade-battle>
+                </div>
             </div>
         </div>
 
