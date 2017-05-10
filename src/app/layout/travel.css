@@ -3,25 +3,12 @@
     src: url(../../assets/fonts/Pristina.ttf);
 }
 
-.travel-table {
-    background-image: url('../../assets/images/backdrops/ritual-grounds.jpg');
-    background-size: cover;
-    height: 101%;
-    width: 100%;
+.ritual-grounds {
+    background-image: url('../../assets/images/backdrops/ritualgrounds1.png');
 }
 
-td {
-    height: 50px;
-    width: 50px;
-    border: 0;
-}
-
-.on-location {
-    background-color: rgba(0, 0, 0, .5);
-}
-
-.off-location {
-    background-color: rgba(0, 0, 0, 0.0);
+.ritual-grounds2 {
+    background-image: url('../../assets/images/backdrops/ritualgrounds2.png');
 }
 
 .moving-character {
@@ -52,7 +39,7 @@ td {
     position: absolute;
     top: 0%;
     left: 0%;
-    z-index: 50;
+    z-index: 51;
 }
 
 @media (min-width: 344px) {
@@ -108,6 +95,13 @@ td {
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    .travel-table {
+        background-color: #000;
+        background-size: auto auto;
+        /* background-size: 100% 100%; */
+        height: 101%;
+        width: 100%;
+    }
 }
 
 @media (min-width: 544px) {
@@ -146,7 +140,7 @@ td {
         color: #fff;
         font-size: 25px;
         position: absolute;
-        top: 93%;
+        top: 95.5%;
         left: 50%;
         transform: translateX(-50%);
     }
@@ -162,5 +156,11 @@ td {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+    .travel-table {
+        background-color: #000;        
+        background-size: 100% 100%;
+        height: 101%;
+        width: 100%;
     }
 }

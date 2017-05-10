@@ -11,7 +11,7 @@ import { UserService } from '../../../api/index';
 export class RitualGroundsComponent {
 
     loadingRequest: Observable<any>;
-    zone: 'Ritual Grounds'
+    location: string;
 
     user: any = {};
 
@@ -25,5 +25,7 @@ export class RitualGroundsComponent {
         this.loadingRequest.subscribe(res => {
             this.user = res[0];
         });
+
+        this.location = 'Ritual Grounds';
     } 
 }

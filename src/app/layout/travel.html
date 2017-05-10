@@ -1,8 +1,9 @@
 <div class="travel-container" style="margin:0; padding:0">
-    <div class="travel-table" style="margin:0; padding:0">
+    <div class="travel-table" style="margin:0; padding:0"
+    [ngClass]="{ 'ritual-grounds': zone === 'Ritual Grounds', 'ritual-grounds2': zone === 'Ritual Grounds2' }">
     </div>
 
-    <div class="travel-arrows" *ngIf="showArrows">
+    <div class="travel-arrows hidden-md-up"  *ngIf="showArrows">
         <div class="left-arrow arrows" (click)="moveWest(character)"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
         <div class="right-arrow arrows" (click)="moveEast(character)"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
         <div class="down-arrow arrows" (click)="moveSouth(character)"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
@@ -19,7 +20,7 @@
         </div>
     </div>
 
-    <div class="battle-screen" *ngIf="inCombat">
-        <cascade-battle></cascade-battle>
+    <div *ngIf="inCombat">
+        <cascade-battle [zone]="zone" [enemies]="enemies"></cascade-battle>
     </div>
 </div>

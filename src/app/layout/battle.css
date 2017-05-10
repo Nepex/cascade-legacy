@@ -1,0 +1,66 @@
+.battle-screen {
+    background-color: #ffffff;
+    width: 100%;
+    height: 101%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 50;
+}
+
+.ritual-grounds {
+    background-image: url('../../assets/images/backdrops/ritualgrounds-battle.jpg');
+    background-size: 100% 100%;
+}
+
+.reorient-party {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+.party-options {
+    padding-left: 20px;
+}
+
+.action-container {
+    background-color: rgba(0, 0, 0, .7);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    top: 82%;
+    left: 0%;
+}
+
+@media (min-width: 344px) {
+    .party-container {
+        position: absolute;
+        top: 53%;
+        left: 10%;
+    }
+    .monster-container {
+        position: absolute;
+        top: 55%;
+        left: 0%;
+    }
+}
+
+@media (min-width: 544px) {
+    .party-container {
+        position: absolute;
+        top: 53%;
+        left: 10%;
+    }
+    .monster-container {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+    }
+}

@@ -1,0 +1,16 @@
+<div class="battle-screen" [ngClass]="{ 'ritual-grounds': zone === 'Ritual Grounds' || zone === 'Ritual Grounds2' }" style="padding:0;margin:0">
+    <div class="party-container">
+        <div class="reorient-party" *ngFor="let p of party">
+            <cascade-sprite-loader [sprite]="p.sprite"></cascade-sprite-loader> <br />
+        </div>
+    </div>
+
+    <div class="enemy-container">
+    </div>
+
+    <div class="action-container">
+        <div *ngFor="let p of party" class="party-options">
+            {{ p.name }}
+        </div>
+    </div>
+</div>
