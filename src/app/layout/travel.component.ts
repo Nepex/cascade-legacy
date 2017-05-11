@@ -2,6 +2,7 @@ import { Component, Input, ElementRef, HostListener, ViewChild, OnChanges } from
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { NgxAni, NgxCss } from 'ngxani';
 
+import { EnemyService } from '../api/index';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class TravelComponent {
         }
     }
 
-    constructor(private elementRef: ElementRef, private ngxAni: NgxAni, private ngxCss: NgxCss) {
+    constructor(private elementRef: ElementRef, private ngxAni: NgxAni, private ngxCss: NgxCss, private enemyService: EnemyService) {
     }
 
     randomEncounter() {
@@ -62,6 +63,12 @@ export class TravelComponent {
 
             setTimeout(() => {
                 this.blackScreen = 'hidden';
+
+                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
+                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
+                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
+                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
+                console.log(this.enemies);
                 this.showArrows = true;
                 this.inCombat = true;
             }, 2000);

@@ -6,6 +6,9 @@
     </div>
 
     <div class="enemy-container">
+        <div *ngFor="let e of enemies">
+            <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite">
+        </div>
     </div>
 
     <div class="action-container">

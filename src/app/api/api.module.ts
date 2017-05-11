@@ -9,6 +9,7 @@ import { MailboxService } from './mailbox.service';
 import { QuestService } from './quest.service';
 import { InventoryService } from './inventory.service';
 import { SettingsService } from './settings.service';
+import { EnemyService } from './enemy.service';
 import { ObjConversion } from './obj-conversion';
 import { SessionService } from './session.service';
 import { SessionStateService } from './session-state.service';
@@ -29,6 +30,7 @@ import { Environment } from './environment';
         QuestService,
         InventoryService,
         ObjConversion,
+        EnemyService,
         SettingsService,
         SessionService,
         SessionStateService,
