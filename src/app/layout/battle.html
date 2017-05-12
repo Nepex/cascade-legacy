@@ -12,8 +12,40 @@
     </div>
 
     <div class="action-container">
-        <div *ngFor="let p of party" class="party-options">
-            {{ p.name }}
+        <div class="row">
+
+            <div class="col-lg-6 offset-lg-3 col-12 party-options">
+
+                <table>
+                    <tr *ngFor="let p of party">
+                        <td class="party-name">
+                            {{ p.name }}
+                        </td>
+                        <td class="party-bar">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%; height: 5px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </td>
+                        <td class="party-hp">
+                            {{ p.currHp }} / {{ p.hp }}
+                        </td>
+                        <td class="party-mp">
+                            {{ p.currMp }} / {{ p.mp }}
+                        </td>
+                        <td class="actions">
+                            Ability
+                        </td>
+                        <td class="actions">
+                            Item
+                        </td>
+                        <td class="actions">
+                            Flee
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
     </div>
+
 </div>
