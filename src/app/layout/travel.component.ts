@@ -37,13 +37,13 @@ export class TravelComponent {
     @HostListener('window:keydown', ['$event'])
     onKeyDown(ev: KeyboardEvent) {
         if (this.showArrows && !this.inCombat) {
-            if (ev.key === 'ArrowUp' || ev.key === 'w') {
+            if (ev.key === 'w') {
                 this.moveNorth(this.character);
-            } else if (ev.key === 'ArrowDown' || ev.key === 's') {
+            } else if (ev.key === 's') {
                 this.moveSouth(this.character);
-            } else if (ev.key === 'ArrowLeft' || ev.key === 'a') {
+            } else if (ev.key === 'a') {
                 this.moveWest(this.character);
-            } else if (ev.key === 'ArrowRight' || ev.key === 'd') {
+            } else if (ev.key === 'd') {
                 this.moveEast(this.character);
             }
         }
@@ -68,7 +68,7 @@ export class TravelComponent {
                 this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
                 this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
                 this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
-                console.log(this.enemies);
+                
                 this.showArrows = true;
                 this.inCombat = true;
             }, 2000);

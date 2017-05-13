@@ -29,7 +29,7 @@ import { BattleComponent } from './battle.component';
         BrowserModule,
         CommonModule,
         NgbModule.forRoot(),
-        NgxAniModule
+        NgxAniModule,
     ],
     declarations: [
         HeaderComponent,
