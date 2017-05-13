@@ -97,40 +97,11 @@ export class BattleComponent {
         }, 50);
     }
 
-    useOnParty(obj) {
-        this.closeOptions();
-
-        // if success        
-        let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
-        this.ngxAni.to(barElement, 0, {
-            width: '0%'
-        });
-
-        setTimeout(() => {
-            this.party[this.partyMemberSelected].showActions = false;
-            this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
-        }, 50);
-    }
-
-    useOnEnemy(obj) {
-        this.closeOptions();
-
-        // if success
-        let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
-        this.ngxAni.to(barElement, 0, {
-            width: '0%'
-        });
-
-        setTimeout(() => {
-            this.party[this.partyMemberSelected].showActions = false;
-            this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
-        }, 50);
-    }
-
     buildOptions(obj, actionSelected, partyMemberIndex) {
         this.selectedItem = null;
         this.selectedSpell = null;
-        
+
+        // selects party member index for element ref (for resetting load bar)
         if (partyMemberIndex || partyMemberIndex === 0) {
             this.partyMemberSelected = partyMemberIndex;
         }
@@ -181,8 +152,41 @@ export class BattleComponent {
             }
         }
 
-
         this.showOptions = true;
+    }
+
+    useOnParty(obj) {
+        this.closeOptions();
+
+        // call api
+
+        // if success        
+        let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
+        this.ngxAni.to(barElement, 0, {
+            width: '0%'
+        });
+
+        setTimeout(() => {
+            this.party[this.partyMemberSelected].showActions = false;
+            this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
+        }, 50);
+    }
+
+    useOnEnemy(obj) {
+        this.closeOptions();
+
+        // do math within component
+
+        // if success
+        let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
+        this.ngxAni.to(barElement, 0, {
+            width: '0%'
+        });
+
+        setTimeout(() => {
+            this.party[this.partyMemberSelected].showActions = false;
+            this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
+        }, 50);
     }
 
     closeOptions() {
