@@ -18,7 +18,11 @@ export class BattleComponent {
     user: any;
     party: any;
     inventory: any;
-
+    options = [];
+    showOptions = false;
+    selectedSpell = null;
+    selectedItem = null;
+    partyMemberSelected = null;
 
     loadingRequest: Observable<any>;
 
@@ -39,24 +43,150 @@ export class BattleComponent {
             this.party = res[1];
             this.inventory = res[2];
 
+            for (let i = 0; i < this.inventory.length; i++) {
+                this.inventory[i].itemName = this.inventory[i].name;
+            }
+
+            for (let i = 0; i < this.enemies.length; i++) {
+                this.enemies[i].enemyName = this.enemies[i].name;
+            }
+
             for (let i = 0; i < this.party.length; i++) {
-                let baseTime = 4000;
+                // timeout to compensate for ngfor populating to pick up element refs (not sure of a better way)
+                setTimeout(() => {
+                    this.party[i].partyName = this.party[i].name;
+                    this.party[i].showParty = false;
 
-                let minusMs = this.party[i].hst * 10;
+                    let baseTime = 4000;
 
-                this.party[i].loadTime = baseTime - minusMs;
+                    let minusMs = this.party[i].hst * 10;
 
-                setTimeout(() => { this.beginLoad(i) }, 50);
+                    this.party[i].loadTime = baseTime - minusMs;
+                    this.party[i].showActions = false;
+                    this.beginLoad(i, this.party[i].loadTime);
+                }, 50);
             }
         });
     }
 
-    beginLoad(index) {
-        let ele: ElementRef = this.progressBar.toArray()[index];
+    beginLoad(i, loadTime) {
+        let animationTime = loadTime / 1000;
+        let barElement: ElementRef = this.progressBar.toArray()[i];
 
-        this.ngxAni.to(ele, 4.0, {
+        this.ngxAni.to(barElement, animationTime, {
             width: '100%'
         });
+
+        setTimeout(() => {
+            this.party[i].showActions = true;
+        }, loadTime)
+    }
+
+    flee(i) {
+        this.closeOptions();
+        // if some number then flee else fail
+
+        let barElement: ElementRef = this.progressBar.toArray()[i];
+        this.ngxAni.to(barElement, 0, {
+            width: '0%'
+        });
+
+        setTimeout(() => {
+            this.party[i].showActions = false;
+            this.beginLoad(i, this.party[i].loadTime);
+        }, 50);
+    }
+
+    useOnParty(obj) {
+        this.closeOptions();
+
+        // if success        
+        let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
+        this.ngxAni.to(barElement, 0, {
+            width: '0%'
+        });
+
+        setTimeout(() => {
+            this.party[this.partyMemberSelected].showActions = false;
+            this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
+        }, 50);
+    }
+
+    useOnEnemy(obj) {
+        this.closeOptions();
+
+        // if success
+        let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
+        this.ngxAni.to(barElement, 0, {
+            width: '0%'
+        });
+
+        setTimeout(() => {
+            this.party[this.partyMemberSelected].showActions = false;
+            this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
+        }, 50);
+    }
+
+    buildOptions(obj, actionSelected, partyMemberIndex) {
+        this.selectedItem = null;
+        this.selectedSpell = null;
+        
+        if (partyMemberIndex || partyMemberIndex === 0) {
+            this.partyMemberSelected = partyMemberIndex;
+        }
+
+        this.options = [];
+
+        if (actionSelected === 'ability') {
+            this.options.push({
+                spellName: 'Attack',
+                base: 100,
+                spellType: 'Physical'
+            });
+
+            for (let i = 0; i < obj.spells.length; i++) {
+                this.options.push(obj.spells[i]);
+            }
+        }
+
+        if (actionSelected === 'item') {
+            for (let i = 0; i < this.inventory.length; i++) {
+                if (this.inventory[i].usable) {
+                    this.options.push(this.inventory[i]);
+                }
+            }
+        }
+
+        if (actionSelected === 'friendlySpell') {
+            this.selectedSpell = obj;
+
+            for (let i = 0; i < this.party.length; i++) {
+                this.options.push(this.party[i]);
+            }
+        }
+
+        if (actionSelected === 'hostileSpell') {
+            this.selectedSpell = obj;
+
+            for (let i = 0; i < this.enemies.length; i++) {
+                this.options.push(this.enemies[i]);
+            }
+        }
+
+        if (actionSelected === 'friendlyItem') {
+            this.selectedItem = obj;
+
+            for (let i = 0; i < this.party.length; i++) {
+                this.options.push(this.party[i]);
+            }
+        }
+
+
+        this.showOptions = true;
+    }
+
+    closeOptions() {
+        this.showOptions = false;
     }
 
 }
