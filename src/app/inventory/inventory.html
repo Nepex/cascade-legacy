@@ -1,4 +1,4 @@
-<div class="container" style="padding: 0; overflow-x: hidden;">
+<div class="container" style="padding: 0; overflow-x: hidden; overflow-y: hidden;">
 
     <cascade-header-members [user]="user.username" [currency]="user.currency"></cascade-header-members>
 
@@ -45,8 +45,7 @@
 
                         <div class="dropdown" (offClick)="closeMenu(i)" *ngIf="i.usable">
                             <div class="dropbtn">
-                                <button class="btn btn-sm" id="btn-1" style="margin-right: 18px; margin-bottom: 5px;" *ngIf="i.usable" title="Use"
-                                    (click)="i.showParty = !i.showParty">
+                                <button class="btn btn-sm" id="btn-1" style="margin-right: 18px; margin-bottom: 5px;" *ngIf="i.usable" title="Use" (click)="i.showParty = !i.showParty">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </button>
                             </div>
@@ -78,5 +77,10 @@
     </div>
 
     <cascade-footer></cascade-footer>
+    
+    <span class="hidden-md-down">
+        <br /> <br />
+        <br /> <br />
+    </span>
 
 </div>

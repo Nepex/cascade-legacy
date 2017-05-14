@@ -15,19 +15,17 @@
 
             <div class="col-lg-10 offset-lg-1 col-12">
                 <div class="pull-left" style="font-size: 13px; ">
-                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;"
-                        title="Send Mail" (click)="sendMessage()">
+                    <button class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;" title="Send Mail" (click)="sendMessage()">
                         <i class="fa fa-comment-o" aria-hidden="true"></i>
                     </button> &nbsp;
-                    <button *ngIf="this.mail.length > 1" class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;"
-                        title="Remove All" (click)="confirmRemove('all')">
+                    <button *ngIf="this.mail.length > 1" class="btn btn-sm" id="btn-1" style="cursor: pointer; margin-bottom: 10px;" title="Remove All"
+                        (click)="confirmRemove('all')">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <span class="pull-right" style="padding-bottom: 20px; position: relative; top: 2px; font-size: 12px;">
-                        {{ mail.length }} Message<span *ngIf="mail.length > 1 || mail.length === 0">s</span> &nbsp; | &nbsp; {{
-                newMessages }} New Message<span *ngIf="newMessages > 1 || mail.length === 0">s</span>
+                        {{ mail.length }} Message<span *ngIf="mail.length > 1 || mail.length === 0">s</span>                &nbsp; | &nbsp; {{ newMessages }} New Message<span *ngIf="newMessages > 1 || mail.length === 0">s</span>
                 </span>
             </div>
 
@@ -83,5 +81,10 @@
     </div>
 
     <cascade-footer></cascade-footer>
+    
+    <span class="hidden-md-down">
+        <br /> <br />
+        <br /> <br />
+    </span>
 
 </div>
