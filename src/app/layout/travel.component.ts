@@ -55,6 +55,7 @@ export class TravelComponent {
     randomEncounter() {
         // put in logic for encounters and different sets of enemies baed on the zone passed in
         // possibly break out into another file?
+        this.enemies = [];
         let randomNumber = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
 
         if (randomNumber < 30 && (this.zone === 'Ritual Grounds' || this.zone === 'Ritual Grounds2')) {
@@ -216,5 +217,9 @@ export class TravelComponent {
             this.randomEncounter();
         }, 900)
 
+    }
+
+    setCombatState(e) {
+        this.inCombat = e;
     }
 }

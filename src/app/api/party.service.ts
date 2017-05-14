@@ -129,6 +129,19 @@ export class PartyService {
         return req;
     }
 
+    useFriendlySpell(spell) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/puts/use-friendly-spell.php`;
+
+        let req = this.http.put(url, spell, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
 
     useInn(cost) {
         let headers = new Headers();

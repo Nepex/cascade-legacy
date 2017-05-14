@@ -65,4 +65,14 @@
         </div>
     </div>
 
+    <div class="message-container" *ngIf="message">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xs-12 party-options">
+                <span class="options">
+                    {{ message }}
+                </span>
+            </div>
+        </div>
+    </div>
+
 </div>

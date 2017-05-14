@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, ViewChildren, ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NgxAni, NgxCss } from 'ngxani';
 
@@ -15,6 +15,8 @@ export class BattleComponent {
 
     @Input() zone: string;
     @Input() enemies: any;
+    @Output() combatState = new EventEmitter<any>();
+
     user: any;
     party: any;
     inventory: any;
@@ -23,6 +25,7 @@ export class BattleComponent {
     selectedSpell = null;
     selectedItem = null;
     partyMemberSelected = null;
+    message: string;
 
     loadingRequest: Observable<any>;
 
@@ -54,8 +57,10 @@ export class BattleComponent {
             for (let i = 0; i < this.party.length; i++) {
                 // timeout to compensate for ngfor populating to pick up element refs (not sure of a better way)
                 setTimeout(() => {
+                    this.party[i].addedPhysDmg = this.party[i].str * 3;
+                    this.party[i].addedMagDmg = this.party[i].mag * 3;
+
                     this.party[i].partyName = this.party[i].name;
-                    this.party[i].showParty = false;
 
                     let baseTime = 4000;
 
@@ -66,6 +71,30 @@ export class BattleComponent {
                     this.beginLoad(i, this.party[i].loadTime);
                 }, 50);
             }
+        });
+    }
+
+    refresh() {
+        this.loadingRequest = Observable.forkJoin(
+            this.partyService.getParty(),
+            this.inventoryService.getInventory()
+        );
+
+        this.loadingRequest.subscribe(res => {
+            this.inventory = res[1];
+
+            for (let i = 0; i < this.inventory.length; i++) {
+                this.inventory[i].itemName = this.inventory[i].name;
+            }
+
+            for (let i = 0; i < res[0].length; i++) {
+                this.party[i].currHp = res[0][i].currHp;
+                this.party[i].currMp = res[0][i].currMp;
+            }
+
+            setTimeout(() => {
+                this.message = null;
+            }, 2000);
         });
     }
 
@@ -84,7 +113,24 @@ export class BattleComponent {
 
     flee(i) {
         this.closeOptions();
-        // if some number then flee else fail
+        this.message = null;
+
+        let randomNumber = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+
+        if (randomNumber >= 50) {
+            this.message = 'Successfully escaped!'
+            setTimeout(() => {
+                this.message = null;
+                this.combatState.emit(false);
+            }, 500);
+
+            return;
+        }
+
+        this.message = 'Failed to escape!'
+        setTimeout(() => {
+            this.message = null;
+        }, 2000);
 
         let barElement: ElementRef = this.progressBar.toArray()[i];
         this.ngxAni.to(barElement, 0, {
@@ -100,6 +146,7 @@ export class BattleComponent {
     buildOptions(obj, actionSelected, partyMemberIndex) {
         this.selectedItem = null;
         this.selectedSpell = null;
+        this.message = null;
 
         // selects party member index for element ref (for resetting load bar)
         if (partyMemberIndex || partyMemberIndex === 0) {
@@ -158,9 +205,33 @@ export class BattleComponent {
     useOnParty(obj) {
         this.closeOptions();
 
-        // call api
+        if (this.selectedItem) {
+            let selection = this.selectedItem;
+            selection.partyId = obj.id;
 
-        // if success        
+            this.loadingRequest = this.inventoryService.use(selection);
+            this.loadingRequest.subscribe(
+                res => {
+                    this.loadingRequest = null;
+                    this.message = `${selection.itemName} heals ${obj.name} for ${selection.healingAmount}.`;
+
+                    this.refresh();
+                });
+        } else if (this.selectedSpell) {
+            let selection = this.selectedSpell;
+            selection.partyId = obj.id;
+
+            this.loadingRequest = this.partyService.useFriendlySpell(selection);
+            this.loadingRequest.subscribe(
+                res => {
+                    this.loadingRequest = null;
+                    //add random number to base
+                    this.message = `${selection.spellName} heals ${obj.name} for ${selection.base}.`;
+
+                    this.refresh();
+                });
+        }
+
         let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
         this.ngxAni.to(barElement, 0, {
             width: '0%'
@@ -169,7 +240,7 @@ export class BattleComponent {
         setTimeout(() => {
             this.party[this.partyMemberSelected].showActions = false;
             this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
-        }, 50);
+        }, 100);
     }
 
     useOnEnemy(obj) {

@@ -21,6 +21,6 @@
     </div>
 
     <div *ngIf="inCombat">
-        <cascade-battle [zone]="zone" [enemies]="enemies"></cascade-battle>
+        <cascade-battle [zone]="zone" [enemies]="enemies" (combatState)="setCombatState($event)"></cascade-battle>
     </div>
 </div>

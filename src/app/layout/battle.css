@@ -77,6 +77,18 @@
         top: 79.8%;
         left: 0%;
     }
+    .message-container {
+        background-color: rgba(0, 0, 0, .7);
+        border-bottom: 1px solid #000;        
+        color: #fff;
+        font-family: Pristina;
+        font-size: 17px;
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        top: 79.8%;
+        left: 0%;
+    }
     .party-name {
         width: 75px;
         padding-bottom: 5px;
@@ -129,6 +141,18 @@
         top: 78.9%;
         left: 0%;
     }
+    .message-container {
+        background-color: rgba(0, 0, 0, .7);
+        border-bottom: 1px solid #000;        
+        color: #fff;
+        font-family: Pristina;
+        font-size: 17px;
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        top: 78.9%;
+        left: 0%;
+    }
     .party-container {
         position: absolute;
         top: 53%;
@@ -167,6 +191,18 @@
         left: 0%;
     }
     .options-container {
+        background-color: rgba(0, 0, 0, .7);
+        border-bottom: 1px solid #000;
+        color: #fff;
+        font-family: Pristina;
+        font-size: 17px;
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        top: 78.9%;
+        left: 0%;
+    }
+    .message-container {
         background-color: rgba(0, 0, 0, .7);
         border-bottom: 1px solid #000;
         color: #fff;

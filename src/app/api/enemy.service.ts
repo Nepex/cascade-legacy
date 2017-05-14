@@ -39,6 +39,10 @@ export class EnemyService {
             }
         }
     }
+
+    attackEnemy(enemy) {
+        
+    }
 }
 
 export class Enemy {
