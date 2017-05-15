@@ -20,12 +20,14 @@ export class BattleComponent {
     user: any;
     party: any;
     inventory: any;
+    message: string;
+
     options = [];
     showOptions = false;
     selectedSpell = null;
     selectedItem = null;
     partyMemberSelected = null;
-    message: string;
+    randomAddedDmgorHealing = Math.floor(Math.random() * 10 + 1);
 
     loadingRequest: Observable<any>;
 
@@ -58,7 +60,7 @@ export class BattleComponent {
                 // timeout to compensate for ngfor populating to pick up element refs (not sure of a better way)
                 setTimeout(() => {
                     this.party[i].addedPhysDmg = this.party[i].str * 3;
-                    this.party[i].addedMagDmg = this.party[i].mag * 3;
+                    this.party[i].addedMagDmgOrHealing = this.party[i].mag * 3;
 
                     this.party[i].partyName = this.party[i].name;
 
@@ -158,7 +160,7 @@ export class BattleComponent {
         if (actionSelected === 'ability') {
             this.options.push({
                 spellName: 'Attack',
-                base: 100,
+                base: 50,
                 spellType: 'Physical'
             });
 
@@ -213,21 +215,37 @@ export class BattleComponent {
             this.loadingRequest.subscribe(
                 res => {
                     this.loadingRequest = null;
-                    this.message = `${selection.itemName} heals ${obj.name} for ${selection.healingAmount}.`;
+
+                    if (selection.healingAmount) {
+                        this.message = `${selection.itemName} heals ${obj.name} for ${selection.healingAmount}HP.`;
+                    } else if (selection.mpHealingAmount) {
+                        this.message = `${selection.itemName} restores ${selection.mpHealingAmount}MP to ${obj.name}.`
+                    }
 
                     this.refresh();
                 });
-        } else if (this.selectedSpell) {
+        }
+
+        else if (this.selectedSpell) {
             let selection = this.selectedSpell;
-            selection.partyId = obj.id;
+            selection.memberUsedOn = obj.id;
+            selection.memberUsing = this.party[this.partyMemberSelected].id;
+
+            let healingAmount = selection.base + this.party[this.partyMemberSelected].addedMagDmgOrHealing + this.randomAddedDmgorHealing;
+
+            if (this.party[this.partyMemberSelected].currMp < selection.cost) {
+                this.message = `Not enough MP.`;
+                return;
+            }
 
             this.loadingRequest = this.partyService.useFriendlySpell(selection);
             this.loadingRequest.subscribe(
                 res => {
-                    this.loadingRequest = null;
-                    //add random number to base
-                    this.message = `${selection.spellName} heals ${obj.name} for ${selection.base}.`;
+                    if (selection.spellType === 'Heal') {
+                        this.message = `${selection.spellName} heals ${obj.name} for ${healingAmount} HP.`;
+                    }
 
+                    this.loadingRequest = null;
                     this.refresh();
                 });
         }
@@ -258,6 +276,10 @@ export class BattleComponent {
             this.party[this.partyMemberSelected].showActions = false;
             this.beginLoad(this.partyMemberSelected, this.party[this.partyMemberSelected].loadTime);
         }, 50);
+    }
+
+    enemyAttack() {
+
     }
 
     closeOptions() {

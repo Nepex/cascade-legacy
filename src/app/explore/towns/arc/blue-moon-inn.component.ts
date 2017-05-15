@@ -124,7 +124,6 @@ export class ArcBlueMoonInnComponent implements OnInit {
                     }
                 });
             }, 2000);
-
         } else if (e === 3) {
             this.router.navigateByUrl('/arc');
         }

@@ -7,22 +7,18 @@ export class EncountersService {
     constructor() { }
 
     detemineEncounter(randomNumber, zone) {
-        let enemiesLimit4 = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
-        let enemiesLimit3 = Math.floor(Math.random() * (3 - 0 + 1)) + 0;        
-        let enemiesLimit2 = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
-        
+        let enemiesLimit4 = Math.floor(Math.random() * 4 + 1);
+        let enemiesLimit3 = Math.floor(Math.random() * 3 + 1);
+        let enemiesLimit2 = Math.floor(Math.random() * 2 + 1);
+
         this.enemies = [];
 
         // ritual grounds enemy encounters
-        if (randomNumber <= 30 && zone.substring(0,15) === 'ritual-grounds') {
+        if (randomNumber <= 30 && zone.substring(0, 14) === 'ritual-grounds') {
             this.createEnemyArray(enemiesLimit4, 'thunderhawk');
-            return this.enemies;
         }
 
-        // no conditions are met, don't enter combat
-        else {
-            return [];
-        }
+        return this.enemies;
     }
 
     createEnemyArray(numberOfEnemies, enemy) {

@@ -56,10 +56,10 @@ export class TravelComponent {
 
     randomEncounter() {
         this.enemies = [];
-        let randomNumber = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+        let randomNumber = Math.floor((Math.random() * 100) + 1);
         let encounteredEnemies = this.encountersService.detemineEncounter(randomNumber, this.zone);
 
-        if (!encounteredEnemies) {
+        if (encounteredEnemies.length < 1) {
             return;
         }
 

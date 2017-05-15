@@ -129,14 +129,14 @@ export class PartyService {
         return req;
     }
 
-    useFriendlySpell(spell) {
+    useFriendlySpell(selection) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `${this.sessionStateService.getToken()}`);
 
         let url = `${this.environment.baseApiUrl}/puts/use-friendly-spell.php`;
 
-        let req = this.http.put(url, spell, {
+        let req = this.http.put(url, selection, {
             headers: headers
         }).map(res => res);
 
