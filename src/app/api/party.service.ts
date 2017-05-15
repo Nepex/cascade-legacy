@@ -143,6 +143,20 @@ export class PartyService {
         return req;
     }
 
+    useHostileSpell(selection) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let url = `${this.environment.baseApiUrl}/puts/use-hostile-spell.php`;
+
+        let req = this.http.put(url, selection, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
+
     useInn(cost) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

@@ -9,7 +9,7 @@
 
     <div class="enemy-container">
         <div *ngFor="let e of enemies">
-            <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite">
+            <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite" *ngIf="e">
         </div>
     </div>
 
@@ -56,12 +56,11 @@
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xs-12 party-options">
                 <span *ngFor="let o of options" class="options">
                     <span style="cursor: pointer;" (click)="buildOptions(o, 'hostileSpell')" *ngIf="o.spellType === 'Magic' || o.spellType === 'Physical'">{{ o.spellName }}</span>
-                <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlySpell')" *ngIf="o.spellType === 'Heal'">{{ o.spellName }}</span>
-                <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlyItem')">{{ o.itemName }}</span>
+                    <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlySpell')" *ngIf="o.spellType === 'Heal'">{{ o.spellName }}</span>
+                    <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlyItem')">{{ o.itemName }}</span>
 
-                <span style="cursor: pointer;" (click)="useOnParty(o)">{{ o.partyName }}</span>
-                <span style="cursor: pointer;" (click)="useOnEnemy(o)">{{ o.enemyName }}</span>
-
+                    <span style="cursor: pointer;" (click)="useOnParty(o)">{{ o.partyName }}</span>
+                    <span style="cursor: pointer;" (click)="useOnEnemy(o)">{{ o.enemyName }}</span>
                 </span>
             </div>
         </div>

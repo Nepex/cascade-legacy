@@ -27,6 +27,7 @@ export class BattleComponent {
     selectedSpell = null;
     selectedItem = null;
     partyMemberSelected = null;
+    enemySelected = null;
     randomAddedDmgorHealing = Math.floor(Math.random() * 10 + 1);
 
     loadingRequest: Observable<any>;
@@ -54,6 +55,7 @@ export class BattleComponent {
 
             for (let i = 0; i < this.enemies.length; i++) {
                 this.enemies[i].enemyName = this.enemies[i].name;
+                this.enemies[i].index = i;
             }
 
             for (let i = 0; i < this.party.length; i++) {
@@ -161,6 +163,7 @@ export class BattleComponent {
             this.options.push({
                 spellName: 'Attack',
                 base: 50,
+                cost: 0,
                 spellType: 'Physical'
             });
 
@@ -189,6 +192,10 @@ export class BattleComponent {
             this.selectedSpell = obj;
 
             for (let i = 0; i < this.enemies.length; i++) {
+                if (this.enemies[i] === null) {
+                    continue;
+                }
+
                 this.options.push(this.enemies[i]);
             }
         }
@@ -264,7 +271,47 @@ export class BattleComponent {
     useOnEnemy(obj) {
         this.closeOptions();
 
-        // do math within component
+        if (this.selectedItem) {
+            // not implemented
+            return;
+        }
+
+        else if (this.selectedSpell) {
+            let selection = this.selectedSpell;
+            selection.memberUsing = this.party[this.partyMemberSelected].id;
+            let dmgAmount: number;
+
+            switch (selection.spellType) {
+                case 'Physical':
+                    dmgAmount = selection.base + this.party[this.partyMemberSelected].addedPhysDmg + this.randomAddedDmgorHealing;
+                    break;
+                case 'Magic':
+                    dmgAmount = selection.base + this.party[this.partyMemberSelected].addedMagDmgOrHealing + this.randomAddedDmgorHealing;
+                    break;
+            }
+
+            if (this.party[this.partyMemberSelected].currMp < selection.cost) {
+                this.message = `Not enough MP.`;
+                return;
+            }
+
+            this.loadingRequest = this.partyService.useHostileSpell(selection);
+            this.loadingRequest.subscribe(
+                res => { this.refresh(); });
+
+            this.message = `${selection.spellName} damages ${this.enemies[obj.index].name} for ${dmgAmount}.`;
+
+            if (dmgAmount > this.enemies[obj.index].currHp) {
+                // enemy defeated
+                this.enemies[obj.index] = null;
+                this.checkIfVictory();
+            } else {
+                // attack enemy
+                let newHp = this.enemies[obj.index].currHp - dmgAmount;
+                this.enemies[obj.index].currHp = newHp;
+            }
+
+        }
 
         // if success
         let barElement: ElementRef = this.progressBar.toArray()[this.partyMemberSelected];
@@ -278,8 +325,27 @@ export class BattleComponent {
         }, 50);
     }
 
+
     enemyAttack() {
 
+    }
+
+    checkIfVictory() {
+        let enemiesAlive = 0;
+
+        for (let i = 0; i < this.enemies.length; i++) {
+            if (this.enemies[i] !== null) {
+                enemiesAlive = enemiesAlive + 1;
+            }
+        }
+
+        if (enemiesAlive === 0) {
+            this.message = 'Battle won!'
+            setTimeout(() => {
+                this.message = null;
+                this.combatState.emit(false);
+            }, 500);
+        }
     }
 
     closeOptions() {
