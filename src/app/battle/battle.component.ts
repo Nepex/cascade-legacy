@@ -81,7 +81,7 @@ export class BattleComponent {
         });
     }
 
-    refresh() {
+    updatePartyHpMp() {
         this.loadingRequest = Observable.forkJoin(
             this.partyService.getParty(),
             this.inventoryService.getInventory()
@@ -232,7 +232,7 @@ export class BattleComponent {
                         this.message = `${selection.itemName} restores ${selection.mpHealingAmount}MP to ${obj.name}.`
                     }
 
-                    this.refresh();
+                    this.updatePartyHpMp();
                 });
         }
 
@@ -256,7 +256,7 @@ export class BattleComponent {
                     }
 
                     this.loadingRequest = null;
-                    this.refresh();
+                    this.updatePartyHpMp();
                 });
         }
 
@@ -300,7 +300,7 @@ export class BattleComponent {
 
             this.loadingRequest = this.partyService.useHostileSpell(selection);
             this.loadingRequest.subscribe(
-                res => { this.refresh(); });
+                res => { this.updatePartyHpMp(); });
 
             this.message = `${selection.spellName} damages ${this.enemies[obj.index].name} for ${dmgAmount}.`;
 
