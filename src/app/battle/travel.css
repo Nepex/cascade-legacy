@@ -3,12 +3,13 @@
     src: url(../../assets/fonts/Pristina.ttf);
 }
 
+/* ritual ground maps */
 .ritual-grounds {
-    background-image: url('../../assets/images/backdrops/ritualgrounds1.png');
+    background-image: url('../../assets/images/backdrops/ritual-grounds.png');
 }
 
-.ritual-grounds2 {
-    background-image: url('../../assets/images/backdrops/ritualgrounds2.png');
+.ritual-grounds-n1 {
+    background-image: url('../../assets/images/backdrops/ritual-grounds-n1.png');
 }
 
 .moving-character {

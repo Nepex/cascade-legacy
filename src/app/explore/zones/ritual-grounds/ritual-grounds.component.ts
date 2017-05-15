@@ -26,6 +26,6 @@ export class RitualGroundsComponent {
             this.user = res[0];
         });
 
-        this.location = 'Ritual Grounds';
+        this.location = 'ritual-grounds';
     } 
 }

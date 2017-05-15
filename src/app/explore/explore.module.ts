@@ -20,7 +20,8 @@ import { ArcGeneralStoreComponent } from './towns/arc/general-store.component';
 import { ArcEquipmentStoreComponent } from './towns/arc/equipment-store.component';
 
 import { RitualGroundsComponent } from './zones/ritual-grounds/ritual-grounds.component';
-
+import { MappingService } from './mapping.service';
+import { EncountersService } from './encounters.service';
 
 @NgModule({
     imports: [
@@ -46,5 +47,9 @@ import { RitualGroundsComponent } from './zones/ritual-grounds/ritual-grounds.co
         ArcEquipmentStoreComponent,
         RitualGroundsComponent
     ],
+    providers: [
+        MappingService,
+        EncountersService
+    ]
 })
 export class ExploreModule { }

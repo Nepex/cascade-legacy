@@ -3,7 +3,8 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 import { NgxAni, NgxCss } from 'ngxani';
 
 import { EnemyService } from '../api/index';
-
+import { MappingService } from '../explore/mapping.service';
+import { EncountersService } from '../explore/encounters.service';
 
 @Component({
     selector: 'cascade-travel',
@@ -38,185 +39,178 @@ export class TravelComponent {
     onKeyDown(ev: KeyboardEvent) {
         if (this.showArrows && !this.inCombat) {
             if (ev.key === 'w') {
-                this.moveNorth(this.character);
+                this.move(this.character, 'north');
             } else if (ev.key === 's') {
-                this.moveSouth(this.character);
+                this.move(this.character, 'south');
             } else if (ev.key === 'a') {
-                this.moveWest(this.character);
+                this.move(this.character, 'west');
             } else if (ev.key === 'd') {
-                this.moveEast(this.character);
+                this.move(this.character, 'east');
             }
         }
     }
 
-    constructor(private elementRef: ElementRef, private ngxAni: NgxAni, private ngxCss: NgxCss, private enemyService: EnemyService) {
+    constructor(private elementRef: ElementRef, private ngxAni: NgxAni, private ngxCss: NgxCss, private enemyService: EnemyService,
+        private mappingService: MappingService, private encountersService: EncountersService) {
     }
 
     randomEncounter() {
-        // put in logic for encounters and different sets of enemies baed on the zone passed in
-        // possibly break out into another file?
         this.enemies = [];
         let randomNumber = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+        let encounteredEnemies = this.encountersService.detemineEncounter(randomNumber, this.zone);
 
-        if (randomNumber < 30 && (this.zone === 'Ritual Grounds' || this.zone === 'Ritual Grounds2')) {
-            this.showArrows = false;
-            this.blackScreen = 'shown';
-
-            setTimeout(() => {
-                this.blackScreen = 'hidden';
-
-                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
-                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
-                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
-                this.enemies.push(this.enemyService.getEnemy('thunderhawk'));
-                
-                this.showArrows = true;
-                this.inCombat = true;
-            }, 2000);
+        if (!encounteredEnemies) {
+            return;
         }
-    }
 
-    private moveNorth(dom: ElementRef) {
-        if (this.y - 10 <= 0) {
+        // else enter combat
+        this.showArrows = false;
+        this.blackScreen = 'shown';
 
-            // move to next zones
-            if (this.zone === 'Ritual Grounds') {
-                this.ngxAni.to(dom, 0, {
-                    position: 'absolute',
-                    top: '100%',
-                });
-                this.y = 100;
-                this.zone = 'Ritual Grounds2'
+        setTimeout(() => {
+            this.blackScreen = 'hidden';
+
+            for (let i = 0; i < encounteredEnemies.length; i++) {
+                this.enemies.push(this.enemyService.getEnemy(encounteredEnemies[i]));
             }
 
-            return;
-        }
-
-        this.y = this.y - 10;
-
-        this.ngxAni.to(dom, .9, {
-            position: 'absolute',
-            top: '' + (this.y) + '%',
-        });
-
-        this.animationImage = 'north1';
-        this.showArrows = false;
-
-        setTimeout(() => {
-            this.animationImage = 'north2';
-        }, 300)
-
-        setTimeout(() => {
-            this.animationImage = 'north3';
-        }, 600)
-
-        setTimeout(() => {
-            this.animationImage = 'north1';
             this.showArrows = true;
-            this.randomEncounter();
-        }, 900)
+            this.inCombat = true;
+        }, 2000);
     }
 
-    private moveSouth(dom: ElementRef) {
-        if (this.y + 10 > 100) {
+    move(dom: ElementRef, direction) {
 
-            // move to previous zones
-            if (this.zone === 'Ritual Grounds2') {
-                this.ngxAni.to(dom, 0, {
+        switch (direction) {
+
+            case 'north':
+                // if at the edge of the map, move to next zone
+                if (this.y - 10 <= 0) {
+                    let continuePossible = this.checkForNextLoc('north');
+
+                    if (!continuePossible) {
+                        return;
+                    }
+
+                    this.ngxAni.to(dom, 0, {
+                        position: 'absolute',
+                        top: '100%',
+                    });
+                    this.y = 100;
+
+                    return;
+                }
+
+                // else continue on current map
+                this.y = this.y - 10;
+
+                this.ngxAni.to(dom, .9, {
                     position: 'absolute',
-                    top: '10%',
+                    top: '' + (this.y) + '%',
                 });
-                this.y = 10;
-                this.zone = 'Ritual Grounds'
-            }
-            return;
+                break;
+
+            case 'south':
+                if (this.y + 10 > 100) {
+                    let continuePossible = this.checkForNextLoc('south');
+
+                    if (!continuePossible) {
+                        return;
+                    }
+
+                    this.ngxAni.to(dom, 0, {
+                        position: 'absolute',
+                        top: '10%',
+                    });
+                    this.y = 10;
+
+                    return;
+                }
+
+                this.y = this.y + 10;
+
+                this.ngxAni.to(dom, .9, {
+                    position: 'absolute',
+                    top: '' + (this.y) + '%'
+                });
+                break;
+
+            case 'west':
+                if (this.x - 10 <= 0) {
+                    let continuePossible = this.checkForNextLoc('west');
+
+                    if (!continuePossible) {
+                        return;
+                    }
+
+                    this.ngxAni.to(dom, 0, {
+                        position: 'absolute',
+                        left: '100%',
+                    });
+                    this.x = 100;
+
+                    return;
+                }
+
+                this.x = this.x - 10;
+
+                this.ngxAni.to(dom, .9, {
+                    position: 'absolute',
+                    left: '' + (this.x) + '%'
+                });
+                break;
+
+            case 'east':
+                if (this.x + 10 >= 100) {
+                    let continuePossible = this.checkForNextLoc('east');
+
+                    if (!continuePossible) {
+                        return;
+                    }
+
+                    this.ngxAni.to(dom, 0, {
+                        position: 'absolute',
+                        left: '10%',
+                    });
+                    this.x = 10;
+
+                    return;
+                }
+
+                this.x = this.x + 10;
+
+                this.ngxAni.to(dom, .9, {
+                    position: 'absolute',
+                    left: '' + (this.x) + '%'
+                });
+
+                break;
         }
 
-        this.y = this.y + 10;
-
-        this.ngxAni.to(dom, .9, {
-            position: 'absolute',
-            top: '' + (this.y) + '%'
-        });
-
-        this.animationImage = 'south1';
+        this.animationImage = direction + '1';
         this.showArrows = false;
 
         setTimeout(() => {
-            this.animationImage = 'south2';
+            this.animationImage = direction + '2';
         }, 300)
 
         setTimeout(() => {
-            this.animationImage = 'south3';
+            this.animationImage = direction + '3';
         }, 600)
 
         setTimeout(() => {
-            this.animationImage = 'south1';
+            this.animationImage = direction + '1';
             this.showArrows = true;
             this.randomEncounter();
         }, 900)
-
     }
 
-    private moveEast(dom: ElementRef) {
-        if (this.x + 10 >= 100) {
-            return;
-        }
+    checkForNextLoc(direction) {
+        let mapQuery = this.mappingService.changeMaps(this.zone, direction);
+        this.zone = mapQuery[0];
+        let nextMapAvailable = mapQuery[1];
 
-        this.x = this.x + 10;
-
-        this.ngxAni.to(dom, .9, {
-            position: 'absolute',
-            left: '' + (this.x) + '%'
-        });
-
-        this.animationImage = 'east1';
-        this.showArrows = false;
-
-        setTimeout(() => {
-            this.animationImage = 'east2';
-        }, 300)
-
-        setTimeout(() => {
-            this.animationImage = 'east3';
-        }, 600)
-
-        setTimeout(() => {
-            this.animationImage = 'east1';
-            this.showArrows = true;
-            this.randomEncounter();
-        }, 900)
-
-    }
-
-    private moveWest(dom: ElementRef) {
-        if (this.x - 10 <= 0) {
-            return;
-        }
-
-        this.x = this.x - 10;
-
-        this.ngxAni.to(dom, .9, {
-            position: 'absolute',
-            left: '' + (this.x) + '%'
-        });
-        this.animationImage = 'west1';
-        this.showArrows = false;
-
-        setTimeout(() => {
-            this.animationImage = 'west2';
-        }, 300)
-
-        setTimeout(() => {
-            this.animationImage = 'west3';
-        }, 600)
-
-        setTimeout(() => {
-            this.animationImage = 'west1';
-            this.showArrows = true;
-            this.randomEncounter();
-        }, 900)
-
+        return nextMapAvailable;
     }
 
     setCombatState(e) {
