@@ -28,6 +28,7 @@ export class BattleComponent {
     selectedItem = null;
     partyMemberSelected = null;
     enemySelected = null;
+    expReward = 0;
     randomAddedDmgorHealing = Math.floor(Math.random() * 10 + 1);
 
     loadingRequest: Observable<any>;
@@ -56,6 +57,8 @@ export class BattleComponent {
             for (let i = 0; i < this.enemies.length; i++) {
                 this.enemies[i].enemyName = this.enemies[i].name;
                 this.enemies[i].index = i;
+
+                this.expReward = this.expReward + this.enemies[i].exp;
             }
 
             for (let i = 0; i < this.party.length; i++) {
@@ -340,11 +343,13 @@ export class BattleComponent {
         }
 
         if (enemiesAlive === 0) {
-            this.message = 'Battle won!'
+
+            //reward exp or loot - check for level ups
+            this.message = `Battle won! ${this.expReward} exp gained.`
             setTimeout(() => {
                 this.message = null;
                 this.combatState.emit(false);
-            }, 500);
+            }, 3000);
         }
     }
 
