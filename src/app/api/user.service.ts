@@ -36,6 +36,7 @@ export class UserService {
             
             let user: User = {
                 currency: parseInt(response[0].currency),
+                combat: JSON.parse(response[0].combat),
                 email: response[0].email,
                 id: parseInt(response[0].id),
                 partySlotsUnlocked: parseInt(response[0].party_slots_unlocked),
@@ -51,6 +52,7 @@ export class UserService {
 
 export class User {
     currency: number;
+    combat: boolean;
     email: string;
     id: number;
     partySlotsUnlocked: number;

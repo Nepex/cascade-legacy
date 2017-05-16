@@ -129,6 +129,51 @@ export class PartyService {
         return req;
     }
 
+    rewardExp(exp, partyMembers) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let body = {
+            exp: Math.floor(exp),
+            partyIds: []
+        };
+
+        for (let i = 0; i < partyMembers.length; i++) {
+            body.partyIds.push(partyMembers[i].id);
+        }
+
+        let url = `${this.environment.baseApiUrl}/puts/reward-exp.php`;
+
+        let req = this.http.put(url, body, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
+
+    levelUp(partyMembers) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let body = {
+            partyIds: []
+        };
+
+        for (let i = 0; i < partyMembers.length; i++) {
+            body.partyIds.push(partyMembers[i].id);
+        }
+
+        let url = `${this.environment.baseApiUrl}/puts/level-up.php`;
+
+        let req = this.http.put(url, body, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
+
     useFriendlySpell(selection) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

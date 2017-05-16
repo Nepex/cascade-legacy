@@ -192,17 +192,17 @@ export class TravelComponent {
 
         setTimeout(() => {
             this.animationImage = direction + '2';
-        }, 300)
+        }, 300);
 
         setTimeout(() => {
             this.animationImage = direction + '3';
-        }, 600)
+        }, 600);
 
         setTimeout(() => {
             this.animationImage = direction + '1';
             this.showArrows = true;
             this.randomEncounter();
-        }, 900)
+        }, 900);
     }
 
     checkForNextLoc(direction) {

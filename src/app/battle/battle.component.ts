@@ -1,5 +1,6 @@
 import { Component, Input, Output, ViewChildren, ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxAni, NgxCss } from 'ngxani';
 
 import { UserService, PartyService, InventoryService } from '../api/index';
@@ -34,7 +35,7 @@ export class BattleComponent {
     loadingRequest: Observable<any>;
 
     constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService,
-        private ngxAni: NgxAni, private ngxCss: NgxCss, private elRef: ElementRef) {
+        private ngxAni: NgxAni, private ngxCss: NgxCss, private elRef: ElementRef, private router: Router) {
         this.activate();
     }
 
@@ -46,6 +47,8 @@ export class BattleComponent {
         );
 
         this.loadingRequest.subscribe(res => {
+            this.loadingRequest = null;
+
             this.user = res[0];
             this.party = res[1];
             this.inventory = res[2];
@@ -88,6 +91,8 @@ export class BattleComponent {
         );
 
         this.loadingRequest.subscribe(res => {
+            this.loadingRequest = null;
+
             this.inventory = res[1];
 
             for (let i = 0; i < this.inventory.length; i++) {
@@ -98,10 +103,6 @@ export class BattleComponent {
                 this.party[i].currHp = res[0][i].currHp;
                 this.party[i].currMp = res[0][i].currMp;
             }
-
-            setTimeout(() => {
-                this.message = null;
-            }, 2000);
         });
     }
 
@@ -135,9 +136,7 @@ export class BattleComponent {
         }
 
         this.message = 'Failed to escape!'
-        setTimeout(() => {
-            this.message = null;
-        }, 2000);
+        this.clearMessage();
 
         let barElement: ElementRef = this.progressBar.toArray()[i];
         this.ngxAni.to(barElement, 0, {
@@ -170,8 +169,10 @@ export class BattleComponent {
                 spellType: 'Physical'
             });
 
-            for (let i = 0; i < obj.spells.length; i++) {
-                this.options.push(obj.spells[i]);
+            if (obj.spells) {
+                for (let i = 0; i < obj.spells.length; i++) {
+                    this.options.push(obj.spells[i]);
+                }
             }
         }
 
@@ -233,6 +234,7 @@ export class BattleComponent {
                     }
 
                     this.updatePartyHpMp();
+                    this.clearMessage();
                 });
         }
 
@@ -251,12 +253,14 @@ export class BattleComponent {
             this.loadingRequest = this.partyService.useFriendlySpell(selection);
             this.loadingRequest.subscribe(
                 res => {
+                    this.loadingRequest = null;
+
                     if (selection.spellType === 'Heal') {
                         this.message = `${selection.spellName} heals ${obj.name} for ${healingAmount} HP.`;
                     }
 
-                    this.loadingRequest = null;
                     this.updatePartyHpMp();
+                    this.clearMessage();
                 });
         }
 
@@ -295,23 +299,28 @@ export class BattleComponent {
 
             if (this.party[this.partyMemberSelected].currMp < selection.cost) {
                 this.message = `Not enough MP.`;
+                this.clearMessage();
                 return;
             }
 
             this.loadingRequest = this.partyService.useHostileSpell(selection);
             this.loadingRequest.subscribe(
-                res => { this.updatePartyHpMp(); });
+                res => {
+                    this.loadingRequest = null;
+                    this.updatePartyHpMp();
+                });
 
             this.message = `${selection.spellName} damages ${this.enemies[obj.index].name} for ${dmgAmount}.`;
 
             if (dmgAmount > this.enemies[obj.index].currHp) {
                 // enemy defeated
                 this.enemies[obj.index] = null;
-                this.checkIfVictory();
+                this.isBattleOver();
             } else {
                 // attack enemy
                 let newHp = this.enemies[obj.index].currHp - dmgAmount;
                 this.enemies[obj.index].currHp = newHp;
+                this.clearMessage();
             }
 
         }
@@ -333,8 +342,10 @@ export class BattleComponent {
 
     }
 
-    checkIfVictory() {
+    isBattleOver() {
         let enemiesAlive = 0;
+        let partyMembersAlive = [];
+        let partyMembersLevelUp = [];
 
         for (let i = 0; i < this.enemies.length; i++) {
             if (this.enemies[i] !== null) {
@@ -342,19 +353,90 @@ export class BattleComponent {
             }
         }
 
-        if (enemiesAlive === 0) {
+        for (let i = 0; i < this.party.length; i++) {
+            if (this.party[i].currHp <= 0) {
+                continue;
+            }
 
-            //reward exp or loot - check for level ups
-            this.message = `Battle won! ${this.expReward} exp gained.`
+            partyMembersAlive.push(this.party[i]);
+        }
+
+        // if no party member is alive, redirect
+        if (partyMembersAlive.length === 0) {
+            this.message = 'Your party has been defeated.';
+
             setTimeout(() => {
-                this.message = null;
-                this.combatState.emit(false);
-            }, 3000);
+                this.router.navigateByUrl('/party');
+            }, 3000)
+            return;
+        }
+
+        if (enemiesAlive === 0) {
+            let dividedExp = this.expReward / partyMembersAlive.length;
+
+            //reward exp
+            this.loadingRequest = this.partyService.rewardExp(dividedExp, partyMembersAlive);
+
+            this.loadingRequest.subscribe(res => {
+                this.loadingRequest = null;
+
+                this.message = `Battle won! ${this.expReward} exp gained.`
+            });
+
+            // check if party member has leveled up
+            for (let i = 0; i < partyMembersAlive.length; i++) {
+                if (dividedExp + partyMembersAlive[i].experience >= partyMembersAlive[i].experienceNeeded) {
+                    partyMembersLevelUp.push(partyMembersAlive[i]);
+                }
+            }
+
+            if (partyMembersLevelUp.length === 0) {
+                this.exitCombat();
+                return;
+            }
+
+            // level up party member(s)
+            setTimeout(() => {
+                if (partyMembersLevelUp.length === 1) {
+                    this.message = `${partyMembersLevelUp[0].name} has leveled up!`;
+                } else {
+                    let content = '';
+
+                    for (let i = 0; i < partyMembersLevelUp.length; i++) {
+                        content += partyMembersLevelUp[i].name + ', ';
+                    }
+
+                    content += 'have gained levels!';
+
+                    this.message = content;
+                }
+            }, 2000);
+            
+            this.exitCombat();
+
+            this.loadingRequest = this.partyService.levelUp(partyMembersLevelUp);
+            this.loadingRequest.subscribe(res => {
+                this.loadingRequest = null;
+            });
+        } else {
+            this.clearMessage();
         }
     }
 
     closeOptions() {
         this.showOptions = false;
+    }
+
+    clearMessage() {
+        setTimeout(() => {
+            this.message = null;
+        }, 2000);
+    }
+
+    exitCombat() {
+        setTimeout(() => {
+            this.combatState.emit(false);
+        }, 4000);
     }
 
 }
