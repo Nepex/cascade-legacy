@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxAni, NgxCss } from 'ngxani';
 
-import { UserService, PartyService, InventoryService } from '../api/index';
+import { UserService, PartyService, InventoryService, EnemyService } from '../api/index';
 
 @Component({
     selector: 'cascade-battle',
@@ -20,10 +20,13 @@ export class BattleComponent {
 
     user: any;
     party: any;
+    partyMembersAlive: any;
     inventory: any;
     message: string;
 
+    enemyIntervals = [];
     options = [];
+    combatEnded = false;
     showOptions = false;
     selectedSpell = null;
     selectedItem = null;
@@ -33,9 +36,10 @@ export class BattleComponent {
     randomAddedDmgorHealing = Math.floor(Math.random() * 10 + 1);
 
     loadingRequest: Observable<any>;
+    attackRequest: Observable<any>;
 
     constructor(private userService: UserService, private partyService: PartyService, private inventoryService: InventoryService,
-        private ngxAni: NgxAni, private ngxCss: NgxCss, private elRef: ElementRef, private router: Router) {
+        private ngxAni: NgxAni, private ngxCss: NgxCss, private elRef: ElementRef, private router: Router, private enemyService: EnemyService) {
         this.activate();
     }
 
@@ -51,22 +55,37 @@ export class BattleComponent {
 
             this.user = res[0];
             this.party = res[1];
+            this.partyMembersAlive = res[1];
             this.inventory = res[2];
 
-            for (let i = 0; i < this.inventory.length; i++) {
-                this.inventory[i].itemName = this.inventory[i].name;
-            }
+            // timeout to compensate for ngfor populating to pick up element refs (not sure of a better way)
+            setTimeout(() => {
+                for (let i = 0; i < this.inventory.length; i++) {
+                    this.inventory[i].itemName = this.inventory[i].name;
+                }
 
-            for (let i = 0; i < this.enemies.length; i++) {
-                this.enemies[i].enemyName = this.enemies[i].name;
-                this.enemies[i].index = i;
+                for (let i = 0; i < this.enemies.length; i++) {
+                    this.enemies[i].physDmgReduction = this.enemies[i].def / 10;
+                    this.enemies[i].magDmgReduction = this.enemies[i].res / 10;
+                    this.enemies[i].addedPhysDmg = this.enemies[i].str * 3;
+                    this.enemies[i].addedMagDmgOrHealing = this.enemies[i].mag * 3;
 
-                this.expReward = this.expReward + this.enemies[i].exp;
-            }
+                    this.enemies[i].enemyName = this.enemies[i].name;
+                    this.enemies[i].index = i;
+                    this.expReward = this.expReward + this.enemies[i].exp;
 
-            for (let i = 0; i < this.party.length; i++) {
-                // timeout to compensate for ngfor populating to pick up element refs (not sure of a better way)
-                setTimeout(() => {
+                    let baseTime = 4000;
+                    let minusMs = this.enemies[i].hst * 10;
+                    this.enemies[i].loadTime = baseTime - minusMs;
+
+                    this.enemyIntervals.push(setInterval(() => {
+                        this.enemyAttack(this.enemies[i]);
+                    }, this.enemies[i].loadTime));
+                }
+
+                for (let i = 0; i < this.party.length; i++) {
+                    this.party[i].physDmgReduction = this.party[i].def / 10;
+                    this.party[i].magDmgReduction = this.party[i].res / 10;
                     this.party[i].addedPhysDmg = this.party[i].str * 3;
                     this.party[i].addedMagDmgOrHealing = this.party[i].mag * 3;
 
@@ -79,8 +98,8 @@ export class BattleComponent {
                     this.party[i].loadTime = baseTime - minusMs;
                     this.party[i].showActions = false;
                     this.beginLoad(i, this.party[i].loadTime);
-                }, 50);
-            }
+                }
+            }, 50);
         });
     }
 
@@ -250,7 +269,7 @@ export class BattleComponent {
                 return;
             }
 
-            this.loadingRequest = this.partyService.useFriendlySpell(selection);
+            this.loadingRequest = this.partyService.useFriendlySpell(selection, healingAmount);
             this.loadingRequest.subscribe(
                 res => {
                     this.loadingRequest = null;
@@ -286,14 +305,17 @@ export class BattleComponent {
         else if (this.selectedSpell) {
             let selection = this.selectedSpell;
             selection.memberUsing = this.party[this.partyMemberSelected].id;
+            let preReducAmount
             let dmgAmount: number;
 
             switch (selection.spellType) {
                 case 'Physical':
-                    dmgAmount = selection.base + this.party[this.partyMemberSelected].addedPhysDmg + this.randomAddedDmgorHealing;
+                    preReducAmount = selection.base + this.party[this.partyMemberSelected].addedPhysDmg + this.randomAddedDmgorHealing;
+                    dmgAmount = Math.floor(preReducAmount * this.enemies[obj.index].physDmgReduction);
                     break;
                 case 'Magic':
-                    dmgAmount = selection.base + this.party[this.partyMemberSelected].addedMagDmgOrHealing + this.randomAddedDmgorHealing;
+                    preReducAmount = selection.base + this.party[this.partyMemberSelected].addedMagDmgOrHealing + this.randomAddedDmgorHealing;
+                    dmgAmount = Math.floor(preReducAmount * this.enemies[obj.index].magDmgReduction);
                     break;
             }
 
@@ -338,8 +360,28 @@ export class BattleComponent {
     }
 
 
-    enemyAttack() {
+    enemyAttack(enemy) {
+        if (enemy.currHp <= 0 || this.combatEnded) {
+            clearInterval(this.enemyIntervals[enemy.index]);
+            return;
+        }
 
+        let randomIndex = Math.floor(Math.random() * this.partyMembersAlive.length);
+
+        let preReducAmount = enemy.attackDmg + this.randomAddedDmgorHealing + enemy.addedPhysDmg;
+        let dmgAmount = Math.floor(preReducAmount / this.partyMembersAlive[randomIndex].physDmgReduction);
+
+        this.attackRequest = this.enemyService.enemyAttack(this.partyMembersAlive[randomIndex], dmgAmount);
+
+        this.attackRequest.subscribe(() => {
+            this.updatePartyHpMp();
+            this.attackRequest = null;
+        });
+
+        this.message = `${enemy.name} attacks ${this.partyMembersAlive[randomIndex].name} for ${dmgAmount}`;
+
+        this.isBattleOver();
+        this.clearMessage();
     }
 
     isBattleOver() {
@@ -361,9 +403,12 @@ export class BattleComponent {
             partyMembersAlive.push(this.party[i]);
         }
 
+        this.partyMembersAlive = partyMembersAlive;
+
         // if no party member is alive, redirect
-        if (partyMembersAlive.length === 0) {
+        if (this.partyMembersAlive.length === 0) {
             this.message = 'Your party has been defeated.';
+            this.combatEnded = true;
 
             setTimeout(() => {
                 this.router.navigateByUrl('/party');
@@ -372,10 +417,10 @@ export class BattleComponent {
         }
 
         if (enemiesAlive === 0) {
-            let dividedExp = this.expReward / partyMembersAlive.length;
+            let dividedExp = this.expReward / this.partyMembersAlive.length;
 
             //reward exp
-            this.loadingRequest = this.partyService.rewardExp(dividedExp, partyMembersAlive);
+            this.loadingRequest = this.partyService.rewardExp(dividedExp, this.partyMembersAlive);
 
             this.loadingRequest.subscribe(res => {
                 this.loadingRequest = null;
@@ -384,9 +429,9 @@ export class BattleComponent {
             });
 
             // check if party member has leveled up
-            for (let i = 0; i < partyMembersAlive.length; i++) {
-                if (dividedExp + partyMembersAlive[i].experience >= partyMembersAlive[i].experienceNeeded) {
-                    partyMembersLevelUp.push(partyMembersAlive[i]);
+            for (let i = 0; i < this.partyMembersAlive.length; i++) {
+                if (dividedExp + this.partyMembersAlive[i].experience >= this.partyMembersAlive[i].experienceNeeded) {
+                    partyMembersLevelUp.push(this.partyMembersAlive[i]);
                 }
             }
 
@@ -411,7 +456,7 @@ export class BattleComponent {
                     this.message = content;
                 }
             }, 2000);
-            
+
             this.exitCombat();
 
             this.loadingRequest = this.partyService.levelUp(partyMembersLevelUp);

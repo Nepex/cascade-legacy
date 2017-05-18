@@ -39,6 +39,14 @@ a:hover {
     text-shadow: 2px 2px black;
     font-family: Pristina;
     position: absolute;
+    cursor: not-allowed;
+}
+
+.arc {
+    cursor: pointer;
+}
+
+.ritual-grounds {
     cursor: pointer;
 }
 
