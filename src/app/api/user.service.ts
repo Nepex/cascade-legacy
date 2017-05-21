@@ -33,10 +33,10 @@ export class UserService {
             headers: headers
         }).map(res => {
             let response = res.json();
-            
+
             let user: User = {
                 currency: parseInt(response[0].currency),
-                combat: JSON.parse(response[0].combat),
+                combat: response[0].combat,
                 email: response[0].email,
                 id: parseInt(response[0].id),
                 partySlotsUnlocked: parseInt(response[0].party_slots_unlocked),
@@ -45,6 +45,36 @@ export class UserService {
 
             return user;
         });
+
+        return req;
+    }
+
+    setInCombat() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let body = {};
+        let url = `${this.environment.baseApiUrl}/puts/set-in-combat.php`;
+
+        let req = this.http.put(url, body, {
+            headers: headers
+        }).map(res => res);
+
+        return req;
+    }
+
+    setOutCombat() {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${this.sessionStateService.getToken()}`);
+
+        let body = {};
+        let url = `${this.environment.baseApiUrl}/puts/set-out-combat.php`;
+
+        let req = this.http.put(url, body, {
+            headers: headers
+        }).map(res => res);
 
         return req;
     }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, ViewChildren, ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewChildren, ElementRef, AfterViewInit, EventEmitter, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxAni, NgxCss } from 'ngxani';
@@ -28,6 +28,7 @@ export class BattleComponent {
     options = [];
     combatEnded = false;
     showOptions = false;
+    showBattleMenu = true;
     selectedSpell = null;
     selectedItem = null;
     partyMemberSelected = null;
@@ -44,6 +45,11 @@ export class BattleComponent {
     }
 
     activate() {
+        this.loadingRequest = this.userService.setInCombat();
+        this.loadingRequest.subscribe(res => {
+            this.loadingRequest = null;
+        });
+
         this.loadingRequest = Observable.forkJoin(
             this.userService.getUser(),
             this.partyService.getParty(),
@@ -65,8 +71,8 @@ export class BattleComponent {
                 }
 
                 for (let i = 0; i < this.enemies.length; i++) {
-                    this.enemies[i].physDmgReduction = this.enemies[i].def / 10;
-                    this.enemies[i].magDmgReduction = this.enemies[i].res / 10;
+                    this.enemies[i].physDmgReduction = this.enemies[i].def / 100;
+                    this.enemies[i].magDmgReduction = this.enemies[i].res / 100;
                     this.enemies[i].addedPhysDmg = this.enemies[i].str * 3;
                     this.enemies[i].addedMagDmgOrHealing = this.enemies[i].mag * 3;
 
@@ -84,8 +90,8 @@ export class BattleComponent {
                 }
 
                 for (let i = 0; i < this.party.length; i++) {
-                    this.party[i].physDmgReduction = this.party[i].def / 10;
-                    this.party[i].magDmgReduction = this.party[i].res / 10;
+                    this.party[i].physDmgReduction = this.party[i].def / 100;
+                    this.party[i].magDmgReduction = this.party[i].res / 100;
                     this.party[i].addedPhysDmg = this.party[i].str * 3;
                     this.party[i].addedMagDmgOrHealing = this.party[i].mag * 3;
 
@@ -148,6 +154,7 @@ export class BattleComponent {
             this.message = 'Successfully escaped!'
             setTimeout(() => {
                 this.message = null;
+                this.userService.setOutCombat();
                 this.combatState.emit(false);
             }, 500);
 
@@ -235,6 +242,7 @@ export class BattleComponent {
     }
 
     useOnParty(obj) {
+        this.checkIfInCombat();        
         this.closeOptions();
 
         if (this.selectedItem) {
@@ -295,6 +303,7 @@ export class BattleComponent {
     }
 
     useOnEnemy(obj) {
+        this.checkIfInCombat();       
         this.closeOptions();
 
         if (this.selectedItem) {
@@ -305,17 +314,21 @@ export class BattleComponent {
         else if (this.selectedSpell) {
             let selection = this.selectedSpell;
             selection.memberUsing = this.party[this.partyMemberSelected].id;
-            let preReducAmount
-            let dmgAmount: number;
+
+            let preReducAmount;
+            let dmgReduc;
+            let dmgAmount;
 
             switch (selection.spellType) {
                 case 'Physical':
                     preReducAmount = selection.base + this.party[this.partyMemberSelected].addedPhysDmg + this.randomAddedDmgorHealing;
-                    dmgAmount = Math.floor(preReducAmount * this.enemies[obj.index].physDmgReduction);
+                    dmgReduc = Math.floor(preReducAmount * this.enemies[obj.index].physDmgReduction);
+                    dmgAmount = preReducAmount - dmgReduc;
                     break;
                 case 'Magic':
                     preReducAmount = selection.base + this.party[this.partyMemberSelected].addedMagDmgOrHealing + this.randomAddedDmgorHealing;
-                    dmgAmount = Math.floor(preReducAmount * this.enemies[obj.index].magDmgReduction);
+                    dmgReduc = Math.floor(preReducAmount * this.enemies[obj.index].magDmgReduction);
+                    dmgAmount = preReducAmount - dmgReduc;
                     break;
             }
 
@@ -361,6 +374,8 @@ export class BattleComponent {
 
 
     enemyAttack(enemy) {
+        this.checkIfInCombat();
+        
         if (enemy.currHp <= 0 || this.combatEnded) {
             clearInterval(this.enemyIntervals[enemy.index]);
             return;
@@ -369,7 +384,8 @@ export class BattleComponent {
         let randomIndex = Math.floor(Math.random() * this.partyMembersAlive.length);
 
         let preReducAmount = enemy.attackDmg + this.randomAddedDmgorHealing + enemy.addedPhysDmg;
-        let dmgAmount = Math.floor(preReducAmount / this.partyMembersAlive[randomIndex].physDmgReduction);
+        let dmgReduc = Math.floor(preReducAmount * this.partyMembersAlive[randomIndex].physDmgReduction);
+        let dmgAmount = preReducAmount - dmgReduc;
 
         this.attackRequest = this.enemyService.enemyAttack(this.partyMembersAlive[randomIndex], dmgAmount);
 
@@ -385,6 +401,8 @@ export class BattleComponent {
     }
 
     isBattleOver() {
+        this.checkIfInCombat();
+        
         let enemiesAlive = 0;
         let partyMembersAlive = [];
         let partyMembersLevelUp = [];
@@ -408,7 +426,9 @@ export class BattleComponent {
         // if no party member is alive, redirect
         if (this.partyMembersAlive.length === 0) {
             this.message = 'Your party has been defeated.';
+            this.showBattleMenu = false;
             this.combatEnded = true;
+            this.userService.setOutCombat();
 
             setTimeout(() => {
                 this.router.navigateByUrl('/party');
@@ -426,6 +446,7 @@ export class BattleComponent {
                 this.loadingRequest = null;
 
                 this.message = `Battle won! ${this.expReward} exp gained.`
+                this.showBattleMenu = false;
             });
 
             // check if party member has leveled up
@@ -457,12 +478,13 @@ export class BattleComponent {
                 }
             }, 2000);
 
-            this.exitCombat();
-
             this.loadingRequest = this.partyService.levelUp(partyMembersLevelUp);
             this.loadingRequest.subscribe(res => {
                 this.loadingRequest = null;
             });
+
+            this.exitCombat();
+            this.userService.setOutCombat();
         } else {
             this.clearMessage();
         }
@@ -476,6 +498,12 @@ export class BattleComponent {
         setTimeout(() => {
             this.message = null;
         }, 2000);
+    }
+
+    checkIfInCombat() {
+        if (this.user.combat === 'false') {
+            this.combatState.emit(false);
+        }
     }
 
     exitCombat() {

@@ -18,7 +18,7 @@
 
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xs-12 party-options">
 
-                <table>
+                <table *ngIf="showBattleMenu">
                     <tr *ngFor="let p of party; let i = index;">
                         <td class="party-name">
                             {{ p.name }}
@@ -37,12 +37,15 @@
                         </td>
                         <td class="actions">
                             <span *ngIf="p.showActions" (click)="buildOptions(p, 'ability', i)" style="cursor: pointer;">Ability</span>
+                            <span *ngIf="!p.showActions" style="visibility: hidden;">Ability</span>                            
                         </td>
                         <td class="actions">
                             <span *ngIf="p.showActions" (click)="buildOptions(p, 'item', i)" style="cursor: pointer;">Item</span>
+                            <span *ngIf="!p.showActions" style="visibility: hidden;">Item</span>                            
                         </td>
                         <td class="actions">
                             <span *ngIf="p.showActions" (click)="flee(i)" style="cursor: pointer;">Flee</span>
+                            <span *ngIf="!p.showActions" style="visibility: hidden;">Flee</span>                            
                         </td>
                     </tr>
                 </table>
@@ -54,24 +57,28 @@
     <div class="options-container" *ngIf="showOptions">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xs-12 party-options">
-                <span *ngFor="let o of options" class="options">
-                    <span style="cursor: pointer;" (click)="buildOptions(o, 'hostileSpell')" *ngIf="o.spellType === 'Magic' || o.spellType === 'Physical'">{{ o.spellName }}</span>
-                    <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlySpell')" *ngIf="o.spellType === 'Heal'">{{ o.spellName }}</span>
-                    <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlyItem')">{{ o.itemName }}</span>
+                <div class="options">
+                    <span *ngFor="let o of options" style="padding-right: 10px;">
+                        <span style="cursor: pointer;" (click)="buildOptions(o, 'hostileSpell')" *ngIf="o.spellType === 'Magic' || o.spellType === 'Physical'">{{ o.spellName }}</span>
+                        <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlySpell')" *ngIf="o.spellType === 'Heal'">{{ o.spellName }}</span>
+                        <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlyItem')">{{ o.itemName }}</span>
 
-                    <span style="cursor: pointer;" (click)="useOnParty(o)">{{ o.partyName }}</span>
-                    <span style="cursor: pointer;" (click)="useOnEnemy(o)">{{ o.enemyName }}</span>
-                </span>
+                        <span style="cursor: pointer;" (click)="useOnParty(o)">{{ o.partyName }}</span>
+                        <span style="cursor: pointer;" (click)="useOnEnemy(o)">{{ o.enemyName }}</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="message-container" *ngIf="message">
+    <div class="options-container" *ngIf="message">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xs-12 party-options">
-                <span class="options">
-                    {{ message }}
-                </span>
+                <div class="options">
+                    <span>
+                        {{ message }}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

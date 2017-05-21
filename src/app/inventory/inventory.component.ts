@@ -21,6 +21,7 @@ export class InventoryComponent implements OnInit {
     spellsLearned: any;
     messages: AlertMessages[] = [];
     loadingRequest: Observable<any>;
+    combatRequest: Observable<any>;
     searchedItem;
     currentPage = 1;
     inventoryEmpty = false;
@@ -43,6 +44,14 @@ export class InventoryComponent implements OnInit {
             this.cachedInventory = res[2];
             this.mail = res[3];
 
+            if (this.user.combat === "true") {
+                this.combatRequest = this.userService.setOutCombat();
+
+                this.combatRequest.subscribe(res => {
+                    this.combatRequest = null;
+                });
+            }
+
             for (let i = 0; i < this.inventory.length; i++) {
                 this.inventory[i].showParty = false;
             }
@@ -54,8 +63,11 @@ export class InventoryComponent implements OnInit {
                 });
 
                 this.inventoryEmpty = true;
+                this.loadingRequest = null;
             }
         });
+
+
     }
 
     searchInventory() {
