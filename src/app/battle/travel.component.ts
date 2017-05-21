@@ -1,8 +1,10 @@
-import { Component, Input, ElementRef, HostListener, ViewChild, OnChanges } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, ViewChild, OnChanges, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxAni, NgxCss } from 'ngxani';
 
-import { EnemyService } from '../api/index';
+import { EnemyService, PartyService } from '../api/index';
 import { MappingService } from '../explore/mapping.service';
 import { EncountersService } from '../explore/encounters.service';
 
@@ -20,7 +22,7 @@ import { EncountersService } from '../explore/encounters.service';
         ])
     ]
 })
-export class TravelComponent {
+export class TravelComponent implements OnInit {
     @Input() zone: string;
     @ViewChild('character') character;
     @ViewChild('backdrop') backdrop;
@@ -32,6 +34,7 @@ export class TravelComponent {
     animationImage = 'north1';
 
     enemies: any = [];
+    loadingRequest: Observable<any>;
     inCombat = false;
     showArrows = true;
 
@@ -51,7 +54,24 @@ export class TravelComponent {
     }
 
     constructor(private elementRef: ElementRef, private ngxAni: NgxAni, private ngxCss: NgxCss, private enemyService: EnemyService,
-        private mappingService: MappingService, private encountersService: EncountersService) {
+        private mappingService: MappingService, private encountersService: EncountersService, private partyService: PartyService, private router: Router) {
+    }
+
+    ngOnInit() {
+        this.loadingRequest = this.partyService.getParty();
+
+        this.loadingRequest.subscribe(res => {
+            let party = res;
+            let totalHp = 0;
+
+            for (let i = 0; i < party.length; i++) {
+                totalHp = totalHp + party[i].currHp;
+            }
+
+            if (totalHp === 0) {
+                this.router.navigateByUrl('/explore');
+            }
+        });
     }
 
     randomEncounter() {

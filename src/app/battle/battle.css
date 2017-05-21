@@ -36,6 +36,14 @@
     margin-bottom: -40px;
 }
 
+.party-fainted {
+    color: red;
+}
+
+.hide-ele {
+    visibility: hidden;
+}
+
 .options {
     overflow-x: scroll;
     overflow-y: hidden;

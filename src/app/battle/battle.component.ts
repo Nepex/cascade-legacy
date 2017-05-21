@@ -20,7 +20,7 @@ export class BattleComponent {
 
     user: any;
     party: any;
-    partyMembersAlive: any;
+    partyMembersAlive = [];
     inventory: any;
     message: string;
 
@@ -61,7 +61,6 @@ export class BattleComponent {
 
             this.user = res[0];
             this.party = res[1];
-            this.partyMembersAlive = res[1];
             this.inventory = res[2];
 
             // timeout to compensate for ngfor populating to pick up element refs (not sure of a better way)
@@ -103,6 +102,11 @@ export class BattleComponent {
 
                     this.party[i].loadTime = baseTime - minusMs;
                     this.party[i].showActions = false;
+
+                    if (this.party[i].currHp > 0) {
+                        this.partyMembersAlive.push(this.party[i]);
+                    }
+
                     this.beginLoad(i, this.party[i].loadTime);
                 }
             }, 50);
@@ -242,7 +246,7 @@ export class BattleComponent {
     }
 
     useOnParty(obj) {
-        this.checkIfInCombat();        
+        this.checkIfInCombat();
         this.closeOptions();
 
         if (this.selectedItem) {
@@ -303,7 +307,7 @@ export class BattleComponent {
     }
 
     useOnEnemy(obj) {
-        this.checkIfInCombat();       
+        this.checkIfInCombat();
         this.closeOptions();
 
         if (this.selectedItem) {
@@ -375,34 +379,41 @@ export class BattleComponent {
 
     enemyAttack(enemy) {
         this.checkIfInCombat();
-        
-        if (enemy.currHp <= 0 || this.combatEnded) {
-            clearInterval(this.enemyIntervals[enemy.index]);
-            return;
+
+        if (enemy) {
+            if (enemy.currHp <= 0 || this.combatEnded) {
+                clearInterval(this.enemyIntervals[enemy.index]);
+                return;
+            }
+
+            let randomIndex = Math.floor(Math.random() * this.partyMembersAlive.length);
+
+            let preReducAmount = enemy.attackDmg + this.randomAddedDmgorHealing + enemy.addedPhysDmg;
+            let dmgReduc = Math.floor(preReducAmount * this.partyMembersAlive[randomIndex].physDmgReduction);
+            let dmgAmount = preReducAmount - dmgReduc;
+
+            this.attackRequest = this.enemyService.enemyAttack(this.partyMembersAlive[randomIndex], dmgAmount);
+
+            this.attackRequest.subscribe(() => {
+                this.updatePartyHpMp();
+                this.attackRequest = null;
+            });
+
+            this.message = `${enemy.name} attacks ${this.partyMembersAlive[randomIndex].name} for ${dmgAmount}`;
+
+            if (dmgAmount > this.partyMembersAlive[randomIndex].currHp) {
+                // remove defeated party member
+                this.partyMembersAlive.splice(randomIndex, 1);
+            }
+
+            this.isBattleOver();
+            this.clearMessage();
         }
-
-        let randomIndex = Math.floor(Math.random() * this.partyMembersAlive.length);
-
-        let preReducAmount = enemy.attackDmg + this.randomAddedDmgorHealing + enemy.addedPhysDmg;
-        let dmgReduc = Math.floor(preReducAmount * this.partyMembersAlive[randomIndex].physDmgReduction);
-        let dmgAmount = preReducAmount - dmgReduc;
-
-        this.attackRequest = this.enemyService.enemyAttack(this.partyMembersAlive[randomIndex], dmgAmount);
-
-        this.attackRequest.subscribe(() => {
-            this.updatePartyHpMp();
-            this.attackRequest = null;
-        });
-
-        this.message = `${enemy.name} attacks ${this.partyMembersAlive[randomIndex].name} for ${dmgAmount}`;
-
-        this.isBattleOver();
-        this.clearMessage();
     }
 
     isBattleOver() {
         this.checkIfInCombat();
-        
+
         let enemiesAlive = 0;
         let partyMembersAlive = [];
         let partyMembersLevelUp = [];

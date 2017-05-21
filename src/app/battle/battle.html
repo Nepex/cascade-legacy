@@ -3,7 +3,9 @@
     }" style="padding:0;margin:0">
     <div class="party-container">
         <div class="reorient-party" *ngFor="let p of party">
-            <cascade-sprite-loader [sprite]="p.sprite"></cascade-sprite-loader> <br />
+            <div [ngClass]="{ 'hide-ele': p.currHp === 0 }">
+                <cascade-sprite-loader [sprite]="p.sprite"></cascade-sprite-loader>
+            </div>
         </div>
     </div>
 
@@ -24,28 +26,30 @@
                             {{ p.name }}
                         </td>
                         <td class="party-bar">
-                            <div class="progress">
+                            <div class="progress" [ngClass]="{ 'hide-ele': p.currHp === 0 }">
                                 <div class="progress-bar bg-success" role="progressbar" style="width: 0%; height: 5px;" aria-valuenow="25" aria-valuemin="0"
                                     aria-valuemax="100" #progressBar></div>
                             </div>
                         </td>
                         <td class="party-hp">
-                            {{ p.currHp }} / {{ p.hp }}
+                            <span [ngClass]="{ 'party-fainted': p.currHp === 0 }">
+                                {{ p.currHp }} / {{ p.hp }}
+                            </span>
                         </td>
                         <td class="party-mp">
                             {{ p.currMp }} / {{ p.mp }}
                         </td>
                         <td class="actions">
-                            <span *ngIf="p.showActions" (click)="buildOptions(p, 'ability', i)" style="cursor: pointer;">Ability</span>
-                            <span *ngIf="!p.showActions" style="visibility: hidden;">Ability</span>                            
+                            <span *ngIf="p.showActions && p.currHp > 0" (click)="buildOptions(p, 'ability', i)" style="cursor: pointer;">Ability</span>
+                            <span *ngIf="!p.showActions" style="visibility: hidden;">Ability</span>
                         </td>
                         <td class="actions">
-                            <span *ngIf="p.showActions" (click)="buildOptions(p, 'item', i)" style="cursor: pointer;">Item</span>
-                            <span *ngIf="!p.showActions" style="visibility: hidden;">Item</span>                            
+                            <span *ngIf="p.showActions && p.currHp > 0" (click)="buildOptions(p, 'item', i)" style="cursor: pointer;">Item</span>
+                            <span *ngIf="!p.showActions" style="visibility: hidden;">Item</span>
                         </td>
                         <td class="actions">
-                            <span *ngIf="p.showActions" (click)="flee(i)" style="cursor: pointer;">Flee</span>
-                            <span *ngIf="!p.showActions" style="visibility: hidden;">Flee</span>                            
+                            <span *ngIf="p.showActions && p.currHp > 0" (click)="flee(i)" style="cursor: pointer;">Flee</span>
+                            <span *ngIf="!p.showActions" style="visibility: hidden;">Flee</span>
                         </td>
                     </tr>
                 </table>
@@ -60,11 +64,11 @@
                 <div class="options">
                     <span *ngFor="let o of options" style="padding-right: 10px;">
                         <span style="cursor: pointer;" (click)="buildOptions(o, 'hostileSpell')" *ngIf="o.spellType === 'Magic' || o.spellType === 'Physical'">{{ o.spellName }}</span>
-                        <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlySpell')" *ngIf="o.spellType === 'Heal'">{{ o.spellName }}</span>
-                        <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlyItem')">{{ o.itemName }}</span>
+                    <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlySpell')" *ngIf="o.spellType === 'Heal'">{{ o.spellName }}</span>
+                    <span style="cursor: pointer;" (click)="buildOptions(o, 'friendlyItem')">{{ o.itemName }}</span>
 
-                        <span style="cursor: pointer;" (click)="useOnParty(o)">{{ o.partyName }}</span>
-                        <span style="cursor: pointer;" (click)="useOnEnemy(o)">{{ o.enemyName }}</span>
+                    <span style="cursor: pointer;" (click)="useOnParty(o)">{{ o.partyName }}</span>
+                    <span style="cursor: pointer;" (click)="useOnEnemy(o)">{{ o.enemyName }}</span>
                     </span>
                 </div>
             </div>

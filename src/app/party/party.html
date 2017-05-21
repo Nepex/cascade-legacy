@@ -30,7 +30,7 @@
                     
                     Level {{ p.level }} {{ p.job }} <br />
 
-                    <span style="color: green;">
+                    <span [ngClass]="{ 'party-fainted': p.currHp === 0, 'party-alive': p.currHp > 0 }">
                         {{ p.currHp }} / {{ p.hp }}
                     </span> <br />
 

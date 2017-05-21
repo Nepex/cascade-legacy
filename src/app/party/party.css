@@ -27,6 +27,14 @@
     background-color: #0086A5;
 }
 
+.party-alive {
+    color: green;
+}
+
+.party-fainted {
+    color: red;
+}
+
 :host >>>  .tooltip {
     opacity: 1;
 }
