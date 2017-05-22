@@ -291,6 +291,22 @@ export class BattleComponent {
             this.loadingRequest.subscribe(
                 res => {
                     this.loadingRequest = null;
+                    
+                    let partySpriteEle: ElementRef = this.partySprite.toArray()[this.partyMemberSelected];
+
+                    this.ngxAni.to(partySpriteEle, 0.5, {
+                        "transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                        "-webkit-transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                        "-ms-transform": "translate3d(-50px, 0, 0) rotate(0deg)"
+                    });
+
+                    setTimeout(() => {
+                        this.ngxAni.to(partySpriteEle, 0.5, {
+                            "transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                            "-webkit-transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                            "-ms-transform": "translate3d(0px, 0, 0) rotate(0deg)"
+                        });
+                    }, 500)
 
                     if (selection.spellType === 'Heal') {
                         this.message = `${selection.spellName} heals ${obj.name} for ${healingAmount} HP.`;
