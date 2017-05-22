@@ -13,6 +13,8 @@ import { UserService, PartyService, InventoryService, EnemyService } from '../ap
 
 export class BattleComponent {
     @ViewChildren('progressBar') progressBar;
+    @ViewChildren('partySprite') partySprite;
+    @ViewChildren('enemySprite') enemySprite;
 
     @Input() zone: string;
     @Input() enemies: any;
@@ -70,14 +72,14 @@ export class BattleComponent {
                 }
 
                 for (let i = 0; i < this.enemies.length; i++) {
+                    this.enemies[i].enemyName = this.enemies[i].name;
+                    this.enemies[i].index = i;
+                    this.expReward = this.expReward + this.enemies[i].exp;
+
                     this.enemies[i].physDmgReduction = this.enemies[i].def / 100;
                     this.enemies[i].magDmgReduction = this.enemies[i].res / 100;
                     this.enemies[i].addedPhysDmg = this.enemies[i].str * 3;
                     this.enemies[i].addedMagDmgOrHealing = this.enemies[i].mag * 3;
-
-                    this.enemies[i].enemyName = this.enemies[i].name;
-                    this.enemies[i].index = i;
-                    this.expReward = this.expReward + this.enemies[i].exp;
 
                     let baseTime = 4000;
                     let minusMs = this.enemies[i].hst * 10;
@@ -89,18 +91,17 @@ export class BattleComponent {
                 }
 
                 for (let i = 0; i < this.party.length; i++) {
+                    this.party[i].partyName = this.party[i].name;
+
                     this.party[i].physDmgReduction = this.party[i].def / 100;
                     this.party[i].magDmgReduction = this.party[i].res / 100;
                     this.party[i].addedPhysDmg = this.party[i].str * 3;
                     this.party[i].addedMagDmgOrHealing = this.party[i].mag * 3;
 
-                    this.party[i].partyName = this.party[i].name;
-
                     let baseTime = 4000;
-
                     let minusMs = this.party[i].hst * 10;
-
                     this.party[i].loadTime = baseTime - minusMs;
+
                     this.party[i].showActions = false;
 
                     if (this.party[i].currHp > 0) {
@@ -157,6 +158,11 @@ export class BattleComponent {
         if (randomNumber >= 50) {
             this.message = 'Successfully escaped!'
             setTimeout(() => {
+                for (let i = 0; i < this.enemies; i++) {
+                    clearInterval(this.enemyIntervals[i]);
+                }
+
+                this.enemies = null;
                 this.message = null;
                 this.userService.setOutCombat();
                 this.combatState.emit(false);
@@ -349,6 +355,22 @@ export class BattleComponent {
                     this.updatePartyHpMp();
                 });
 
+            let partySpriteEle: ElementRef = this.partySprite.toArray()[this.partyMemberSelected];
+
+            this.ngxAni.to(partySpriteEle, 0.5, {
+                "transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                "-webkit-transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                "-ms-transform": "translate3d(-50px, 0, 0) rotate(0deg)"
+            });
+
+            setTimeout(() => {
+                this.ngxAni.to(partySpriteEle, 0.5, {
+                    "transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                    "-webkit-transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                    "-ms-transform": "translate3d(0px, 0, 0) rotate(0deg)"
+                });
+            }, 500)
+
             this.message = `${selection.spellName} damages ${this.enemies[obj.index].name} for ${dmgAmount}.`;
 
             if (dmgAmount > this.enemies[obj.index].currHp) {
@@ -398,6 +420,22 @@ export class BattleComponent {
                 this.updatePartyHpMp();
                 this.attackRequest = null;
             });
+
+            let enemySpriteEle: ElementRef = this.enemySprite.toArray()[enemy.index];
+
+            this.ngxAni.to(enemySpriteEle, 0.5, {
+                "transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                "-webkit-transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                "-ms-transform": "translate3d(-50px, 0, 0) rotate(0deg)"
+            });
+
+            setTimeout(() => {
+                this.ngxAni.to(enemySpriteEle, 0.5, {
+                    "transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                    "-webkit-transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                    "-ms-transform": "translate3d(0px, 0, 0) rotate(0deg)"
+                });
+            }, 500)
 
             this.message = `${enemy.name} attacks ${this.partyMembersAlive[randomIndex].name} for ${dmgAmount}`;
 

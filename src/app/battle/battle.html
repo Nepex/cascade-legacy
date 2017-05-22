@@ -2,16 +2,18 @@
      'ritual-grounds': zone === 'ritual-grounds' || zone === 'ritual-grounds-n1'
     }" style="padding:0;margin:0">
     <div class="party-container">
-        <div class="reorient-party" *ngFor="let p of party">
-            <div [ngClass]="{ 'hide-ele': p.currHp === 0 }">
+        <div class="reorient-party" *ngFor="let p of party; let i = index;">
+            <div [ngClass]="{ 'hide-ele': p.currHp === 0 }" #partySprite>
                 <cascade-sprite-loader [sprite]="p.sprite"></cascade-sprite-loader>
             </div>
         </div>
     </div>
 
     <div class="enemy-container">
-        <div *ngFor="let e of enemies">
-            <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite" *ngIf="e">
+        <div *ngFor="let e of enemies; let i = index;">
+            <div #enemySprite>
+                <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite" *ngIf="e">
+            </div>
         </div>
     </div>
 
