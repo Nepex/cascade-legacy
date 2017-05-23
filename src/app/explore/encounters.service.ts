@@ -16,7 +16,7 @@ export class EncountersService {
 
         // ritual grounds enemy encounters
         if (randomNumber <= 30 && zone.substring(0, 14) === 'ritual-grounds') {
-            this.createEnemyArray(enemiesLimit2, 'thunderhawk');
+            this.createEnemyArray(3, 'thunderhawk');
         }
 
         return this.enemies;

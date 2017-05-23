@@ -2,7 +2,17 @@
      'ritual-grounds': zone === 'ritual-grounds' || zone === 'ritual-grounds-n1'
     }" style="padding:0;margin:0">
     <div class="party-container">
-        <div class="reorient-party" *ngFor="let p of party; let i = index;">
+        <div class="reorient-party" *ngFor="let p of party;">
+            <div class="party-healing-received">
+                <span *ngIf="p.healingReceived">
+                    {{ p.healingReceived }}
+                </span>
+            </div>
+            <div class="party-damage-received">
+                <span *ngIf="p.damageReceived">
+                    {{ p.damageReceived }}
+                </span>
+            </div>
             <div [ngClass]="{ 'hide-ele': p.currHp === 0 }" #partySprite>
                 <cascade-sprite-loader [sprite]="p.sprite"></cascade-sprite-loader>
             </div>
@@ -10,9 +20,21 @@
     </div>
 
     <div class="enemy-container">
-        <div *ngFor="let e of enemies; let i = index;">
-            <div #enemySprite>
-                <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite" *ngIf="e">
+        <div *ngFor="let e of enemies;">
+            <div *ngIf="e">
+                <div class="enemy-healing-received">
+                    <span *ngIf="e.healingReceived">
+                        {{ e.healingReceived }}
+                    </span>
+                </div>
+                <div class="enemy-damage-received">
+                    <span *ngIf="e.damageReceived">
+                        {{ e.damageReceived }}
+                    </span>
+                </div>
+                <div #enemySprite>
+                    <img src="../assets/images/sprites/{{e.sprite}}" class="enemy-sprite">
+                </div>
             </div>
         </div>
     </div>
@@ -33,12 +55,12 @@
                                     aria-valuemax="100" #progressBar></div>
                             </div>
                         </td>
-                        <td class="party-hp">
-                            <span [ngClass]="{ 'party-fainted': p.currHp === 0 }">
+                        <td class="party-hp text-center">
+                            <span>
                                 {{ p.currHp }} / {{ p.hp }}
                             </span>
                         </td>
-                        <td class="party-mp">
+                        <td class="party-mp text-center">
                             {{ p.currMp }} / {{ p.mp }}
                         </td>
                         <td class="actions">
@@ -77,7 +99,7 @@
         </div>
     </div>
 
-    <div class="options-container" *ngIf="message">
+    <div class="message-container" *ngIf="message">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-10 offset-sm-1 col-xs-12 party-options">
                 <div class="options">

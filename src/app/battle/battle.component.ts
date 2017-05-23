@@ -74,6 +74,10 @@ export class BattleComponent {
                 for (let i = 0; i < this.enemies.length; i++) {
                     this.enemies[i].enemyName = this.enemies[i].name;
                     this.enemies[i].index = i;
+
+                    this.enemies[i].damageReceived = null;
+                    this.enemies[i].healingReceived = null;
+
                     this.expReward = this.expReward + this.enemies[i].exp;
 
                     this.enemies[i].physDmgReduction = this.enemies[i].def / 100;
@@ -92,6 +96,9 @@ export class BattleComponent {
 
                 for (let i = 0; i < this.party.length; i++) {
                     this.party[i].partyName = this.party[i].name;
+
+                    this.party[i].damageReceived = null;
+                    this.party[i].healingReceived = null;
 
                     this.party[i].physDmgReduction = this.party[i].def / 100;
                     this.party[i].magDmgReduction = this.party[i].res / 100;
@@ -264,8 +271,29 @@ export class BattleComponent {
                 res => {
                     this.loadingRequest = null;
 
+                    let partySpriteEle: ElementRef = this.partySprite.toArray()[this.partyMemberSelected];
+
+                    this.ngxAni.to(partySpriteEle, 0.5, {
+                        "transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                        "-webkit-transform": "translate3d(-50px, 0, 0) rotate(0deg)",
+                        "-ms-transform": "translate3d(-50px, 0, 0) rotate(0deg)"
+                    });
+
+                    setTimeout(() => {
+                        this.ngxAni.to(partySpriteEle, 0.5, {
+                            "transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                            "-webkit-transform": "translate3d(0px, 0, 0) rotate(0deg)",
+                            "-ms-transform": "translate3d(0px, 0, 0) rotate(0deg)"
+                        });
+                    }, 500)
+
                     if (selection.healingAmount) {
-                        this.message = `${selection.itemName} heals ${obj.name} for ${selection.healingAmount}HP.`;
+                        this.party[this.partyMemberSelected].healingReceived = selection.healingAmount;
+
+                        setTimeout(() => {
+                            this.party[this.partyMemberSelected].healingReceived = null;
+                        }, 1600);
+
                     } else if (selection.mpHealingAmount) {
                         this.message = `${selection.itemName} restores ${selection.mpHealingAmount}MP to ${obj.name}.`
                     }
@@ -291,7 +319,7 @@ export class BattleComponent {
             this.loadingRequest.subscribe(
                 res => {
                     this.loadingRequest = null;
-                    
+
                     let partySpriteEle: ElementRef = this.partySprite.toArray()[this.partyMemberSelected];
 
                     this.ngxAni.to(partySpriteEle, 0.5, {
@@ -309,6 +337,12 @@ export class BattleComponent {
                     }, 500)
 
                     if (selection.spellType === 'Heal') {
+                        this.party[this.partyMemberSelected].healingReceived = selection.healingAmount;
+
+                        setTimeout(() => {
+                            this.party[this.partyMemberSelected].healingReceived = null;
+                        }, 1600);
+
                         this.message = `${selection.spellName} heals ${obj.name} for ${healingAmount} HP.`;
                     }
 
@@ -387,19 +421,21 @@ export class BattleComponent {
                 });
             }, 500)
 
-            this.message = `${selection.spellName} damages ${this.enemies[obj.index].name} for ${dmgAmount}.`;
+            this.enemies[obj.index].damageReceived = dmgAmount;
 
-            if (dmgAmount > this.enemies[obj.index].currHp) {
-                // enemy defeated
-                this.enemies[obj.index] = null;
-                this.isBattleOver();
-            } else {
-                // attack enemy
-                let newHp = this.enemies[obj.index].currHp - dmgAmount;
-                this.enemies[obj.index].currHp = newHp;
-                this.clearMessage();
-            }
+            setTimeout(() => {
+                this.enemies[obj.index].damageReceived = null;
 
+                if (dmgAmount > this.enemies[obj.index].currHp) {
+                    // enemy defeated
+                    this.enemies[obj.index] = null;
+                    this.isBattleOver();
+                } else {
+                    // attack enemy
+                    let newHp = this.enemies[obj.index].currHp - dmgAmount;
+                    this.enemies[obj.index].currHp = newHp;
+                }
+            }, 1600);
         }
 
         // if success
@@ -453,15 +489,18 @@ export class BattleComponent {
                 });
             }, 500)
 
-            this.message = `${enemy.name} attacks ${this.partyMembersAlive[randomIndex].name} for ${dmgAmount}`;
+            this.partyMembersAlive[randomIndex].damageReceived = dmgAmount;
 
-            if (dmgAmount > this.partyMembersAlive[randomIndex].currHp) {
-                // remove defeated party member
-                this.partyMembersAlive.splice(randomIndex, 1);
-            }
+            setTimeout(() => {
+                this.partyMembersAlive[randomIndex].damageReceived = null;
 
-            this.isBattleOver();
-            this.clearMessage();
+                if (dmgAmount > this.partyMembersAlive[randomIndex].currHp) {
+                    // remove defeated party member
+                    this.partyMembersAlive.splice(randomIndex, 1);
+                }
+
+                this.isBattleOver();
+            }, 1600);
         }
     }
 
