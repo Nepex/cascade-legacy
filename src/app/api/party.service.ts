@@ -70,9 +70,6 @@ export class PartyService {
                 for (let i = 0; i < party.length; i++) {
                     this.getSpells(party[i].name)
                         .subscribe(res => {
-                            if (!res) {
-                                return;
-                            }
                             let spellsLearned = res;
                             for (let i = 0; i < party.length; i++) {
                                 for (let j = 0; j < spellsLearned.length; j++) {
